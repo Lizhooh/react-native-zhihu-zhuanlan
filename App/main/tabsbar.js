@@ -8,15 +8,15 @@ import {
     Animated,
     Easing,
 } from 'react-native';
-import { Icon } from './common';
+import { MaterialIcons as Icon } from './common';
 
 /**
  * # TabsBar 组件
  */
 export default TabsBar = ({
-    goToPage,
-    activeTab,
-    tabs,
+    goToPage,           // 自动提供的 props
+    activeTab,          // 自动提供的 props
+    tabs,               // 自动提供的 props
     iconName,           // icon 名称, Array
     iconColor,          // icon 默认颜色
     iconActiveColor,    // icon 激活颜色
@@ -25,7 +25,7 @@ export default TabsBar = ({
         tabs.map((tab, i) => (
             <Touch
                 key={`tabs-icon-${i}`}
-                activeOpacity={1}
+                activeOpacity={0.7}
                 onPress={event => goToPage(i)}
                 style={styles.tab}
                 >

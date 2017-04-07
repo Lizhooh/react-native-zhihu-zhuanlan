@@ -28,14 +28,6 @@ class App extends Component {
         return true;
     };
 
-    componentWillMount() {
-        BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
-    }
-
-    componentWillUnmount() {
-        BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
-    }
-
     renderScene = (route, navigator) => {
         this.navigator = navigator;
         const Router = route.component;
@@ -45,6 +37,14 @@ class App extends Component {
     configureScene = (route, navigator) => {
         return Navigator.SceneConfigs.PushFromRight;
     };
+
+    componentWillMount() {
+        BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+    }
+
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+    }
 
     render() {
         return (

@@ -8,7 +8,7 @@ import {
     ScrollView,
     PixelRatio,
 } from 'react-native';
-import { Icon } from '../common';
+import { MaterialIcons as Icon } from '../common';
 
 const avatar = require('./img/avatar.jpg');
 
@@ -24,67 +24,66 @@ const listtwo = [
     { name: 'settings', title: '设置', text: null, color: '#bbb' },
 ];
 
-export default User = () => {
-    return (
-        <ScrollView
-            style={$.contanier}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            >
+export default User = () => (
+    <ScrollView
+        style={$.contanier}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        >
 
-            <View style={$.header}>
-                <Image source={avatar} style={$.full} />
-            </View>
+        <View style={$.header}>
+            <Image source={avatar} style={$.full} />
+        </View>
 
-            <View style={$.list}>{
-                listone.map((i, index) => (
-                    <Touch
-                        activeOpacity={0.8}
-                        style={$.item}
-                        key={`user-list-${index}`}
-                        >
-                        <Icon
-                            style={$.icon}
-                            name={i.name}
-                            color={i.color}
-                            size={26}
-                            />
-                        <Text style={$.mid}>
-                            {i.title}
-                        </Text>
-                        <Text style={$.text}>
-                            {i.text}
-                        </Text>
-                    </Touch>
-                ))
-            }</View>
+        <View style={$.list}>{
+            listone.map((i, index) => (
+                <Touch
+                    activeOpacity={0.8}
+                    style={$.item}
+                    key={`user-list-${index}`}
+                    >
+                    <Icon
+                        style={$.icon}
+                        name={i.name}
+                        color={i.color}
+                        size={26}
+                        />
+                    <Text style={$.mid}>
+                        {i.title}
+                    </Text>
+                    <Text style={$.text}>
+                        {i.text}
+                    </Text>
+                </Touch>
+            ))
+        }</View>
 
-            <View style={[$.list, { marginTop: 0 }]}>{
-                listtwo.map((i, index) => (
-                    <Touch
-                        activeOpacity={0.8}
-                        style={$.item}
-                        key={`user-list-${index}`}
-                        >
-                        <Icon
-                            style={$.icon}
-                            name={i.name}
-                            color={i.color}
-                            size={26}
-                            />
-                        <Text style={$.mid}>
-                            {i.title}
-                        </Text>
-                        <Text style={$.text}>
-                            {i.text}
-                        </Text>
-                    </Touch>
-                ))
-            }</View>
+        <View style={[$.list, { marginTop: 0 }]}>{
+            listtwo.map((i, index) => (
+                <Touch
+                    activeOpacity={0.8}
+                    style={$.item}
+                    key={`user-list-${index}`}
+                    >
+                    <Icon
+                        style={$.icon}
+                        name={i.name}
+                        color={i.color}
+                        size={26}
+                        />
+                    <Text style={$.mid}>
+                        {i.title}
+                    </Text>
+                    <Text style={$.text}>
+                        {i.text}
+                    </Text>
+                </Touch>
+            ))
+        }</View>
 
-        </ScrollView>
-    );
-}
+    </ScrollView>
+);
+
 
 const $ = StyleSheet.create({
     contanier: {
