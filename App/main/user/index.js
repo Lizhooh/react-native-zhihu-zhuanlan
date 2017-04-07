@@ -84,7 +84,6 @@ export default User = () => (
     </ScrollView>
 );
 
-
 const $ = StyleSheet.create({
     contanier: {
         flex: 1,

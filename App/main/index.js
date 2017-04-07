@@ -20,8 +20,8 @@ export default class Main extends Component {
         return (
             <View style={styles.contanier}>
                 <ScrollableTabView
-                    initialPage={3}
-                    locked={!true}
+                    initialPage={2}
+                    locked={true}
                     renderTabBar={() => (
                         <TabsBar
                             iconName={['near-me', 'landscape', 'looks', 'person']}
