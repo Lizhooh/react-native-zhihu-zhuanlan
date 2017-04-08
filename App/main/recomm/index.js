@@ -19,7 +19,6 @@ import {
     color,
 } from '../common';
 
-
 const data = require('./posts.json').map(i => ({ ...i, key: i.id }));
 
 // # 推荐
@@ -43,7 +42,7 @@ class Recomm extends Component {
 
         this.props.loadRecommData(
             this.props.recomm.limit,
-            this.props.page,
+            this.props.seed,
         );
     }
 
@@ -78,6 +77,7 @@ class Recomm extends Component {
     renderItem = ({item: i, index}) => (
         i && i.column &&
         <Touch
+            style={{ overflow: 'hidden' }}
             key={`recomm-list-${index}`}
             activeOpacity={0.8}
             >
@@ -119,7 +119,7 @@ class Recomm extends Component {
                     refreshControl={
                         <RefreshControl
                             refreshing={false}
-                            onRefresh={_ => props.loadRecommData(recomm.limit, recomm.page)}
+                            onRefresh={_ => props.loadRecommData(recomm.limit, recomm.seed)}
                             tintColor={color}
                             title="Loading..."
                             titleColor={color}
@@ -134,6 +134,7 @@ class Recomm extends Component {
                         showsVerticalScrollIndicator={false}
                         data={recomm.data}
                         renderItem={this.renderItem}
+                        removeClippedSubviews={true}
                         />
                 </ScrollView>
 
@@ -142,7 +143,10 @@ class Recomm extends Component {
                         title='推荐' iconName='looks'
                         style={{ opacity: this.state.topbarOpacity }}
                         />
-                    <TabLoadBar show={recomm.loading} title='加载中' />
+                    <TabLoadBar
+                        show={recomm.loading.status}
+                        title={recomm.loading.msg}
+                        />
                 </View>
             </View>
         );

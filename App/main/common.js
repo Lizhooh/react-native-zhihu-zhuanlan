@@ -56,7 +56,7 @@ export const TabLoadBar = ({ show, title }) => (
     show &&
     <View
         style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+            backgroundColor: 'rgba(1, 1, 1, 0.3)',
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'row',
@@ -70,9 +70,9 @@ export const TabLoadBar = ({ show, title }) => (
         <ActivityIndicator
             animating={true}
             size="small"
-            color={color}
+            color={'#fff'}
             />
-        <Text style={{ color: '#555' }}>
+        <Text style={{ color: '#fff', fontWeight: '600' }}>
             {" " + title}
         </Text>
     </View>
