@@ -10,6 +10,7 @@ import {
 
 import Main from './main';
 
+// # 入口
 class App extends Component {
 
     onBackAndroid = (event) => {
@@ -58,7 +59,7 @@ class App extends Component {
 }
 
 export default connect(
-    state => ({ nav: state }),
+    state => ({ state }),
 )(App);
 
 const styles = StyleSheet.create({

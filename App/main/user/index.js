@@ -27,6 +27,7 @@ const listtwo = [
 export default User = () => (
     <ScrollView
         style={$.contanier}
+        overScrollMode='never'
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         >

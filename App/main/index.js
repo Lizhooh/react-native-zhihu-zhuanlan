@@ -6,10 +6,12 @@ import {
 } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
+import { color } from './common';
 import TabsBar from './tabsbar';
 import User from './user';
 import Recomm from './recomm';
 
+// # 主视图
 export default class Main extends Component {
 
     constructor(props) {
@@ -25,7 +27,7 @@ export default class Main extends Component {
                     renderTabBar={() => (
                         <TabsBar
                             iconName={['near-me', 'landscape', 'looks', 'person']}
-                            iconActiveColor='#3bf'
+                            iconActiveColor={color}
                             iconColor='#ccc'
                             />
                     )}
