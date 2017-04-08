@@ -2,7 +2,7 @@
 /**
  * 公共组件集合
  */
-import React from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
@@ -76,4 +76,52 @@ export const TabLoadBar = ({ show, title }) => (
             {" " + title}
         </Text>
     </View>
-)
+);
+
+// # 特殊基类，有一个根据滚动条变化的 state opacity
+export class BaseComponent extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            opacity: 1,
+        };
+
+        // 缓存值
+        this.topbar = {
+            start: 0,
+            end: 0,
+            y: 0,
+            opacity: 1,
+            S: 250,
+        };
+    }
+
+    // 根据滚动条的变化，Topbar 的透明度会产生变化
+    onScroll = event => {
+        const { contentOffset: { y } } = event.nativeEvent;
+        const topbar = this.topbar;
+        const opacity = this.state.opacity;
+
+        if (y < 10 && opacity < 1) {
+            this.setState({ opacity: 1 });
+        }
+        // 方向向下
+        else if (y - topbar.y > 0) {
+            if (opacity > 0) {
+                this.setState({ opacity: topbar.opacity - (y - topbar.start) / topbar.S });
+            }
+            topbar.end = topbar.y;
+            topbar.y = y;
+        }
+        // 方向向上
+        else if (y - topbar.y < -50) {
+            if (opacity < 1) {
+                this.setState({ opacity: (topbar.end - y) / topbar.S })
+                topbar.opacity = (topbar.end - y) / topbar.S;
+            }
+            topbar.start = y;
+            topbar.y = y;
+        }
+    }
+}

@@ -10,68 +10,26 @@ import {
     PixelRatio,
     FlatList,
 } from 'react-native';
-import { connect } from 'react-redux';
-import * as actions from './action';
 import {
     MaterialIcons as Icon,
     TabTopbar,
     TabLoadBar,
     color,
+    BaseComponent,
 } from '../common';
-
-const data = require('./posts.json').map(i => ({ ...i, key: i.id }));
+import { connect } from 'react-redux';
+import * as actions from './action';
 
 // # 推荐
-class Recomm extends Component {
+class Recomm extends BaseComponent {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            topbarOpacity: 1,
-        };
-
-        // 缓存值
-        this.topbar = {
-            start: 0,
-            end: 0,
-            y: 0,
-            opacity: 1,
-            S: 250,
-        };
 
         this.props.loadRecommData(
             this.props.recomm.limit,
             this.props.seed,
         );
-    }
-
-    // 根据滚动条的变化，Topbar 的透明度会产生变化
-    scrollViewOnScroll = event => {
-        const { contentOffset: { y } } = event.nativeEvent;
-        const topbar = this.topbar;
-        const opacity = this.state.topbarOpacity;
-
-        if (y < 10 && opacity < 1) {
-            this.setState({ topbarOpacity: 1 });
-        }
-        // 方向向下
-        else if (y - topbar.y > 0) {
-            if (opacity > 0) {
-                this.setState({ topbarOpacity: topbar.opacity - (y - topbar.start) / topbar.S });
-            }
-            topbar.end = topbar.y;
-            topbar.y = y;
-        }
-        // 方向向上
-        else if (y - topbar.y < -50) {
-            if (opacity < 1) {
-                this.setState({ topbarOpacity: (topbar.end - y) / topbar.S })
-                topbar.opacity = (topbar.end - y) / topbar.S;
-            }
-            topbar.start = y;
-            topbar.y = y;
-        }
     }
 
     renderItem = ({item: i, index}) => (
@@ -115,7 +73,7 @@ class Recomm extends Component {
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
-                    onScroll={this.scrollViewOnScroll}
+                    onScroll={this.onScroll}
                     refreshControl={
                         <RefreshControl
                             refreshing={false}
@@ -141,7 +99,7 @@ class Recomm extends Component {
                 <View style={{ flex: 0 }}>
                     <TabTopbar
                         title='推荐' iconName='looks'
-                        style={{ opacity: this.state.topbarOpacity }}
+                        style={{ opacity: this.state.opacity }}
                         />
                     <TabLoadBar
                         show={recomm.loading.status}
