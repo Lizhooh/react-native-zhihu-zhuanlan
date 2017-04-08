@@ -19,32 +19,3 @@ const zhihuZhuanlan = () => {
 }
 
 AppRegistry.registerComponent('zhihuZhuanlan', () => zhihuZhuanlan);
-
-
-
-//     <FlatList
-//         contentContainerStyle={styles.contanier}
-//         showsVerticalScrollIndicator={false}
-//         removeClippedSubviews={true}
-//         style={styles.flatlist}
-//         data={this.state.data}
-//         renderItem={this.renderItem}
-//         refreshControl={
-//             <RefreshControl
-//                 refreshing={false}
-//                 onRefresh={null}
-//                 tintColor="#3bf"
-//                 title="Loading..."
-//                 titleColor="#3bf"
-//                 colors={['#3bf']}
-//                 progressBackgroundColor="#fff"
-//                 />
-//         }
-//         // getItemLayout={(data, index) => ({
-//         //     index: index,
-//         //     length: ITEM_HEIGHT,
-//         //     offset: (ITEM_HEIGHT + 20) * index,
-//         // })}
-//         />
-
-// );
