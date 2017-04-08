@@ -88,7 +88,7 @@ export default User = () => (
 const $ = StyleSheet.create({
     contanier: {
         flex: 1,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#f5f5f5',
     },
     header: {
         height: 200,

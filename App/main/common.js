@@ -9,6 +9,7 @@ import {
     Dimensions,
     Text,
     ActivityIndicator,
+    RefreshControl,
 } from 'react-native';
 
 import _MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -56,7 +57,7 @@ export const TabLoadBar = ({ show, title }) => (
     show &&
     <View
         style={{
-            backgroundColor: 'rgba(1, 1, 1, 0.3)',
+            backgroundColor: 'rgba(1, 1, 1, 0.4)',
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'row',
@@ -72,10 +73,24 @@ export const TabLoadBar = ({ show, title }) => (
             size="small"
             color={'#fff'}
             />
-        <Text style={{ color: '#fff', fontWeight: '600' }}>
+        <Text style={{ color: '#fff' }}>
             {" " + title}
         </Text>
     </View>
+);
+
+// # tab 刷新器
+export const Refresh = (props) => (
+    <RefreshControl
+        refreshing={false}
+        onRefresh={null}
+        tintColor={color}
+        title="Loading..."
+        titleColor={color}
+        colors={[color]}
+        progressBackgroundColor="#fff"
+        {...props}
+        />
 );
 
 // # 特殊基类，有一个根据滚动条变化的 state opacity
