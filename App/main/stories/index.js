@@ -12,7 +12,6 @@ import {
 import { connect } from 'react-redux';
 import * as actions from './action';
 import {
-    MaterialIcons as Icon,
     TabTopbar,
     TabLoadBar,
     color,
@@ -35,7 +34,6 @@ class Stories extends BaseComponent {
         i && i.column &&
         <Touch
             style={{ overflow: 'hidden' }}
-            key={`recomm-list-${index}`}
             activeOpacity={0.8}
             >
             <View style={$.item}>
@@ -77,7 +75,9 @@ class Stories extends BaseComponent {
                     refreshControl={
                         <Refresh
                             refreshing={false}
-                            onRefresh={_ => props.loadStoriesData(stories.limit, 0)}
+                            onRefresh={_ =>
+                                props.loadStoriesData(stories.limit)
+                            }
                             />
                     }
                     >
@@ -115,14 +115,12 @@ export default connect(
 const $ = StyleSheet.create({
     contanier: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#f6f6f6',
     },
     flatlist: {
         flex: 1,
         backgroundColor: '#ccc',
         marginTop: 49,
-    },
-    list: {
     },
     item: {
         borderTopWidth: 1 / PixelRatio.get(),

@@ -92,6 +92,6 @@ export default connect(
 const $ = StyleSheet.create({
     contanier: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#f6f6f6',
     },
 });

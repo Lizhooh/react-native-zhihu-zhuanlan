@@ -14,7 +14,7 @@ const avatar = require('./img/avatar.jpg');
 
 const listone = [
     { name: 'favorite', title: '我喜欢', text: '0篇', color: '#3b3' },
-    { name: 'subject', title: '收藏集', text: '0个', color: '#39f' },
+    { name: 'star', title: '收藏集', text: '0个', color: '#39f' },
     { name: 'loyalty', title: '关注集', text: '0个', color: '#f44' },
     { name: 'remove-red-eye', title: '阅读过的文章', text: '0篇', color: '#f90' },
 ];
@@ -88,7 +88,7 @@ export default User = () => (
 const $ = StyleSheet.create({
     contanier: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#f6f6f6',
     },
     header: {
         height: 200,

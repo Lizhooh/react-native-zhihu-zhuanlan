@@ -11,6 +11,7 @@ import TabsBar from './tabsbar';
 import User from './user';
 import Search from './search';
 import Stories from './stories';
+import Columm from './column';
 
 // # 主视图
 export default class Main extends Component {
@@ -23,7 +24,7 @@ export default class Main extends Component {
         return (
             <View style={styles.contanier}>
                 <ScrollableTabView
-                    initialPage={1}
+                    initialPage={0}
                     locked={true}
                     renderTabBar={() => (
                         <TabsBar
@@ -35,7 +36,7 @@ export default class Main extends Component {
                     scrollWithoutAnimation={!true}
                     tabBarPosition={'bottom'}
                     >
-                    <View style={{ backgroundColor: '#e55', flex: 1 }}></View>
+                    <Columm />
                     <Stories />
                     <Search />
                     <User />
