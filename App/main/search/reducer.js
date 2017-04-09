@@ -1,23 +1,24 @@
 import {
-    LOAD_RECOMM_DATA_IN,
-    LOAD_RECOMM_DATA_SUCCESS,
-    LOAD_RECOMM_DATA_FAIL,
+    LOAD_SEARCH_DATA_IN,
+    LOAD_SEARCH_DATA_SUCCESS,
+    LOAD_SEARCH_DATA_FAIL,
 } from './action';
 
 const INIT_STATE = {
-    seed: 0,
+    page: 0,
     data: [],
+    keys: '',
     limit: 30,
     loading: {
         status: false,
-        msg: '加载中...',
+        msg: '',
     },
 };
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
 
-        case LOAD_RECOMM_DATA_SUCCESS: return {
+        case LOAD_SEARCH_DATA_SUCCESS: return {
             ...state,
             data: action.data,
             loading: {
@@ -25,10 +26,10 @@ export default (state = INIT_STATE, action) => {
                 msg: '加载成功...',
                 status: false,
             },
-            seed: action.seed,
+            page: action.page,
         }
 
-        case LOAD_RECOMM_DATA_IN: return {
+        case LOAD_SEARCH_DATA_IN: return {
             ...state,
             loading: {
                 status: true,
@@ -36,7 +37,7 @@ export default (state = INIT_STATE, action) => {
             },
         }
 
-        case LOAD_RECOMM_DATA_FAIL: return {
+        case LOAD_SEARCH_DATA_FAIL: return {
             ...state,
             loading: {
                 ...state.loading,

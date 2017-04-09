@@ -5,13 +5,14 @@ export const LOAD_SEARCH_DATA_IN = 'LOAD_SEARCH_DATA_IN';
 export const LOAD_SEARCH_DATA_FAIL = 'LOAD_SEARCH_DATA_FAIL';
 
 // # 加载推荐数据
-export const loadSearchData = (limit = 5, page = 0) => (dispatch, getState) => {
+export const loadSearchData = (keys = '', page = 1) => (dispatch, getState) => {
     dispatch({ type: LOAD_SEARCH_DATA_IN });
 
-    return Api.searchPosts(limit, page).then(data => {
+    return Api.searchs(keys, page).then(data => {
         dispatch({
             type: LOAD_SEARCH_DATA_SUCCESS,
             data: data,
+            keys: keys,
             page: page + 1,
         });
 

@@ -25,36 +25,34 @@ class Search extends BaseComponent {
 
     constructor(props) {
         super(props);
+
+        this.htmlStyle = {
+            em: { color: color },
+            b: { color: color }
+        };
+    }
+
+    componentWillMount() {
+        this.props.loadSearchData('学习');
     }
 
     renderItem = ({item: i, index}) => (
-        i && i.column &&
         <Touch
-            style={{ overflow: 'hidden' }}
-            key={`recomm-list-${index}`}
+            style={[$.touch, index === 0 && { marginTop: 0 }]}
             activeOpacity={0.8}
             >
             <View style={$.item}>
-                {
-                    i.image_url !== null && i.image_url.length > 0 &&
-                    <View style={$.headimg}>
-                        <Image source={{ uri: i.image_url }} style={$.full} />
-                    </View>
-                }
-                <View style={$.info}>
-                    <View style={$.user}>
-                        {
-                            i.column.image_url !== null && i.column.image_url.length > 0 &&
-                            <Image source={{ uri: i.column.image_url }} style={$.userAvatar} />
-                        }
-                        <Text style={{ color: '#555', fontWeight: '500' }}>{i.column.name}</Text>
-                    </View>
-                    <View style={$.infoc}>
-                        <Text style={$.title}>{i.title}</Text>
-                        <Text style={$.summary}>
-                            {i.summary.replace(/\<(.*?)\>/g, '')}
-                        </Text>
-                    </View>
+                <View
+                    style={$.header}
+                    >
+                    <Text style={$.title}>
+                        {i.title}
+                    </Text>
+                </View>
+                <View style={$.content}>
+                    <Text style={$.summary}>
+                        {i.summary}
+                    </Text>
                 </View>
             </View>
         </Touch>
@@ -66,9 +64,27 @@ class Search extends BaseComponent {
 
         return (
             <View style={$.contanier}>
-                <View style={{ flex: 1 }}>
+                <ScrollView
+                    overScrollMode='never'
+                    showsVerticalScrollIndicator={false}
+                    onScroll={this.onScroll}
+                    refreshControl={
+                        <TabRefresh
+                            refreshing={false}
+                            onRefresh={null}
+                            />
+                    }
+                    >
+                    <FlatList
+                        style={$.flatlist}
+                        overScrollMode='never'
+                        showsVerticalScrollIndicator={false}
+                        data={search.data}
+                        renderItem={this.renderItem}
+                        removeClippedSubviews={true}
 
-                </View>
+                        />
+                </ScrollView>
                 <View style={{ flex: 0 }}>
                     <TabTopbar
                         title='搜索' iconName='search'
@@ -94,4 +110,36 @@ const $ = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f6f6f6',
     },
+    flatlist: {
+        flex: 1,
+        marginTop: 49,
+    },
+    touch: {
+        backgroundColor: '#ddd',
+        marginTop: 10,
+    },
+    item: {
+        backgroundColor: '#fff',
+        padding: 20,
+        paddingTop: 10,
+        borderColor: '#eaeaea',
+        borderBottomWidth: 1,
+    },
+    header: {
+        paddingVertical: 10,
+    },
+    title: {
+        fontSize: 17,
+        color: '#444',
+        lineHeight: 26,
+    },
+    content: {
+        backgroundColor: 'rgba(245, 245, 255, 1)',
+        padding: 10,
+    },
+    summary: {
+        lineHeight: 20,
+        fontSize: 14,
+        color: '#777'
+    }
 });

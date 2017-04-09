@@ -9,8 +9,8 @@ const INIT_STATE = {
     data: [],
     limit: 40,
     loading: {
-        status: true,
-        msg: '加载中...',
+        status: false,
+        msg: '',
     },
 };
 
