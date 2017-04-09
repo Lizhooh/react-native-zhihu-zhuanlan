@@ -25,7 +25,9 @@ class Column extends BaseComponent {
 
     constructor(props) {
         super(props);
+    }
 
+    componentDidMount() {
         this.props.loadColumnData(
             this.props.column.limit,
             this.props.column.page,
@@ -33,10 +35,11 @@ class Column extends BaseComponent {
     }
 
     renderItem = ({item: i, index}) => (
-        i &&
+        i !== undefined &&
         <Touch
             style={$.touch}
             activeOpacity={0.8}
+            onPress={null}
             >
             <View style={$.item}>
                 <View style={$.avatar}>
@@ -64,7 +67,7 @@ class Column extends BaseComponent {
                             size={14}
                             />
                         <Text style={$.otherText}>
-                            {i.followersCount}
+                            {i.followersCount + ''}
                         </Text>
                     </View>
                     <View style={{ flex: 1 }} />
@@ -75,7 +78,7 @@ class Column extends BaseComponent {
                             size={14}
                             />
                         <Text style={$.otherText}>
-                            {i.postsCount}
+                            {i.postsCount + ''}
                         </Text>
                     </View>
                 </View>

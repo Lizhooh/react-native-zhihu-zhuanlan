@@ -1,4 +1,4 @@
-import * as Api from '../api';
+import * as Api from '../../api';
 
 export const LOAD_SEARCH_DATA_SUCCESS = 'LOAD_SEARCH_DATA_SUCCESS';
 export const LOAD_SEARCH_DATA_IN = 'LOAD_SEARCH_DATA_IN';

@@ -1,4 +1,4 @@
-import * as Api from '../api';
+import * as Api from '../../api';
 
 export const LOAD_COLUMN_DATA_SUCCESS = 'LOAD_COLUMN_DATA_SUCCESS';
 export const LOAD_COLUMN_DATA_IN      = 'LOAD_COLUMN_DATA_IN';

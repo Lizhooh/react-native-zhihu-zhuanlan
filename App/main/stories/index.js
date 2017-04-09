@@ -23,12 +23,15 @@ class Stories extends BaseComponent {
 
     constructor(props) {
         super(props);
+    }
 
+    componentDidMount() {
         this.props.loadStoriesData(
             this.props.stories.limit,
             this.props.page,
         );
     }
+
 
     renderItem = ({item: i, index}) => (
         i && i.column &&
