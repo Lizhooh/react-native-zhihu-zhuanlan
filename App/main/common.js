@@ -17,7 +17,7 @@ import _FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export const MaterialIcons = _MaterialIcons;
 export const FontAwesome = _FontAwesome;
-export const color = 'rgba(255, 180, 50, 0.95)';
+export const color = 'rgba(255, 180, 50, 1)';
 export const devicewindow = Dimensions.get('window');
 
 // # tab 顶端栏
@@ -27,7 +27,7 @@ export const TabTopbar = ({ iconName, title, style }) => (
             ...style,
             top: -1 * devicewindow.height + 55 + 20,
             height: 50,
-            backgroundColor: color,
+            backgroundColor: '#fff',
             alignItems: 'center',
             flexDirection: 'row',
             paddingHorizontal: 20,
@@ -38,11 +38,11 @@ export const TabTopbar = ({ iconName, title, style }) => (
         <MaterialIcons
             name={iconName}
             size={28}
-            color={'#fff'}
+            color={color}
             />
         <Text
             style={{
-                color: '#fff',
+                color: color,
                 fontSize: 18,
                 paddingHorizontal: 15,
             }}
@@ -80,7 +80,7 @@ export const TabLoadBar = ({ show, title }) => (
 );
 
 // # tab 刷新器
-export const Refresh = (props) => (
+export const TabRefresh = (props) => (
     <RefreshControl
         refreshing={false}
         onRefresh={null}
@@ -108,7 +108,7 @@ export class BaseComponent extends Component {
             end: 0,
             y: 0,
             opacity: 1,
-            S: 250,
+            S: 300,
         };
     }
 
@@ -122,7 +122,7 @@ export class BaseComponent extends Component {
             this.setState({ opacity: 1 });
         }
         // 方向向下
-        else if (y - topbar.y > 0) {
+        else if (y - topbar.y > 10) {
             if (opacity > 0) {
                 this.setState({ opacity: topbar.opacity - (y - topbar.start) / topbar.S });
             }
@@ -130,7 +130,7 @@ export class BaseComponent extends Component {
             topbar.y = y;
         }
         // 方向向上
-        else if (y - topbar.y < -50) {
+        else if (y - topbar.y < -10) {
             if (opacity < 1) {
                 this.setState({ opacity: (topbar.end - y) / topbar.S })
                 topbar.opacity = (topbar.end - y) / topbar.S;

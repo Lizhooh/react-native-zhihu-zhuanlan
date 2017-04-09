@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import * as actions from './action';
 import {
     MaterialIcons as Icon,
-    Refresh,
+    TabRefresh,
     color,
     TabLoadBar,
     TabTopbar,
@@ -94,7 +94,7 @@ class Column extends BaseComponent {
                     showsVerticalScrollIndicator={false}
                     onScroll={this.onScroll}
                     refreshControl={
-                        <Refresh
+                        <TabRefresh
                             refreshing={false}
                             onRefresh={_ =>
                                 props.loadColumnData(column.limit, column.page)

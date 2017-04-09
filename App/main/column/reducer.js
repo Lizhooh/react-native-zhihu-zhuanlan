@@ -1,4 +1,3 @@
-
 import {
     LOAD_COLUMN_DATA_IN,
     LOAD_COLUMN_DATA_SUCCESS,

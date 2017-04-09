@@ -16,7 +16,7 @@ import {
     TabLoadBar,
     color,
     BaseComponent,
-    Refresh,
+    TabRefresh,
 } from '../common';
 
 class Stories extends BaseComponent {
@@ -73,7 +73,7 @@ class Stories extends BaseComponent {
                     showsVerticalScrollIndicator={false}
                     onScroll={this.onScroll}
                     refreshControl={
-                        <Refresh
+                        <TabRefresh
                             refreshing={false}
                             onRefresh={_ =>
                                 props.loadStoriesData(stories.limit)
