@@ -10,6 +10,7 @@ import {
     Text,
     ActivityIndicator,
     RefreshControl,
+    TouchableOpacity as Touch,
 } from 'react-native';
 
 import _MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -21,34 +22,54 @@ export const color = 'rgba(255, 180, 50, 1)';
 export const devicewindow = Dimensions.get('window');
 
 // # tab 顶端栏
-export const TabTopbar = ({ iconName, title, style }) => (
+export const TabTopbar = ({ iconName, title, style, children }) => (
     <View
         style={{
-            ...style,
             top: -1 * devicewindow.height + 55 + 20,
             height: 50,
             backgroundColor: '#fff',
             alignItems: 'center',
             flexDirection: 'row',
-            paddingHorizontal: 20,
             position: 'absolute',
             left: 0, right: 0,
+            ...style,
         }}
         >
-        <MaterialIcons
-            name={iconName}
-            size={28}
-            color={color}
-            />
-        <Text
-            style={{
-                color: color,
-                fontSize: 18,
-                paddingHorizontal: 15,
-            }}
+        <View
+            style={{ backgroundColor: '#e6e6e6' }}
             >
-            {title}
-        </Text>
+            <Touch
+                activeOpacity={0.6}
+                style={{
+                    backgroundColor: '#fff',
+                    height: 50,
+                    width: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                >
+                <MaterialIcons
+                    name={iconName}
+                    size={28}
+                    color={color}
+                    />
+            </Touch>
+        </View>
+
+        {
+            !!title &&
+            <Text
+                style={{
+                    color: color,
+                    fontSize: 18,
+                    paddingHorizontal: 15,
+                }}
+                >
+                {title}
+            </Text>
+        }
+
+        {children}
     </View>
 );
 

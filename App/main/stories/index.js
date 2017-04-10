@@ -42,7 +42,7 @@ class Stories extends BaseComponent {
             <View style={$.item}>
                 {
                     // image 可能为空
-                    i.image_url !== null && i.image_url.length > 0 &&
+                    !!i.image_url &&
                     <View style={$.headimg}>
                         <Image source={{ uri: i.image_url }} style={$.full} />
                     </View>
@@ -51,7 +51,7 @@ class Stories extends BaseComponent {
                     <View style={$.user}>
                         {
                             // image 可能为空
-                            i.column.image_url !== null && i.column.image_url.length > 0 &&
+                            !!i.column.image_url &&
                             <Image source={{ uri: i.column.image_url }} style={$.userAvatar} />
                         }
                         <Text style={{ color: '#555', fontWeight: '500' }}>{i.column.name}</Text>

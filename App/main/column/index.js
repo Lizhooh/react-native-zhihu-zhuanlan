@@ -53,7 +53,7 @@ class Column extends BaseComponent {
                 </View>
 
                 {
-                    i.description.length > 0 &&
+                    !!i.description &&
                     <View style={$.description}>
                         <Text>{i.description}</Text>
                     </View>

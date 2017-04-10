@@ -19,6 +19,7 @@ import {
 } from '../common';
 import { connect } from 'react-redux';
 import * as actions from './action';
+import Input from './input';
 
 // # 搜索
 class Search extends BaseComponent {
@@ -64,10 +65,24 @@ class Search extends BaseComponent {
 
         return (
             <View style={$.contanier}>
+                <View style={$.topbar}>
+                    <View style={{ backgroundColor: '#e6e6e6' }}>
+                        <Touch
+                            activeOpacity={0.6}
+                            style={$.search}
+                            >
+                            <Icon
+                                name={'search'}
+                                size={28}
+                                color={color}
+                                />
+                        </Touch>
+                    </View>
+                    <Input />
+                </View>
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
-                    onScroll={this.onScroll}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
@@ -86,10 +101,6 @@ class Search extends BaseComponent {
                         />
                 </ScrollView>
                 <View style={{ flex: 0 }}>
-                    <TabTopbar
-                        title='搜索' iconName='search'
-                        style={{ opacity: this.state.opacity }}
-                        />
                     <TabLoadBar
                         show={search.loading.status}
                         title={search.loading.msg}
@@ -110,12 +121,23 @@ const $ = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f6f6f6',
     },
+    topbar: {
+        height: 50,
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+    },
+    search: {
+        backgroundColor: '#fff',
+        height: 50,
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     flatlist: {
         flex: 1,
-        marginTop: 49,
     },
     touch: {
-        backgroundColor: '#ddd',
+        backgroundColor: '#e6e6e6',
         marginTop: 10,
     },
     item: {
