@@ -2,13 +2,13 @@ import {
     LOAD_SEARCH_DATA_IN,
     LOAD_SEARCH_DATA_SUCCESS,
     LOAD_SEARCH_DATA_FAIL,
+    LOAD_MORE_SEARCH_DATA_SUCCESS
 } from './action';
 
 const INIT_STATE = {
-    page: 0,
+    page: 1,
     data: [],
     keys: '',
-    limit: 30,
     loading: {
         status: false,
         msg: '',
@@ -23,9 +23,22 @@ export default (state = INIT_STATE, action) => {
             data: action.data,
             loading: {
                 ...state.loading,
-                msg: '加载成功...',
+                msg: action.msg || '加载成功...',
                 status: false,
             },
+            keys: action.keys,
+            page: action.page,
+        }
+
+        case LOAD_MORE_SEARCH_DATA_SUCCESS: return {
+            ...state,
+            data: [...state.data, ...action.data],
+            loading: {
+                ...state.loading,
+                msg: action.msg || '加载成功...',
+                status: false,
+            },
+            keys: action.keys,
             page: action.page,
         }
 
@@ -33,7 +46,7 @@ export default (state = INIT_STATE, action) => {
             ...state,
             loading: {
                 status: true,
-                msg: '加载中...',
+                msg: action.msg || '加载中...',
             },
         }
 
@@ -41,7 +54,7 @@ export default (state = INIT_STATE, action) => {
             ...state,
             loading: {
                 ...state.loading,
-                msg: '加载失败...',
+                msg: action.msg || '加载失败...',
                 status: action.status,
             },
         }

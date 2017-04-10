@@ -16,6 +16,7 @@ import {
     color,
     BaseComponent,
     TabRefresh,
+    devicewindow,
 } from '../common';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -31,10 +32,20 @@ class Search extends BaseComponent {
             em: { color: color },
             b: { color: color }
         };
+
+        this.loading = false;
     }
 
     componentWillMount() {
-        this.props.loadSearchData('学习');
+        this.props.loadSearchData('');
+    }
+
+    componentWillReceiveProps(nextProps) {
+        nextProps.search.page === 1 &&
+        this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
+
+        !nextProps.search.loading.status &&
+        (this.loading = false);
     }
 
     renderItem = ({item: i, index}) => (
@@ -51,6 +62,10 @@ class Search extends BaseComponent {
                     </Text>
                 </View>
                 <View style={$.content}>
+                    {
+                        i.image &&
+                        <Image source={{ uri: i.image }} style={$.summaryImage} />
+                    }
                     <Text style={$.summary}>
                         {i.summary}
                     </Text>
@@ -59,12 +74,30 @@ class Search extends BaseComponent {
         </Touch>
     );
 
+    onScroll = event => {
+        const props = this.props;
+        const search = props.search;
+        const status = search.loading.status;
+        const {
+            contentSize: { height },
+            contentOffset: { y }
+        } = event.nativeEvent;
+
+        const deviceHeight = devicewindow.height;
+
+        if (y + deviceHeight - 50 + 100 >= height && !status && !this.loading) {
+            this.loading = true;
+            props.loadMoreSearchData(search.keys, search.page);
+        }
+    };
+
     render() {
         const props = this.props;
         const search = this.props.search;
 
         return (
             <View style={$.contanier}>
+
                 <View style={$.topbar}>
                     <View style={{ backgroundColor: '#e6e6e6' }}>
                         <Touch
@@ -78,17 +111,25 @@ class Search extends BaseComponent {
                                 />
                         </Touch>
                     </View>
-                    <Input />
+                    <Input
+                        onSubmit={(event, text) => {
+                            this.props.loadSearchData(text);
+                        } }
+                        />
                 </View>
+
                 <ScrollView
+                    ref={s => this.scrollView = s}
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
+                    removeClippedSubviews={true}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
-                            onRefresh={null}
+                            onRefresh={_ => props.loadSearchData(search.keys)}
                             />
                     }
+                    onScroll={this.onScroll}
                     >
                     <FlatList
                         style={$.flatlist}
@@ -96,10 +137,10 @@ class Search extends BaseComponent {
                         showsVerticalScrollIndicator={false}
                         data={search.data}
                         renderItem={this.renderItem}
-                        removeClippedSubviews={true}
-
                         />
+
                 </ScrollView>
+
                 <View style={{ flex: 0 }}>
                     <TabLoadBar
                         show={search.loading.status}
@@ -158,10 +199,18 @@ const $ = StyleSheet.create({
     content: {
         backgroundColor: 'rgba(245, 245, 255, 1)',
         padding: 10,
+        flexDirection: 'row',
     },
     summary: {
         lineHeight: 20,
         fontSize: 14,
-        color: '#777'
+        color: '#777',
+        flex: 1,
+    },
+    summaryImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 2,
+        marginRight: 10,
     }
 });
