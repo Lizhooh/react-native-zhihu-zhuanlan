@@ -34,18 +34,18 @@ class Search extends BaseComponent {
         };
 
         this.loading = false;
+        this.y = 0;
     }
 
     componentWillMount() {
-        this.props.loadSearchData('');
+        this.props.loadSearchData(this.props.search.keys);
     }
 
     componentWillReceiveProps(nextProps) {
-        nextProps.search.page === 1 &&
-        this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
-
-        !nextProps.search.loading.status &&
-        (this.loading = false);
+        if (!nextProps.search.loading.status) {
+            this.loading = false;
+            this.y = 0;
+        }
     }
 
     renderItem = ({item: i, index}) => (
@@ -74,6 +74,7 @@ class Search extends BaseComponent {
         </Touch>
     );
 
+    // bug 重复触发 loadMoreSearchData
     onScroll = event => {
         const props = this.props;
         const search = props.search;
@@ -85,10 +86,18 @@ class Search extends BaseComponent {
 
         const deviceHeight = devicewindow.height;
 
-        if (y + deviceHeight - 50 + 100 >= height && !status && !this.loading) {
-            this.loading = true;
-            props.loadMoreSearchData(search.keys, search.page);
+        if (y - this.y >= 50) {
+            this.y = y;
+            if ((y + deviceHeight + 100) >= height && !status && !this.loading) {
+                this.loading = true;
+                props.loadMoreSearchData(search.keys, search.page);
+            }
         }
+    };
+
+    onSubmit = (event, text) => {
+        this.props.loadSearchData(text);
+        this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
     };
 
     render() {
@@ -97,12 +106,14 @@ class Search extends BaseComponent {
 
         return (
             <View style={$.contanier}>
-
                 <View style={$.topbar}>
                     <View style={{ backgroundColor: '#e6e6e6' }}>
                         <Touch
                             activeOpacity={0.6}
                             style={$.search}
+                            onPress={event => {
+                                this.onSubmit(event, search.keys);
+                            } }
                             >
                             <Icon
                                 name={'search'}
@@ -112,9 +123,7 @@ class Search extends BaseComponent {
                         </Touch>
                     </View>
                     <Input
-                        onSubmit={(event, text) => {
-                            this.props.loadSearchData(text);
-                        } }
+                        onSubmit={this.onSubmit}
                         />
                 </View>
 
