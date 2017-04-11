@@ -11,13 +11,13 @@ let time = 0;
 export const loadSearchData = (keys = '', page = 1) => (dispatch, getState) => {
     dispatch({ type: LOAD_SEARCH_DATA_IN });
 
-    return Api.searchBind(keys, page).then(data => {
-        if (data === null) return Promise.reject({ msg: '加载错误' });
-        if (data.length === 0) return Promise.reject({ msg: '没有更多结果了' });
+    return Api.searchBind(keys, page).then(res => {
+        if (res.data.length === 0) return Promise.reject({ msg: '没有更多结果了' });
 
         dispatch({
             type: LOAD_SEARCH_DATA_SUCCESS,
-            data: data,
+            data: res.data,
+            count: res.count,
             keys: keys,
             page: page + 1,
         });
@@ -40,13 +40,12 @@ export const loadSearchData = (keys = '', page = 1) => (dispatch, getState) => {
 export const loadMoreSearchData = (keys = '', page = 1) => (dispatch, getState) => {
     dispatch({ type: LOAD_SEARCH_DATA_IN });
 
-    return Api.searchBind(keys, page).then(data => {
-        if (data === null) return Promise.reject({ msg: '加载错误' });
-        if (data.length === 0) return Promise.reject({ msg: '没有更多结果了' });
+    return Api.searchBind(keys, page).then(res => {
+        if (res.data.length === 0) return Promise.reject({ msg: '没有更多结果了' });
 
         dispatch({
             type: LOAD_MORE_SEARCH_DATA_SUCCESS,
-            data: data,
+            data: res.data,
             keys: keys,
             page: page + 1,
         });

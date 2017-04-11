@@ -9,6 +9,7 @@ const INIT_STATE = {
     page: 1,
     data: [],
     keys: '',
+    count: '',
     loading: {
         status: false,
         msg: '',
@@ -26,6 +27,7 @@ export default (state = INIT_STATE, action) => {
                 msg: action.msg || '加载成功...',
                 status: false,
             },
+            count: action.count,
             keys: action.keys,
             page: action.page,
         }

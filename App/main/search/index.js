@@ -69,6 +69,12 @@ class Search extends BaseComponent {
                         {i.summary}
                     </Text>
                 </View>
+
+                <View style={$.super}>{
+                    i.id ?
+                        <Icon name='landscape' color={color} size={16} /> :
+                        <Icon name='near-me' color={color} size={16} />
+                }</View>
             </View>
         </Touch>
     );
@@ -111,11 +117,7 @@ class Search extends BaseComponent {
                                 this.onSubmit(event, search.keys);
                             } }
                             >
-                            <Icon
-                                name={'search'}
-                                size={28}
-                                color={color}
-                                />
+                            <Icon name={'search'} size={28} color={color} />
                         </Touch>
                     </View>
                     <Input
@@ -128,6 +130,7 @@ class Search extends BaseComponent {
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
                     removeClippedSubviews={true}
+                    onScroll={this.onScroll}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
@@ -136,8 +139,18 @@ class Search extends BaseComponent {
                                 this.y = 0;
                             } } />
                     }
-                    onScroll={this.onScroll}
                     >
+
+                    <View style={$.result}>{
+                        !!search.count &&
+                        <View style={{ flexDirection: 'row' }}>
+                            <Icon name={'done-all'} size={16} color={color} />
+                            <Text style={{ top: -1, marginHorizontal: 5 }}>
+                                搜索：{search.count}
+                            </Text>
+                        </View>
+                    }</View>
+
                     <FlatList
                         style={$.flatlist}
                         overScrollMode='never'
@@ -173,6 +186,14 @@ const $ = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         backgroundColor: '#fff',
+    },
+    result: {
+        backgroundColor: '#fff',
+        padding: 20,
+        paddingHorizontal: 21,
+        marginBottom: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     search: {
         backgroundColor: '#fff',
@@ -219,5 +240,11 @@ const $ = StyleSheet.create({
         height: 80,
         borderRadius: 2,
         marginRight: 10,
+    },
+    super: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        right: 6, top: 5,
     }
 });
