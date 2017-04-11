@@ -44,7 +44,6 @@ class Search extends BaseComponent {
     componentWillReceiveProps(nextProps) {
         if (!nextProps.search.loading.status) {
             this.loading = false;
-            this.y = 0;
         }
     }
 
@@ -84,14 +83,11 @@ class Search extends BaseComponent {
             contentOffset: { y }
         } = event.nativeEvent;
 
-        const deviceHeight = devicewindow.height;
+        const deviceHeight = devicewindow.height - 80;
 
-        if (y - this.y >= 50) {
-            this.y = y;
-            if ((y + deviceHeight + 100) >= height && !status && !this.loading) {
-                this.loading = true;
-                props.loadMoreSearchData(search.keys, search.page);
-            }
+        if ((y + deviceHeight + 50) >= height && !status && !this.loading) {
+            this.loading = true;
+            props.loadMoreSearchData(search.keys, search.page);
         }
     };
 
@@ -135,8 +131,10 @@ class Search extends BaseComponent {
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
-                            onRefresh={_ => props.loadSearchData(search.keys)}
-                            />
+                            onRefresh={_ => {
+                                props.loadSearchData(search.keys);
+                                this.y = 0;
+                            } } />
                     }
                     onScroll={this.onScroll}
                     >

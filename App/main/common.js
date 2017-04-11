@@ -78,13 +78,13 @@ export const TabLoadBar = ({ show, title }) => (
     show &&
     <View
         style={{
-            backgroundColor: 'rgba(1, 1, 1, 0.4)',
+            backgroundColor: 'rgba(1, 1, 1, 0.35)',
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'row',
             padding: 10,
-            top: -45,
-            height: 45,
+            top: -40,
+            height: 40,
             position: 'absolute',
             left: 0, right: 0,
         }}
