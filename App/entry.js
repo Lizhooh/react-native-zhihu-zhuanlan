@@ -7,6 +7,7 @@ import {
     ToastAndroid,
     BackAndroid,
 } from 'react-native';
+import * as actions from './action';
 
 import Main from './main';
 
@@ -43,6 +44,10 @@ class App extends Component {
         BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
+    componentDidMount() {
+        this.props.initRouter(Main, null, this.navigator);
+    }
+
     componentWillUnmount() {
         BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
@@ -60,6 +65,7 @@ class App extends Component {
 
 export default connect(
     state => ({ state }),
+    actions,
 )(App);
 
 const styles = StyleSheet.create({
