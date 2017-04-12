@@ -7,9 +7,13 @@ import {
     ToastAndroid,
     BackAndroid,
 } from 'react-native';
-import * as actions from './action';
 
 import Main from './main';
+import Article from './main/article';
+
+const component = {
+    Main, Article,
+};
 
 // # 入口
 class App extends Component {
@@ -32,7 +36,7 @@ class App extends Component {
 
     renderScene = (route, navigator) => {
         this.navigator = navigator;
-        const Router = route.component;
+        const Router = component[route.name];
         return <Router data={route.data} navigator={navigator} />
     };
 
@@ -44,10 +48,6 @@ class App extends Component {
         BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
-    componentDidMount() {
-        this.props.initRouter(Main, null, this.navigator);
-    }
-
     componentWillUnmount() {
         BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
@@ -55,7 +55,7 @@ class App extends Component {
     render() {
         return (
             <Navigator
-                initialRoute={{ id: 0, component: Main, data: null }}
+                initialRoute={{ id: 0, name: 'Main', data: null }}
                 renderScene={this.renderScene}
                 configureScene={this.configureScene}
                 />
@@ -65,7 +65,6 @@ class App extends Component {
 
 export default connect(
     state => ({ state }),
-    actions,
 )(App);
 
 const styles = StyleSheet.create({

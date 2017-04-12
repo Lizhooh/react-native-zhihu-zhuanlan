@@ -16,11 +16,9 @@ import Columm from './column';
 // # 主视图
 export default class Main extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
+        const navigator = this.props.navigator;
+
         return (
             <View style={styles.contanier}>
                 <ScrollableTabView
@@ -36,10 +34,10 @@ export default class Main extends Component {
                     scrollWithoutAnimation={!true}
                     tabBarPosition={'bottom'}
                     >
-                    <Columm />
-                    <Stories />
-                    <Search />
-                    <User />
+                    <Columm navigator={navigator} />
+                    <Stories navigator={navigator} />
+                    <Search navigator={navigator} />
+                    <User navigator={navigator} />
                 </ScrollableTabView>
             </View>
         );

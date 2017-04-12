@@ -25,7 +25,7 @@ export const devicewindow = Dimensions.get('window');
 export const TabTopbar = ({ iconName, title, style, children }) => (
     <View
         style={{
-            top: -1 * devicewindow.height + 55 + 20,
+            top: -1 * devicewindow.height + 50 + 25,
             height: 50,
             backgroundColor: '#fff',
             alignItems: 'center',
