@@ -7,6 +7,7 @@ import {
 const INITSTATE = {
     id: 0,
     data: null,
+    startLoading: true,
     loading: {
         status: false,
         msg: '',
@@ -21,6 +22,11 @@ export default (state = INITSTATE, action) => {
             ...state,
             data: action.data,
             id: action.id,
+            startLoading: false,
+            loading: {
+                status: false,
+                msg: '加载完成',
+            },
         }
 
         case LOAD_ARTICLE_DATA_IN: return {

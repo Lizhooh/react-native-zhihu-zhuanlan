@@ -105,9 +105,7 @@ class Column extends BaseComponent {
                             />
                     }
                     >
-                    <View
-                        style={{ flexDirection: 'row' }}
-                        >
+                    <View style={{ flexDirection: 'row' }}>
                         <FlatList
                             style={$.flatlist}
                             overScrollMode='never'
@@ -116,7 +114,6 @@ class Column extends BaseComponent {
                             renderItem={this.renderItem}
                             removeClippedSubviews={true}
                             />
-
                         <FlatList
                             style={[$.flatlist, { paddingLeft: 0 }]}
                             overScrollMode='never'

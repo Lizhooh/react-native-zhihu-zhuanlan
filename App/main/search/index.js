@@ -20,7 +20,7 @@ import {
 } from '../common';
 import { connect } from 'react-redux';
 import * as actions from './action';
-import Input from './input';
+import Input from './_input';
 
 // # 搜索
 class Search extends BaseComponent {
@@ -51,6 +51,7 @@ class Search extends BaseComponent {
         <Touch
             style={[$.touch, index === 0 && { marginTop: 0 }]}
             activeOpacity={0.8}
+            onPress={event => this.onOpen(i)}
             >
             <View style={$.item}>
                 <View
@@ -89,9 +90,9 @@ class Search extends BaseComponent {
             contentOffset: { y }
         } = event.nativeEvent;
 
-        const deviceHeight = devicewindow.height - 80;
+        const Height = devicewindow.height - 125 + y;
 
-        if ((y + deviceHeight + 50) >= height && !status && !this.loading) {
+        if (Height >= height - 30 && Height <= height && !status && !this.loading) {
             this.loading = true;
             props.loadMoreSearchData(search.keys, search.page);
         }
@@ -100,6 +101,14 @@ class Search extends BaseComponent {
     onSubmit = (event, text) => {
         this.props.loadSearchData(text);
         this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
+    };
+
+    onOpen = item => {
+        this.props.navigator.push({
+            id: 1,
+            name: 'Article',
+            data: { id: item.id }
+        });
     };
 
     render() {
@@ -174,7 +183,7 @@ class Search extends BaseComponent {
 
 export default connect(
     state => ({ search: state.search }),
-    actions,
+    { ...actions },
 )(Search);
 
 const $ = StyleSheet.create({

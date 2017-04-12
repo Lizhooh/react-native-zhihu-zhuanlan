@@ -21,12 +21,12 @@ export default (state = INIT_STATE, action) => {
 
         case LOAD_SEARCH_DATA_SUCCESS: return {
             ...state,
-            data: action.data,
             loading: {
                 ...state.loading,
                 msg: action.msg || '加载成功...',
                 status: false,
             },
+            data: action.data,
             count: action.count,
             keys: action.keys,
             page: action.page,

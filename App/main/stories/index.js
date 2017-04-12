@@ -32,7 +32,6 @@ class Stories extends BaseComponent {
         );
     }
 
-
     renderItem = ({item: i, index}) => (
         i && i.column &&
         <Touch
