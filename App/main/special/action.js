@@ -1,0 +1,8 @@
+import * as Api from '../../api';
+
+export const LOAD_SPECIAL_DATA_SUCCESS = 'LOAD_SPECIAL_DATA_SUCCESS';
+export const LOAD_SPECIAL_DATA_IN = 'LOAD_SPECIAL_DATA_IN';
+export const LOAD_SPECIAL_DATA_FAIL = 'LOAD_SPECIAL_DATA_FAIL';
+
+
+
