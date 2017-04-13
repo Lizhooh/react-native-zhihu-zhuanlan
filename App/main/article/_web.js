@@ -17,7 +17,7 @@ export default class MyWebView extends Component {
         super(props);
 
         this.state = {
-            height: 0,
+            height: 1000,
         };
     }
 
@@ -33,25 +33,28 @@ export default class MyWebView extends Component {
 
     get script() {
         return `
+            var imglist = [].slice.call(document.querySelectorAll('img'));
+            var alist = [].slice.call(document.querySelectorAll('a'));
+
+            imglist.map(function(i) {
+                i.src = i.getAttribute('data-actualsrc');
+            });
+
+            function linkClick(event) {
+                event.preventDefault();
+                window.postMessage &&
+                window.postMessage(event.target);
+                return false;
+            }
+
+            alist.map(function(i) {
+                i.removeEventListener('click', linkClick);
+                i.addEventListener('click', linkClick);
+            });
+
             window.addEventListener('load', function(event) {
                 window.location.hash = 1;
                 document.title = document.body.clientHeight;
-
-                var alist = [].slice.call(document.querySelectorAll('a'));
-
-                function linkClick(event) {
-                    event.preventDefault();
-                    window.postMessage &&
-                    window.postMessage(event.target);
-                    return false;
-                }
-
-                for(var i in alist) {
-                    (function(i) {
-                        alist[i].removeEventListener('click', linkClick);
-                        alist[i].addEventListener('click', linkClick);
-                    })(i);
-                }
             });
         `;
     }
@@ -64,10 +67,11 @@ export default class MyWebView extends Component {
                 <meta charset="UTF-8" />
                 <meta content="width=device-width, initial-scale=1.0, user-scalable=0;" name="viewport" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+                <meta name="referrer" content="never">
                 <style>
                     html, body{color: #505050; line-height: 1.5; font-size: 15px;
                         background-color: #fff; word-wrap:break-word}
-                    body{ padding: 10px; box-sizing: border-box}
+                    body{padding: 10px; box-sizing: border-box}
                     .body > p{margin: 16px 0; text-indent: 0px; letter-spacing: 0.5px}
                     .body > p:first-letter{font-size: 24px; margin: 0 2px}
                     b{font-weight: normal; color: #000}
@@ -108,7 +112,7 @@ export default class MyWebView extends Component {
                     injectedJavaScript={this.script}
                     style={{ height: this.state.height }}
                     source={{ html: this.html }}
-                    onMessage={this.props.onMessage}
+                    // onMessage={this.props.onMessage}
                     onNavigationStateChange={document => {
                         if (document.title) {
                             if (this.state.height === document.title) return;
