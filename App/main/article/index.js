@@ -7,6 +7,7 @@ import {
     TouchableOpacity as Touch,
     ScrollView,
     InteractionManager,
+    ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -17,16 +18,9 @@ import {
     TabTopbar,
     devicewindow,
 } from '../common';
+import MyWebView from './_web';
 
 class Article extends BaseComponent {
-
-    constructor(props) {
-        super(props);
-
-        InteractionManager.runAfterInteractions(_ => {
-            this.props.loadArticleData(this.props.data.id);
-        });
-    }
 
     renderTopbar = () => (
         <View style={{ flex: 0 }}>
@@ -36,9 +30,22 @@ class Article extends BaseComponent {
                     opacity: this.state.opacity,
                     top: -1 * devicewindow.height + 25,
                 }}
+                iconPress={_ => {
+                    this.props.navigator.pop();
+                } }
                 />
         </View>
     );
+
+    componentWillMount() {
+        InteractionManager.runAfterInteractions(_ => {
+            this.props.loadArticleData(this.props.data.id);
+        });
+    }
+
+    componentWillUnmount() {
+        this.props.clearArticleData();
+    }
 
     render() {
         const props = this.props;
@@ -59,6 +66,7 @@ class Article extends BaseComponent {
                 <View style={$.contanier}>
                     <ScrollView
                         removeClippedSubviews={true}
+                        overScrollMode='never'
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         onScroll={this.onScroll}
@@ -71,7 +79,11 @@ class Article extends BaseComponent {
                         </View>
 
                         <View style={$.body}>
-
+                            <MyWebView
+                                html={data.content}
+                                onMessage={event => {
+                                }}
+                                />
                         </View>
 
                         <View style={$.more}>
@@ -104,8 +116,10 @@ const $ = StyleSheet.create({
         backgroundColor: '#f6f6f6',
     },
     header: {
-        height: 300,
+        height: 280,
         backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     titleImage: {
         height: '100%',

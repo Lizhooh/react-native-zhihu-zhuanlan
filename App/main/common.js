@@ -22,7 +22,7 @@ export const color = 'rgba(255, 180, 50, 1)';
 export const devicewindow = Dimensions.get('window');
 
 // # tab 顶端栏
-export const TabTopbar = ({ iconName, title, style, children }) => (
+export const TabTopbar = ({ iconName, iconPress, title, style, children }) => (
     <View
         style={{
             top: -1 * devicewindow.height + 50 + 25,
@@ -47,6 +47,7 @@ export const TabTopbar = ({ iconName, title, style, children }) => (
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}
+                onPress={iconPress}
                 >
                 <MaterialIcons
                     name={iconName}

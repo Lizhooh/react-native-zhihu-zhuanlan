@@ -2,6 +2,7 @@ import {
     LOAD_ARTICLE_DATA_IN,
     LOAD_ARTICLE_DATA_SUCCESS,
     LOAD_ARTICLE_DATA_FAIL,
+    CLEAR_ARTICLE_DATA,
 } from './action';
 
 const INITSTATE = {
@@ -44,6 +45,10 @@ export default (state = INITSTATE, action) => {
                 status: false,
                 msg: '加载失败，请稍后刷新'
             }
+        }
+
+        case CLEAR_ARTICLE_DATA: return {
+            ...INITSTATE,
         }
 
         default: return { ...state };
