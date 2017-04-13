@@ -140,7 +140,7 @@ export class BaseComponent extends Component {
         const topbar = this.topbar;
         const opacity = this.state.opacity;
 
-        if (y < 10 && opacity < 1) {
+        if (y < 3 && opacity < 1) {
             this.setState({ opacity: 1 });
         }
         // 方向向下

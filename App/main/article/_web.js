@@ -9,7 +9,6 @@ import {
 import {
     color,
 } from '../common';
-import css from './_css';
 
 // # 自适应 WebView
 export default class MyWebView extends Component {
@@ -41,13 +40,17 @@ export default class MyWebView extends Component {
                 var alist = [].slice.call(document.querySelectorAll('a'));
 
                 function linkClick(event) {
+                    event.preventDefault();
                     window.postMessage &&
                     window.postMessage(event.target);
+                    return false;
                 }
 
                 for(var i in alist) {
-                    alist[i].removeEventListener('click', linkClick);
-                    alist[i].addEventListener('click', linkClick);
+                    (function(i) {
+                        alist[i].removeEventListener('click', linkClick);
+                        alist[i].addEventListener('click', linkClick);
+                    })(i);
                 }
             });
         `;
@@ -62,18 +65,25 @@ export default class MyWebView extends Component {
                 <meta content="width=device-width, initial-scale=1.0, user-scalable=0;" name="viewport" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
                 <style>
-                    html, body{color: #555; line-height: 1.5; font-size: 15px;}
-                    p{margin: 20px 0 !important; text-indent: 30px; letter-spacing: 0.5px;}
-                    p:first-letter{ font-size: 24px; margin: 0 2px;}
-                    b{font-weight: normal; color: #111;}
-                    a {color: ${color} !important; text-decoration: none !important;}
-                    img{width: 100% !important; height: auto !important;}
-                    blockquote {border-left: 3px solid ${color}; color: #888; margin: 5px; padding: 0 8px; }
-                    blockquote p{text-indent: 0;}
-                    blockquote p:first-letter{font-size: 15px; margin:0; color:#888;}
-                    blockquote em{font-weight: normal !important;}
-                    body{ padding: 10px; box-sizing: border-box;}
-                    code, pre{ font-size: 14px; width: 100%; padding: 10px; box-sizing: border-box; overflow: auto; word-wrap: normal;}
+                    html, body{color: #505050; line-height: 1.5; font-size: 15px;
+                        background-color: #fff; word-wrap:break-word}
+                    body{ padding: 10px; box-sizing: border-box}
+                    .body > p{margin: 16px 0; text-indent: 0px; letter-spacing: 0.5px}
+                    .body > p:first-letter{font-size: 24px; margin: 0 2px}
+                    b{font-weight: normal; color: #000}
+                    a{color: ${color}; text-decoration: none; max-width: 100%; word-wrap:break-word}
+                    img{min-width: 60%; max-width: 100%; height: auto; matgin: 5px 0; border-radius: 1px}
+                    blockquote {border-left: 3px solid ${color}; color: #888; margin: 5px; padding: 0 8px}
+                    blockquote em{font-weight: normal}
+                    code, pre{background-color: #f6f6f6; font-size: 13px; width: 100%; padding: 10px;
+                        box-sizing: border-box; overflow: auto}
+                    code span, pre span {padding: 2px}
+                    h1 { font-size: 22px; font-weight: normal}
+                    h2 { font-size: 20px; font-weight: normal}
+                    h3 { font-size: 18px; font-weight: normal}
+                    h4 { font-size: 16px; font-weight: normal}
+                    h5 { font-size: 14px; font-weight: normal}
+                    h6 { font-size: 13px; font-weight: normal}
                 </style>
             </head>
             <body>
@@ -109,6 +119,7 @@ export default class MyWebView extends Component {
                                 this.props.onLoad(document);
                             });
                         }
+                        return false;
                     } }
                     />
             </View>

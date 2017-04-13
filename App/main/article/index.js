@@ -71,19 +71,32 @@ class Article extends BaseComponent {
                         showsVerticalScrollIndicator={false}
                         onScroll={this.onScroll}
                         >
-                        <View style={$.header}>
-                            <Image
-                                source={{ uri: data.titleImage }}
-                                style={$.titleImage}
-                                />
+                        <View style={$.header}>{
+                            !!data.titleImage &&
+                            <Touch activeOpacity={0.8} style={$.sink}>
+                                <Image
+                                    source={{ uri: data.titleImage }}
+                                    style={$.titleImage}
+                                    />
+                            </Touch>
+                        }
+
+                            <View style={$.title}>
+                                <Text style={$.titleText}>
+                                    {data.title}
+                                </Text>
+                            </View>
+
+                            <View style={$.author}>
+                                <Image
+                                    source={{ uri: data.author.image }}
+                                    style={$.authorAvatar}
+                                    />
+                            </View>
                         </View>
 
                         <View style={$.body}>
-                            <MyWebView
-                                html={data.content}
-                                onMessage={event => {
-                                }}
-                                />
+                            <MyWebView html={data.content} />
                         </View>
 
                         <View style={$.more}>
@@ -113,13 +126,36 @@ export default connect(
 const $ = StyleSheet.create({
     contanier: {
         flex: 1,
-        backgroundColor: '#f6f6f6',
+        backgroundColor: '#fff',
     },
     header: {
-        height: 280,
         backgroundColor: '#fff',
+        paddingTop: 50,
+    },
+    author: {
+        paddingHorizontal: 20,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    title: {
+        padding: 5,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    titleText: {
+        fontSize: 24,
+        color: '#444',
+    },
+    authorAvatar: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+    },
+    sink: {
+        height: 240,
+        width: '100%',
+        borderBottomWidth: 1,
+        borderBottomColor: '#f0f0f0',
     },
     titleImage: {
         height: '100%',
