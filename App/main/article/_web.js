@@ -89,7 +89,6 @@ export default class MyWebView extends Component {
                     code, pre{background-color: #f6f6f6; font-size: 12px; width: 100%; padding: 8px;
                         box-sizing: border-box; overflow: auto; word-wrap: break-word;
                         line-height: 1.9; white-space: pre}
-                    code span, pre span {box-sizing: border-box}
                     /* 代码高亮 */
                     pre .mi{color: #4b4; font-weight: bold}
                     pre .o{color: #f44; font-weight: bold}
@@ -97,6 +96,8 @@ export default class MyWebView extends Component {
                     pre .k, pre .kd{color: #222; font-weight: bold}
                     pre .c1{color: #998;}
                     pre .s1, pre .nt{color: #3af;}
+                    pre .kt{color: #555; font-weight: bold}
+                    pre .nf{color: #f63; font-weight: bold}
                 </style>
             </head>
             <body>

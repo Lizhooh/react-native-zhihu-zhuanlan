@@ -70,7 +70,7 @@ class Article extends BaseComponent {
 
             <View style={header.author}>
                 <Image
-                    source={{ uri: data.author.image }}
+                    source={{ uri: data.author.avatar.image }}
                     style={header.avatar}
                     />
                 <Text style={header.name}>
@@ -95,7 +95,7 @@ class Article extends BaseComponent {
             </View>
             <View style={column.body}>
                 <Image
-                    source={{ uri: data.author.image }}
+                    source={{ uri: data.author.avatar.image }}
                     style={column.avatar}
                     />
                 <Text style={column.name}>
