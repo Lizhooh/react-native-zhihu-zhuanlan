@@ -17,7 +17,7 @@ export default class MyWebView extends Component {
         super(props);
 
         this.state = {
-            height: 1000,
+            height: 0,
         };
     }
 
@@ -43,7 +43,7 @@ export default class MyWebView extends Component {
             function linkClick(event) {
                 event.preventDefault();
                 window.postMessage &&
-                window.postMessage(event.target);
+                window.postMessage(event.target.href);
                 return false;
             }
 
@@ -71,12 +71,13 @@ export default class MyWebView extends Component {
                 <style>
                     html, body{color: #505050; line-height: 1.5; font-size: 15px;
                         background-color: #fff; word-wrap:break-word}
-                    body{padding: 10px; box-sizing: border-box}
+                    body{padding: 10px; box-sizing: border-box; -webkit-tap-highlight-color:transparent}
                     .body > p{margin: 16px 0; text-indent: 0px; letter-spacing: 0.5px}
                     .body > p:first-letter{font-size: 24px; margin: 0 2px}
                     b{font-weight: normal; color: #000}
-                    a{color: ${color}; text-decoration: none; max-width: 100%; word-wrap:break-word}
-                    img{min-width: 60%; max-width: 100%; height: auto; matgin: 5px 0; border-radius: 1px}
+                    a{color: ${color}; text-decoration: none; max-width: 100%; word-wrap: break-word}
+                    img{min-width: 60%; max-width: 100%; height: auto; padding: 5px 0; margin: 0 auto;
+                        border-radius: 1px; display: block}
                     blockquote {border-left: 3px solid ${color}; color: #888; margin: 5px; padding: 0 8px}
                     blockquote em{font-weight: normal}
                     code, pre{background-color: #f6f6f6; font-size: 13px; width: 100%; padding: 10px;
@@ -112,7 +113,7 @@ export default class MyWebView extends Component {
                     injectedJavaScript={this.script}
                     style={{ height: this.state.height }}
                     source={{ html: this.html }}
-                    // onMessage={this.props.onMessage}
+                    onMessage={this.props.onMessage}
                     onNavigationStateChange={document => {
                         if (document.title) {
                             if (this.state.height === document.title) return;
