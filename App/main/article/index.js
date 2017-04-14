@@ -8,6 +8,7 @@ import {
     ScrollView,
     InteractionManager,
     ToastAndroid,
+    ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -127,7 +128,14 @@ class Article extends BaseComponent {
         if (article.startLoading || !data) {
             return (
                 <View style={$.contanier}>
-                    <View style={{ flex: 1 }} />
+                    <View style={[{ flex: 1 }, $.center]}>
+                        <ActivityIndicator
+                            animating={true}
+                            size="small"
+                            color={color}
+                            />
+                        <Text>加载中</Text>
+                    </View>
                     {this.renderTopbar()}
                 </View>
             );
@@ -168,6 +176,10 @@ const $ = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
+    center: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });
 
 const header = StyleSheet.create({

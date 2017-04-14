@@ -7,7 +7,7 @@ import {
 const INIT_STATE = {
     page: 0,
     data: [],
-    limit: 40,
+    limit: 20,
     loading: {
         status: false,
         msg: '',
