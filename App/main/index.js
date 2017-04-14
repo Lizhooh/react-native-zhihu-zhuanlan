@@ -15,14 +15,13 @@ import Columm from './column';
 
 // # 主视图
 export default class Main extends Component {
-
     render() {
         const navigator = this.props.navigator;
 
         return (
             <View style={styles.contanier}>
                 <ScrollableTabView
-                    initialPage={2}
+                    initialPage={0}
                     locked={true}
                     renderTabBar={() => (
                         <TabsBar

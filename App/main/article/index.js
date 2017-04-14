@@ -88,29 +88,31 @@ class Article extends BaseComponent {
 
     renderColumn = (data, cont) => (
         cont &&
-        <Touch style={column.root} activeOpacity={0.8}>
+        <View style={column.root} >
             <View style={column.header}>
                 <Icon name='near-me' color={color} size={16} />
                 <Text style={column.text}>专栏</Text>
             </View>
             <View style={column.body}>
-                <Image
-                    source={{ uri: data.author.avatar.image }}
-                    style={column.avatar}
-                    />
-                <Text style={column.name}>
-                    {cont.sourceColumn.name}
-                </Text>
-                <Text style={column.intro}>
-                    {cont.sourceColumn.intro}
-                </Text>
+                <Touch style={$.center} activeOpacity={0.6}>
+                    <Image
+                        source={{ uri: data.author.avatar.image }}
+                        style={column.avatar}
+                        />
+                    <Text style={column.name}>
+                        {cont.sourceColumn.name}
+                    </Text>
+                    <Text style={column.intro}>
+                        {cont.sourceColumn.intro}
+                    </Text>
+                </Touch>
                 <Touch style={column.btn} activeOpacity={0.6}>
                     <Text style={column.btnText}>
                         + 关注
                     </Text>
                 </Touch>
             </View>
-        </Touch>
+        </View>
     );
 
     renderRecomm = data => (
@@ -196,6 +198,7 @@ const header = StyleSheet.create({
     titleText: {
         fontSize: 24,
         color: '#444',
+        lineHeight: 36,
     },
     sink: {
         height: 240,

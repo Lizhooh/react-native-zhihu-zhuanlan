@@ -10,7 +10,7 @@ export const loadSpecialData = (name) => (dispatch, getState) => {
 
     Promise.all([
         Api.special.column(name),
-        Api.special.list(10, 0),
+        Api.special.list(name, 10, 0),
     ]).then(resArray => {
         dispatch({
             type: LOAD_SPECIAL_DATA_SUCCESS,
@@ -22,3 +22,7 @@ export const loadSpecialData = (name) => (dispatch, getState) => {
         dispatch({ type: LOAD_SPECIAL_DATA_FAIL });
     });
 }
+
+export const clearSpecialData = () => ({
+    type: CLEAR_SPECIAL_DATA
+})

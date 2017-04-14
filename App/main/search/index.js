@@ -104,18 +104,19 @@ class Search extends BaseComponent {
     };
 
     onOpen = item => {
-        if (item.id) {
+        // id, column 都为空
+        if (!!item.column) {
             this.props.navigator.push({
                 id: 1,
-                name: 'Article',
-                data: { id: item.id }
+                name: 'Special',
+                data: { column: item.column }
             });
         }
         else {
             this.props.navigator.push({
                 id: 1,
                 name: 'Article',
-                data: { id: item.column }
+                data: { id: item.id }
             });
         }
     };

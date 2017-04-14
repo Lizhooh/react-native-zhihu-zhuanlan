@@ -4,6 +4,7 @@ export { default as search } from './main/search/reducer';
 export { default as stories } from './main/stories/reducer';
 export { default as column } from './main/column/reducer';
 export { default as article } from './main/article/reducer';
+export { default as special } from './main/special/reducer';
 
 
 // ----------------------------------------------------------//

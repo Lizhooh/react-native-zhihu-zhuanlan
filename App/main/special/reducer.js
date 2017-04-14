@@ -21,9 +21,10 @@ export default (state = INITSTATE, action) => {
     switch (action.type) {
 
         case LOAD_SPECIAL_DATA_SUCCESS: return {
-            ...LOAD_SPECIAL_DATA_FAIL,
+            ...state,
             data: action.data,
             name: action.name,
+            list: action.list,
             startLoading: false,
             loading: {
                 status: false,
@@ -39,7 +40,7 @@ export default (state = INITSTATE, action) => {
             }
         }
 
-        case LOAD_ARTICLE_DATA_FAIL: return {
+        case LOAD_SPECIAL_DATA_FAIL: return {
             ...state,
             loading: {
                 ...state.loading,
