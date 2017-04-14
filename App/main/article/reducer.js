@@ -8,6 +8,7 @@ import {
 const INITSTATE = {
     id: 0,
     data: null,
+    contributed: null,
     startLoading: true,
     loading: {
         status: false,
@@ -23,6 +24,7 @@ export default (state = INITSTATE, action) => {
             ...state,
             data: action.data,
             id: action.id,
+            contributed: action.contributed,
             startLoading: false,
             loading: {
                 status: false,

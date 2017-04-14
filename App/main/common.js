@@ -11,6 +11,7 @@ import {
     ActivityIndicator,
     RefreshControl,
     TouchableOpacity as Touch,
+    PixelRatio,
 } from 'react-native';
 
 import _MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -20,6 +21,7 @@ export const MaterialIcons = _MaterialIcons;
 export const FontAwesome = _FontAwesome;
 export const color = 'rgba(255, 180, 50, 1)';
 export const devicewindow = Dimensions.get('window');
+export const onePixel = 1 / PixelRatio.get();
 
 // # tab 顶端栏
 export const TabTopbar = ({ iconName, iconPress, title, style, children }) => (

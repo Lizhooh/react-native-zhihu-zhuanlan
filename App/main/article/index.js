@@ -17,10 +17,23 @@ import {
     BaseComponent,
     TabTopbar,
     devicewindow,
+    onePixel,
 } from '../common';
 import MyWebView from './_web';
 
 class Article extends BaseComponent {
+
+    componentWillMount() {
+        InteractionManager.runAfterInteractions(_ => {
+            this.props.loadArticleData(this.props.data.id);
+        });
+    }
+
+    componentWillUnmount() {
+        InteractionManager.runAfterInteractions(_ => {
+            this.props.clearArticleData();
+        });
+    }
 
     renderTopbar = () => (
         <View style={{ flex: 0 }}>
@@ -37,81 +50,79 @@ class Article extends BaseComponent {
         </View>
     );
 
-    componentWillMount() {
-        InteractionManager.runAfterInteractions(_ => {
-            this.props.loadArticleData(this.props.data.id);
-        });
-    }
+    renderHeader = data => (
+        <View style={header.root}>{
+            !!data.titleImage &&
+            <Touch activeOpacity={0.8} style={header.sink}>
+                <Image
+                    source={{ uri: data.titleImage }}
+                    style={header.titleImage}
+                    />
+            </Touch>
+        }
 
-    componentWillUnmount() {
-        this.props.clearArticleData();
-    }
+            <View style={header.title}>
+                <Text style={header.titleText}>
+                    {data.title}
+                </Text>
+            </View>
 
-    renderHeader = () => {
-        const data = this.props.article.data;
+            <View style={header.author}>
+                <Image
+                    source={{ uri: data.author.image }}
+                    style={header.avatar}
+                    />
+                <Text style={header.name}>
+                    {data.author.name}
+                </Text>
+            </View>
+        </View>
+    );
 
-        return (
-            <View style={header.root}>{
-                !!data.titleImage &&
-                <Touch activeOpacity={0.8} style={header.sink}>
-                    <Image
-                        source={{ uri: data.titleImage }}
-                        style={header.titleImage}
-                        />
+    renderBody = data => (
+        <View style={$.body}>
+            <MyWebView html={data.content} />
+        </View>
+    );
+
+    renderColumn = (data, cont) => (
+        cont &&
+        <Touch style={column.root} activeOpacity={0.8}>
+            <View style={column.header}>
+                <Icon name='near-me' color={color} size={16} />
+                <Text style={column.text}>专栏</Text>
+            </View>
+            <View style={column.body}>
+                <Image
+                    source={{ uri: data.author.image }}
+                    style={column.avatar}
+                    />
+                <Text style={column.name}>
+                    {cont.sourceColumn.name}
+                </Text>
+                <Text style={column.intro}>
+                    {cont.sourceColumn.intro}
+                </Text>
+                <Touch style={column.btn} activeOpacity={0.6}>
+                    <Text style={column.btnText}>
+                        + 关注
+                    </Text>
                 </Touch>
-            }
-
-                <View style={header.title}>
-                    <Text style={header.titleText}>
-                        {data.title}
-                    </Text>
-                </View>
-
-                <View style={header.author}>
-                    <Image
-                        source={{ uri: data.author.image }}
-                        style={header.avatar}
-                        />
-                    <Text style={header.name}>
-                        {data.author.name}
-                    </Text>
-                </View>
             </View>
-        );
-    }
+        </Touch>
+    );
 
-    renderBody = () => {
-        const data = this.props.article.data;
+    renderRecomm = data => (
+        <View style={$.recomm}>
 
-        return (
-            <View style={$.body}>
-                <MyWebView html={data.content} />
-            </View>
-        );
-    }
-
-    renderMore = () => {
-        const data = this.props.article.data;
-
-        return (
-            <View style={$.more}>
-
-            </View>
-        );
-    }
-
-    renderRecomm = () => {
-        return (
-            <View style={$.recomm}>
-
-            </View>
-        );
-    }
+        </View>
+    );
 
     render() {
         const props = this.props;
         const article = props.article;
         const data = article.data;
+        const contributed = article.contributed;
 
         if (article.startLoading || !data) {
             return (
@@ -132,10 +143,10 @@ class Article extends BaseComponent {
                         showsVerticalScrollIndicator={false}
                         onScroll={this.onScroll}
                         >
-                        {this.renderHeader()}
-                        {this.renderBody()}
-                        {this.renderMore()}
-                        {this.renderRecomm()}
+                        {this.renderHeader(data)}
+                        {this.renderColumn(data, contributed)}
+                        {this.renderBody(data)}
+                        {this.renderRecomm(data)}
                     </ScrollView>
 
                     {this.renderTopbar()}
@@ -161,7 +172,7 @@ const $ = StyleSheet.create({
 
 const header = StyleSheet.create({
     root: {
-        backgroundColor: '#fafafa',
+        backgroundColor: '#f9f9f9',
         paddingTop: 50,
     },
     title: {
@@ -202,4 +213,52 @@ const header = StyleSheet.create({
     }
 });
 
+const column = StyleSheet.create({
+    root: {
+        backgroundColor: '#f9f9f9',
+        borderTopWidth: onePixel,
+        borderTopColor: '#f3f3f3',
+    },
+    header: {
+        padding: 15,
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+    },
+    text: {
+        marginLeft: 5,
+        color: '#555',
+    },
+    avatar: {
+        width: 40,
+        height: 40,
+        borderRadius: 40,
+    },
+    body: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    name: {
+        marginTop: 10,
+        color: '#444',
+        fontSize: 16,
+    },
+    intro: {
+        marginTop: 10,
+        color: '#777',
+    },
+    btn: {
+        marginTop: 10,
+        backgroundColor: color,
+        borderRadius: 3,
+        paddingVertical: 6,
+        paddingHorizontal: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    btnText: {
+        color: '#fff',
+        top: -1,
+    },
+});
 

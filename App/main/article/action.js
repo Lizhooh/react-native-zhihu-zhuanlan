@@ -9,10 +9,12 @@ export const CLEAR_ARTICLE_DATA = 'CLEAR_ARTICLE_DATA';
 export const loadArticleData = (id) => (dispatch, getState) => {
     dispatch({ type: LOAD_ARTICLE_DATA_IN });
 
-    return Api.articles(id).then(res => {
+    return Api.articles(id).then(resArray => {
+
         dispatch({
             type: LOAD_ARTICLE_DATA_SUCCESS,
-            data: res,
+            data: resArray[0],
+            contributed: resArray[1],
             id: id,
         });
 

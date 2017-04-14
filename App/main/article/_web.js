@@ -73,7 +73,7 @@ export default class MyWebView extends Component {
                         background-color: #fff; word-wrap:break-word}
                     body{padding: 10px; box-sizing: border-box; -webkit-tap-highlight-color:transparent}
                     .body > p{margin: 16px 0; text-indent: 0px; letter-spacing: 0.5px}
-                    .body > p:first-letter{font-size: 24px; margin: 0 2px}
+                    .body > p:first-letter{font-size: 24px; margin: 0 2px; font-weight: normal}
                     b{font-weight: normal; color: #000}
                     a{color: ${color}; text-decoration: none; max-width: 100%; word-wrap: break-word}
                     img{min-width: 60%; max-width: 100%; height: auto; padding: 5px 0; margin: 0 auto;
