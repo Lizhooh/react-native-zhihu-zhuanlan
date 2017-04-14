@@ -24,15 +24,19 @@ import MyWebView from './_web';
 
 class Article extends BaseComponent {
 
-    componentWillMount() {
+    componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
-            this.props.loadArticleData(this.props.data.id);
+            setTimeout(_ => {
+                this.props.loadArticleData(this.props.data.id);
+            }, 100);
         });
     }
 
     componentWillUnmount() {
         InteractionManager.runAfterInteractions(_ => {
-            this.props.clearArticleData();
+            setTimeout(_ => {
+                this.props.clearArticleData();
+            }, 100);
         });
     }
 

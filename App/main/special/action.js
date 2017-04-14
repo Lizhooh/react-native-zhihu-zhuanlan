@@ -19,6 +19,7 @@ export const loadSpecialData = (name) => (dispatch, getState) => {
             name: name,
         });
     }).catch(err => {
+        console.warn(err);
         dispatch({ type: LOAD_SPECIAL_DATA_FAIL });
     });
 }

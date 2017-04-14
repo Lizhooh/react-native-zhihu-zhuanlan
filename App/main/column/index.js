@@ -47,9 +47,7 @@ class Column extends BaseComponent {
                 </View>
 
                 <View style={$.name}>
-                    <Text style={{ color: '#444' }}>
-                        {i.name}
-                    </Text>
+                    <Text style={{ color: '#444' }}>{i.name}</Text>
                 </View>
 
                 {
@@ -61,22 +59,14 @@ class Column extends BaseComponent {
 
                 <View style={$.other}>
                     <View style={$.otherLeft}>
-                        <Icon
-                            name='favorite-border'
-                            color='#f44'
-                            size={14}
-                            />
+                        <Icon name='favorite-border' color='#f44' size={14} />
                         <Text style={$.otherText}>
                             {i.followersCount + ''}
                         </Text>
                     </View>
                     <View style={{ flex: 1 }} />
                     <View style={$.otherRight}>
-                        <Icon
-                            name='subject'
-                            color='#3bf'
-                            size={14}
-                            />
+                        <Icon name='subject' color='#3bf' size={14} />
                         <Text style={$.otherText}>
                             {i.postsCount + ''}
                         </Text>

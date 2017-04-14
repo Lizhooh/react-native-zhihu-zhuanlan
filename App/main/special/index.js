@@ -8,6 +8,7 @@ import {
     ScrollView,
     ActivityIndicator,
     InteractionManager,
+    FlatList,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -17,19 +18,24 @@ import {
     BaseComponent,
     TabTopbar,
     devicewindow,
+    onePixel,
 } from '../common';
 
 class Special extends BaseComponent {
 
-    componentWillMount() {
+    componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
-            this.props.loadSpecialData(this.props.data.column);
+            setTimeout(_ => {
+                this.props.loadSpecialData(this.props.data.column);
+            }, 100);
         });
     }
 
     componentWillUnmount() {
         InteractionManager.runAfterInteractions(_ => {
-            this.props.clearSpecialData();
+            setTimeout(_ => {
+                this.props.clearSpecialData();
+            }, 100);
         });
     }
 
@@ -73,6 +79,63 @@ class Special extends BaseComponent {
         </View>
     );
 
+    renderBody = data => (
+        <View style={body.root}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                overScrollMode='never'
+                horizontal={true}
+                >
+                <Touch style={body.item} activeOpacity={0.7}>
+                    <Text style={body.text}>全部</Text>
+                    <Icon name='subject' color='#fff' size={14} />
+                    <Text style={body.text}>{`${data.postsCount}`}</Text>
+                </Touch>
+                {
+                    data.postTopics.map((i, index) => (
+                        <Touch
+                            key={`body-${index}`}
+                            style={body.item}
+                            activeOpacity={0.6}
+                            >
+                            <Text style={body.text}>{i.name}</Text>
+                            <Icon name='subject' color='#fff' size={14} />
+                            <Text style={body.text}>{`${i.postsCount}`}</Text>
+                        </Touch>
+                    ))
+                }
+            </ScrollView>
+        </View>
+    );
+
+    renderList = list => {
+        return <FlatList
+            style={{ flex: 1 }}
+            overScrollMode='never'
+            showsVerticalScrollIndicator={false}
+            data={list}
+            renderItem={this.renderItem}
+            removeClippedSubviews={true}
+            />
+    };
+
+    renderItem = ({item: i, index}) => (
+        !!i &&
+        <View style={list.item}>
+            <View>{
+                !!i.titleImage &&
+                <Image
+                    source={{ uri: i.titleImage }}
+                    style={list.titleImage}
+                    />
+            }</View>
+            <View>
+                <Text style={list.title}>{i.title}</Text>
+            </View>
+        </View>
+    );
+
     render() {
         const props = this.props;
         const special = props.special;
@@ -106,6 +169,8 @@ class Special extends BaseComponent {
                         onScroll={this.onScroll}
                         >
                         {this.renderHeader(data)}
+                        {this.renderBody(data)}
+                        {this.renderList(list)}
                     </ScrollView>
 
                     {this.renderTopbar()}
@@ -182,3 +247,42 @@ const header = StyleSheet.create({
     },
 });
 
+const body = StyleSheet.create({
+    root: {
+        padding: 10,
+        backgroundColor: '#fff',
+        borderTopWidth: onePixel,
+        borderBottomWidth: onePixel,
+        borderColor: '#ececec',
+    },
+    item: {
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        margin: 10,
+        backgroundColor: 'rgba(1, 1, 1, 0.45)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 2,
+        flexDirection: 'row',
+    },
+    text: {
+        fontSize: 14,
+        top: -1,
+        color: '#fff',
+    }
+});
+
+const list = StyleSheet.create({
+    item: {
+        justifyContent: 'center',
+        marginVertical: 10,
+    },
+    titleImage: {
+        height: 150,
+        width: '100%',
+    },
+    title: {
+        color: '#555',
+        fontSize: 18,
+    }
+});
