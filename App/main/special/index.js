@@ -6,6 +6,8 @@ import {
     Image,
     TouchableOpacity as Touch,
     ScrollView,
+    ActivityIndicator,
+    InteractionManager,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -14,21 +16,52 @@ import {
     MaterialIcons as Icon,
     BaseComponent,
     TabTopbar,
+    devicewindow,
 } from '../common';
 
 class Special extends BaseComponent {
 
-    constructor(props) {
-        super(props);
-    }
-
     componentWillMount() {
+        InteractionManager.runAfterInteractions(_ => {
 
+        });
     }
+
+    renderTopbar = () => (
+        <View style={{ flex: 0 }}>
+            <TabTopbar
+                iconName='arrow-back'
+                style={{
+                    opacity: this.state.opacity,
+                    top: -1 * devicewindow.height + 25,
+                }}
+                iconPress={_ => {
+                    this.props.navigator.pop();
+                } }
+                />
+        </View>
+    );
 
     render() {
         const props = this.props;
         const special = props.special;
+        const data = special.data;
+
+        if (special.startLoading && !data) {
+            return (
+                <View style={$.contanier}>
+                    <View style={[{ flex: 1 }, $.center]}>
+                        <ActivityIndicator
+                            animating={true}
+                            size="small"
+                            color={color}
+                            />
+                        <Text>加载中</Text>
+                    </View>
+                    {this.renderTopbar()}
+                </View>
+            );
+        }
 
         return (
             <View style={$.contanier}>
@@ -38,25 +71,9 @@ class Special extends BaseComponent {
                     showsVerticalScrollIndicator={false}
                     onScroll={this.onScroll}
                     >
-                    <View style={$.header}>
-
-                    </View>
-
-                    <View style={$.body}>
-
-                    </View>
-
-                    <View style={$.list}>
-
-                    </View>
                 </ScrollView>
 
-                <View style={{ flex: 0 }}>
-                    <TabTopbar
-                        iconName='arrow-back'
-                        style={{ opacity: this.state.opacity }}
-                        />
-                </View>
+                {this.renderTopbar()}
             </View>
         );
     }
@@ -72,12 +89,9 @@ const $ = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    header: {
-        height: 240,
-    },
-    titleImage: {
-        height: '100%',
-        width: '100%',
+    center: {
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
 

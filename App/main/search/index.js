@@ -104,11 +104,20 @@ class Search extends BaseComponent {
     };
 
     onOpen = item => {
-        this.props.navigator.push({
-            id: 1,
-            name: 'Article',
-            data: { id: item.id }
-        });
+        if (item.id) {
+            this.props.navigator.push({
+                id: 1,
+                name: 'Article',
+                data: { id: item.id }
+            });
+        }
+        else {
+            this.props.navigator.push({
+                id: 1,
+                name: 'Article',
+                data: { id: item.column }
+            });
+        }
     };
 
     render() {

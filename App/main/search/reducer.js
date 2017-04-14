@@ -6,7 +6,7 @@ import {
 } from './action';
 
 const INIT_STATE = {
-    page: 1,
+    page: 0,
     data: [],
     keys: '',
     count: '',

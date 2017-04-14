@@ -10,9 +10,11 @@ import {
 
 import Main from './main';
 import Article from './main/article';
+import Special from './main/special';
 
+// 路由 组件
 const component = {
-    Main, Article,
+    Main, Article, Special,
 };
 
 // # 入口

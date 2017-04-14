@@ -8,7 +8,7 @@ export const LOAD_MORE_SEARCH_DATA_SUCCESS = 'LOAD_MORE_SEARCH_DATA_SUCCESS';
 let time = 0;
 
 // # 加载搜索数据
-export const loadSearchData = (keys = '', page = 1) => (dispatch, getState) => {
+export const loadSearchData = (keys = '', page = 0) => (dispatch, getState) => {
     dispatch({ type: LOAD_SEARCH_DATA_IN });
 
     return Api.searchBind(keys, page).then(res => {
@@ -37,7 +37,7 @@ export const loadSearchData = (keys = '', page = 1) => (dispatch, getState) => {
 }
 
 // # 加载更多
-export const loadMoreSearchData = (keys = '', page = 1) => (dispatch, getState) => {
+export const loadMoreSearchData = (keys = '', page = 0) => (dispatch, getState) => {
     dispatch({ type: LOAD_SEARCH_DATA_IN });
 
     return Api.searchBind(keys, page).then(res => {

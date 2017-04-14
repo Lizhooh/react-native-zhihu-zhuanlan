@@ -7,8 +7,8 @@ import {
 
 const INITSTATE = {
     id: 0,
-    data: null,
-    contributed: null,
+    data: null,             // 文章信息
+    contributed: null,      // 投稿信息
     startLoading: true,
     loading: {
         status: false,
