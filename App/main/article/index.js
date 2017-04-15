@@ -21,6 +21,8 @@ import {
     onePixel,
 } from '../common';
 import MyWebView from './_web';
+import Column from './_column';
+import Header from './_header';
 
 class Article extends BaseComponent {
 
@@ -28,7 +30,7 @@ class Article extends BaseComponent {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
                 this.props.loadArticleData(this.props.data.id);
-            }, 100);
+            }, 30);
         });
     }
 
@@ -36,7 +38,7 @@ class Article extends BaseComponent {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
                 this.props.clearArticleData();
-            }, 100);
+            }, 30);
         });
     }
 
@@ -56,32 +58,7 @@ class Article extends BaseComponent {
     );
 
     renderHeader = data => (
-        <View style={header.root}>{
-            !!data.titleImage &&
-            <Touch activeOpacity={0.8} style={header.sink}>
-                <Image
-                    source={{ uri: data.titleImage }}
-                    style={header.titleImage}
-                    />
-            </Touch>
-        }
-
-            <View style={header.title}>
-                <Text style={header.titleText}>
-                    {data.title}
-                </Text>
-            </View>
-
-            <View style={header.author}>
-                <Image
-                    source={{ uri: data.author.avatar.image }}
-                    style={header.avatar}
-                    />
-                <Text style={header.name}>
-                    {data.author.name}
-                </Text>
-            </View>
-        </View>
+        <Header data={data} />
     );
 
     renderBody = data => (
@@ -92,35 +69,7 @@ class Article extends BaseComponent {
 
     renderColumn = (data, cont) => (
         cont &&
-        <View style={column.root} >
-            <View style={column.header}>
-                <Icon name='near-me' color={color} size={16} />
-                <Text style={column.text}>专栏</Text>
-            </View>
-            <View style={column.body}>
-                <Touch
-                    style={$.center}
-                    activeOpacity={0.6}
-                    onPress={_ => this.onOpenColumn(cont.sourceColumn)}
-                    >
-                    <Image
-                        source={{ uri: data.author.avatar.image }}
-                        style={column.avatar}
-                        />
-                    <Text style={column.name}>
-                        {cont.sourceColumn.name}
-                    </Text>
-                    <Text style={column.intro}>
-                        {cont.sourceColumn.intro}
-                    </Text>
-                </Touch>
-                <Touch style={column.btn} activeOpacity={0.6}>
-                    <Text style={column.btnText}>
-                        + 关注
-                    </Text>
-                </Touch>
-            </View>
-        </View>
+        <Column data={data} cont={cont} onOpenColumn={this.onOpenColumn} />
     );
 
     renderRecomm = data => (
@@ -202,97 +151,3 @@ const $ = StyleSheet.create({
         alignItems: 'center',
     }
 });
-
-const header = StyleSheet.create({
-    root: {
-        backgroundColor: '#f9f9f9',
-        paddingTop: 50,
-    },
-    title: {
-        padding: 6,
-        paddingHorizontal: 12,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    titleText: {
-        fontSize: 24,
-        color: '#444',
-        lineHeight: 36,
-    },
-    sink: {
-        height: 240,
-        width: '100%',
-        borderBottomWidth: 1,
-        borderBottomColor: '#f0f0f0',
-    },
-    titleImage: {
-        height: '100%',
-        width: '100%',
-    },
-    author: {
-        paddingBottom: 10,
-        paddingHorizontal: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    avatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 40,
-    },
-    name: {
-        marginLeft: 15,
-        fontSize: 16,
-        color: '#666',
-    }
-});
-
-const column = StyleSheet.create({
-    root: {
-        backgroundColor: '#f9f9f9',
-        borderTopWidth: onePixel,
-        borderTopColor: '#f3f3f3',
-    },
-    header: {
-        padding: 15,
-        backgroundColor: '#fff',
-        flexDirection: 'row',
-    },
-    text: {
-        marginLeft: 5,
-        color: '#555',
-    },
-    avatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 40,
-    },
-    body: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    name: {
-        marginTop: 10,
-        color: '#444',
-        fontSize: 16,
-    },
-    intro: {
-        marginTop: 10,
-        color: '#777',
-    },
-    btn: {
-        marginTop: 10,
-        backgroundColor: color,
-        borderRadius: 3,
-        paddingVertical: 6,
-        paddingHorizontal: 18,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    btnText: {
-        color: '#fff',
-        top: -1,
-    },
-});
-

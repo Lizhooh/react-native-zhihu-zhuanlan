@@ -20,14 +20,18 @@ import {
     devicewindow,
     onePixel,
 } from '../common';
+import About from './about';
 
 class Special extends BaseComponent {
+
+    // 使用： <Special.About />
+    static About = About;
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
                 this.props.loadSpecialData(this.props.data.column);
-            }, 100);
+            }, 30);
         });
     }
 
@@ -35,7 +39,7 @@ class Special extends BaseComponent {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
                 this.props.clearSpecialData();
-            }, 100);
+            }, 30);
         });
     }
 
@@ -57,7 +61,13 @@ class Special extends BaseComponent {
     renderHeader = data => (
         <View style={header.root}>
             <View style={header.body}>
-                <Touch style={$.center} activeOpacity={0.6}>
+                <Touch
+                    style={$.center}
+                    activeOpacity={0.6}
+                    onPress={_ =>
+                        this.onOpenAbout(this.props.data.column)
+                    }
+                    >
                     <Image
                         source={{ uri: data.avatar.image }}
                         style={header.avatar}
@@ -94,17 +104,20 @@ class Special extends BaseComponent {
                     <Text style={body.text}>{`${data.postsCount}`}</Text>
                 </Touch>
                 {
-                    data.postTopics.map((i, index) => (
-                        <Touch
-                            key={`body-${index}`}
-                            style={body.item}
-                            activeOpacity={0.6}
-                            >
-                            <Text style={body.text}>{i.name}</Text>
-                            <Icon name='subject' color='#fff' size={14} />
-                            <Text style={body.text}>{`${i.postsCount}`}</Text>
-                        </Touch>
-                    ))
+                    data.postTopics
+                        .sort((a, b) => b.postsCount - a.postsCount)
+                        .slice(0, 10)
+                        .map((i, index) => (
+                            <Touch
+                                key={`body-${index}`}
+                                style={body.item}
+                                activeOpacity={0.6}
+                                >
+                                <Text style={body.text}>{i.name}</Text>
+                                <Icon name='subject' color='#fff' size={14} />
+                                <Text style={body.text}>{`${i.postsCount}`}</Text>
+                            </Touch>
+                        ))
                 }
             </ScrollView>
         </View>
@@ -148,6 +161,14 @@ class Special extends BaseComponent {
             id: 1,
             name: 'Article',
             data: { id: item.slug }
+        });
+    }
+
+    onOpenAbout = column => {
+        this.props.navigator.push({
+            id: 3,
+            name: 'Special.About',
+            data: { column: column }
         });
     }
 

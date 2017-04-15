@@ -15,6 +15,7 @@ import Special from './main/special';
 // 路由 组件
 const component = {
     Main, Article, Special,
+    'Special.About': Special.About,
 };
 
 // # 入口
@@ -43,7 +44,7 @@ class App extends Component {
     };
 
     configureScene = (route, navigator) => {
-        if(route.id === 2 ){
+        if (route.id === 2 || route.id === 3) {
             return Navigator.SceneConfigs.PushFromLeft;
         }
         return Navigator.SceneConfigs.FloatFromRight;

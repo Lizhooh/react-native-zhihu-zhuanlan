@@ -2,7 +2,9 @@ import {
     LOAD_SPECIAL_DATA_IN,
     LOAD_SPECIAL_DATA_SUCCESS,
     LOAD_SPECIAL_DATA_FAIL,
+    LOAD_SPECIAL_ABOUT_DATA_SUCCESS,
     CLEAR_SPECIAL_DATA,
+    CLEAR_SPECIAL_ABOUT_DATA,
 } from './action';
 
 const INITSTATE = {
@@ -11,6 +13,7 @@ const INITSTATE = {
     list: [],       // 专栏文章列表
     limit: 8,
     startLoading: true,
+    about: null,    // 关于信息
     loading: {
         status: false,
         msg: '',
@@ -33,6 +36,15 @@ export default (state = INITSTATE, action) => {
             },
         }
 
+        case LOAD_SPECIAL_ABOUT_DATA_SUCCESS: return {
+            ...state,
+            loading: {
+                status: false,
+                msg: '加载完成',
+            },
+            about: action.about,
+        }
+
         case LOAD_SPECIAL_DATA_IN: return {
             ...state,
             loading: {
@@ -51,8 +63,18 @@ export default (state = INITSTATE, action) => {
         }
 
         case CLEAR_SPECIAL_DATA: return {
-            ...INITSTATE,
+            ...state,
+            startLoading: true,
+            data: null,
+            name: 0,
+            list: [],
         }
+
+        case CLEAR_SPECIAL_ABOUT_DATA: return {
+            ...state,
+            about: null,
+        }
+
 
         default: return { ...state };
     }
