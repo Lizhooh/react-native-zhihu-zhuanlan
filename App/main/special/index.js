@@ -109,19 +109,18 @@ class Special extends BaseComponent {
         </View>
     );
 
-    renderList = list => {
-        return <FlatList
-            style={{ flex: 1 }}
+    renderList = list => (
+        <FlatList
+            style={list.root}
             overScrollMode='never'
             showsVerticalScrollIndicator={false}
             data={list}
             renderItem={this.renderItem}
             removeClippedSubviews={true}
             />
-    };
+    );
 
     renderItem = ({item: i, index}) => (
-        !!i &&
         <View style={list.item}>
             <View>{
                 !!i.titleImage &&
@@ -132,6 +131,10 @@ class Special extends BaseComponent {
             }</View>
             <View>
                 <Text style={list.title}>{i.title}</Text>
+
+                <Text style={list.summary}>
+                    {i.minContent}......
+                </Text>
             </View>
         </View>
     );
@@ -171,6 +174,7 @@ class Special extends BaseComponent {
                         {this.renderHeader(data)}
                         {this.renderBody(data)}
                         {this.renderList(list)}
+                        <View style={{ height: 30, backgroundColor: '#fff' }} />
                     </ScrollView>
 
                     {this.renderTopbar()}
@@ -273,9 +277,12 @@ const body = StyleSheet.create({
 });
 
 const list = StyleSheet.create({
+    root: {
+        backgroundColor: '#f9f9f9',
+        flex: 1,
+    },
     item: {
         justifyContent: 'center',
-        marginVertical: 10,
     },
     titleImage: {
         height: 150,
@@ -284,5 +291,14 @@ const list = StyleSheet.create({
     title: {
         color: '#555',
         fontSize: 18,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        backgroundColor: '#fff',
+        lineHeight: 28,
+    },
+    summary: {
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        lineHeight: 22,
     }
 });

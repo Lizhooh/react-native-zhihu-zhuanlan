@@ -107,7 +107,7 @@ class Search extends BaseComponent {
         // id, column 都为空
         if (!!item.column) {
             this.props.navigator.push({
-                id: 1,
+                id: 2,
                 name: 'Special',
                 data: { column: item.column }
             });

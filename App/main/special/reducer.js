@@ -9,6 +9,7 @@ const INITSTATE = {
     name: 0,
     data: null,     // 专栏信息
     list: [],       // 专栏文章列表
+    limit: 8,
     startLoading: true,
     loading: {
         status: false,

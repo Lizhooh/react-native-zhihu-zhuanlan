@@ -98,7 +98,11 @@ class Article extends BaseComponent {
                 <Text style={column.text}>专栏</Text>
             </View>
             <View style={column.body}>
-                <Touch style={$.center} activeOpacity={0.6}>
+                <Touch
+                    style={$.center}
+                    activeOpacity={0.6}
+                    onPress={_ => this.onOpenColumn(cont.sourceColumn)}
+                    >
                     <Image
                         source={{ uri: data.author.avatar.image }}
                         style={column.avatar}
@@ -124,6 +128,18 @@ class Article extends BaseComponent {
 
         </View>
     );
+
+    onOpenColumn = column => {
+        this.props.navigator.push({
+            id: 2,
+            name: 'Special',
+            data: { column: column.slug }
+        });
+    };
+
+    onOpen = data => {
+
+    };
 
     render() {
         const props = this.props;

@@ -78,7 +78,7 @@ class Column extends BaseComponent {
 
     onOpen = item => {
         this.props.navigator.push({
-            id: 1,
+            id: 2,
             name: 'Special',
             data: { column: item.slug }
         });
