@@ -13,30 +13,30 @@ import {
 } from '../common';
 
 export default ({ data, cont, onOpenColumn }) => (
-    <View style={column.root} >
-        <View style={column.header}>
+    <View style={$.root} >
+        <View style={$.header}>
             <Icon name='near-me' color={color} size={16} />
-            <Text style={column.text}>专栏</Text>
+            <Text style={$.text}>专栏</Text>
         </View>
-        <View style={column.body}>
+        <View style={$.body}>
             <Touch
-                style={column.center}
+                style={$.center}
                 activeOpacity={0.6}
                 onPress={_ => onOpenColumn(cont.sourceColumn)}
                 >
                 <Image
                     source={{ uri: data.author.avatar.image }}
-                    style={column.avatar}
+                    style={$.avatar}
                     />
-                <Text style={column.name}>
+                <Text style={$.name}>
                     {cont.sourceColumn.name}
                 </Text>
-                <Text style={column.intro}>
+                <Text style={$.intro}>
                     {cont.sourceColumn.intro}
                 </Text>
             </Touch>
-            <Touch style={column.btn} activeOpacity={0.6}>
-                <Text style={column.btnText}>
+            <Touch style={$.btn} activeOpacity={0.6}>
+                <Text style={$.btnText}>
                     + 关注
                 </Text>
             </Touch>
@@ -44,7 +44,7 @@ export default ({ data, cont, onOpenColumn }) => (
     </View>
 );
 
-const column = StyleSheet.create({
+const $ = StyleSheet.create({
     root: {
         backgroundColor: '#f9f9f9',
         borderTopWidth: onePixel,

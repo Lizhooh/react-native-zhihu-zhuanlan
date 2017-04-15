@@ -165,11 +165,14 @@ class Special extends BaseComponent {
     }
 
     onOpenAbout = column => {
-        this.props.navigator.push({
-            id: 3,
-            name: 'Special.About',
-            data: { column: column }
-        });
+        // 异步调到，防止卡顿
+        setTimeout(_ => {
+            this.props.navigator.push({
+                id: 3,
+                name: 'Special.About',
+                data: { column: column }
+            });
+        }, 0);
     }
 
     render() {

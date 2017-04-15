@@ -3,8 +3,10 @@ import * as Api from '../../api';
 export const LOAD_SPECIAL_DATA_SUCCESS = 'LOAD_SPECIAL_DATA_SUCCESS';
 export const LOAD_SPECIAL_DATA_IN = 'LOAD_SPECIAL_DATA_IN';
 export const LOAD_SPECIAL_DATA_FAIL = 'LOAD_SPECIAL_DATA_FAIL';
-export const LOAD_SPECIAL_ABOUT_DATA_SUCCESS = 'LOAD_SPECIAL_ABOUT_DATA_SUCCESS';
 export const CLEAR_SPECIAL_DATA = 'CLEAR_SPECIAL_DATA';
+
+export const LOAD_SPECIAL_ABOUT_DATA_IN = 'LOAD_SPECIAL_ABOUT_DATA_IN';
+export const LOAD_SPECIAL_ABOUT_DATA_SUCCESS = 'LOAD_SPECIAL_ABOUT_DATA_SUCCESS';
 export const CLEAR_SPECIAL_ABOUT_DATA = 'CLEAR_SPECIAL_ABOUT_DATA';
 
 // 加载专栏信息
@@ -33,7 +35,9 @@ export const clearSpecialData = () => ({
 
 // 加载关于
 export const loadSpecialAbloutData = (name) => (dispatch, getState) => {
-    dispatch({ type: LOAD_SPECIAL_DATA_IN });
+    if(name === getState().special.aboutName) return;
+
+    dispatch({ type: LOAD_SPECIAL_ABOUT_DATA_IN });
 
     return Api.special.about(name).then(result => {
         dispatch({
@@ -42,6 +46,7 @@ export const loadSpecialAbloutData = (name) => (dispatch, getState) => {
                 data: result[0],
                 authors: result[1],
             },
+            name: name,
         })
     }).catch(err => {
         dispatch({ type: LOAD_SPECIAL_DATA_FAIL });

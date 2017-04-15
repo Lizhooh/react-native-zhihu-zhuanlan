@@ -69,7 +69,7 @@ class Article extends BaseComponent {
 
     renderColumn = (data, cont) => (
         cont &&
-        <Column data={data} cont={cont} onOpenColumn={this.onOpenColumn} />
+        <Column data={data} cont={cont} onOpenColumn={this.onOpenAbout} />
     );
 
     renderRecomm = data => (
@@ -78,12 +78,15 @@ class Article extends BaseComponent {
         </View>
     );
 
-    onOpenColumn = column => {
-        this.props.navigator.push({
-            id: 2,
-            name: 'Special',
-            data: { column: column.slug }
-        });
+    onOpenAbout = column => {
+        // 异步调到，防止卡顿
+        setTimeout(_ => {
+            this.props.navigator.push({
+                id: 3,
+                name: 'Special.About',
+                data: { column: column.slug }
+            });
+        }, 0);
     };
 
     onOpenArticle = data => {

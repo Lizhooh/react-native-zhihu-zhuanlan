@@ -8,36 +8,36 @@ import {
 } from 'react-native';
 
 export default ({data}) => (
-    <View style={header.root}>{
+    <View style={$.root}>{
         !!data.titleImage &&
-        <Touch activeOpacity={0.8} style={header.sink}>
+        <Touch activeOpacity={0.8} style={$.sink}>
             <Image
                 source={{ uri: data.titleImage }}
-                style={header.titleImage}
+                style={$.titleImage}
                 />
         </Touch>
     }
-        <View style={header.title}>
-            <Text style={header.titleText}>
+        <View style={$.title}>
+            <Text style={$.titleText}>
                 {data.title}
             </Text>
         </View>
 
-        <View style={header.author}>
+        <View style={$.author}>
             <Image
                 source={{ uri: data.author.avatar.image }}
-                style={header.avatar}
+                style={$.avatar}
                 />
-            <Text style={header.name}>
+            <Text style={$.name}>
                 {data.author.name}
             </Text>
         </View>
     </View>
 );
 
-const header = StyleSheet.create({
+const $ = StyleSheet.create({
     root: {
-        backgroundicon: '#f9f9f9',
+        backgroundColor: '#f9f9f9',
         paddingTop: 50,
     },
     title: {
