@@ -80,6 +80,7 @@ export default class MyWebView extends Component {
                         border-radius: 1px; display: block}
                     blockquote {border-left: 3px solid ${color}; color: #888; margin: 5px; padding: 0 8px}
                     blockquote em{font-weight: normal}
+                    blockquote b{color: #777}
                     h1{font-size: 22px; font-weight: normal}
                     h2{font-size: 20px; font-weight: normal}
                     h3{font-size: 18px; font-weight: normal}

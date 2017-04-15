@@ -43,6 +43,9 @@ class App extends Component {
     };
 
     configureScene = (route, navigator) => {
+        if(route.id === 2 ){
+            return Navigator.SceneConfigs.PushFromLeft;
+        }
         return Navigator.SceneConfigs.FloatFromRight;
     };
 

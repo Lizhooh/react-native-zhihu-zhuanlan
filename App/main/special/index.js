@@ -84,6 +84,7 @@ class Special extends BaseComponent {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
+                // removeClippedSubviews={!true}
                 overScrollMode='never'
                 horizontal={true}
                 >
@@ -116,12 +117,15 @@ class Special extends BaseComponent {
             showsVerticalScrollIndicator={false}
             data={list}
             renderItem={this.renderItem}
-            removeClippedSubviews={true}
             />
     );
 
     renderItem = ({item: i, index}) => (
-        <View style={list.item}>
+        <Touch
+            style={list.item}
+            activeOpacity={0.8}
+            onPress={_ => this.onOpenArticle(i)}
+            >
             <View>{
                 !!i.titleImage &&
                 <Image
@@ -136,8 +140,16 @@ class Special extends BaseComponent {
                     {i.minContent}......
                 </Text>
             </View>
-        </View>
+        </Touch>
     );
+
+    onOpenArticle = item => {
+        this.props.navigator.push({
+            id: 1,
+            name: 'Article',
+            data: { id: item.slug }
+        });
+    }
 
     render() {
         const props = this.props;
@@ -166,7 +178,7 @@ class Special extends BaseComponent {
                 <View style={$.contanier}>
                     <ScrollView
                         overScrollMode='never'
-                        removeClippedSubviews={true}
+                        removeClippedSubviews={!true}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         onScroll={this.onScroll}

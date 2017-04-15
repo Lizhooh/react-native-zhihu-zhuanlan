@@ -137,8 +137,7 @@ class Article extends BaseComponent {
         });
     };
 
-    onOpen = data => {
-
+    onOpenArticle = data => {
     };
 
     render() {

@@ -37,7 +37,7 @@ class Stories extends BaseComponent {
         <Touch
             style={{ overflow: 'hidden' }}
             activeOpacity={0.8}
-            onPress={_ => this.onOpen(i)}
+            onPress={_ => this.onOpenArticle(i)}
             >
             <View style={$.item}>
                 {
@@ -67,7 +67,7 @@ class Stories extends BaseComponent {
         </Touch>
     );
 
-    onOpen = item => {
+    onOpenArticle = item => {
         this.props.navigator.push({
             id: 1,
             name: 'Article',
