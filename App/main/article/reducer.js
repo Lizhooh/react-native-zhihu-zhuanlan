@@ -3,7 +3,6 @@ import {
     LOAD_ARTICLE_DATA_SUCCESS,
     LOAD_ARTICLE_DATA_FAIL,
     CLEAR_ARTICLE_DATA,
-    AGAIN_OPEN_ARTICLE,
 } from './action';
 
 const INITSTATE = {
@@ -36,15 +35,6 @@ export default (state = INITSTATE, action) => {
                 status: false,
                 msg: '加载完成',
             },
-        }
-
-        case AGAIN_OPEN_ARTICLE: return {
-            ...state,
-            loading: {
-                ...state.loading,
-                status: false,
-                msg: '再次加载',
-            }
         }
 
         case LOAD_ARTICLE_DATA_IN: return {
