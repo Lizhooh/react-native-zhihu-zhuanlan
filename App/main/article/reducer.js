@@ -50,6 +50,7 @@ export default (state = INITSTATE, action) => {
         }
 
         case CLEAR_ARTICLE_DATA: return {
+            ...state,
             ...INITSTATE,
         }
 

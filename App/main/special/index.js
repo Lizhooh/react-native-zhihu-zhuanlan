@@ -148,10 +148,25 @@ class Special extends BaseComponent {
             }</View>
             <View>
                 <Text style={list.title}>{i.title}</Text>
-
                 <Text style={list.summary}>
                     {i.minContent}......
                 </Text>
+                {/*底部的信息栏*/}
+                <View style={list.bottom}>
+                    <View style={list.bottoml}>
+                        <Image
+                            source={{ uri: i.author.avatar.image }}
+                            style={list.userImage}
+                            />
+                        <Text>{i.author.name}</Text>
+                    </View>
+                    <View style={list.bottomr}>
+                        <Icon name='thumb-up' color='#bbb' size={15} />
+                        <Text style={list.span}>{`${i.likesCount}`}</Text>
+                        <Icon name='speaker-notes' color='#bbb' size={15} />
+                        <Text style={list.span}>{`${i.commentsCount}`}</Text>
+                    </View>
+                </View>
             </View>
         </Touch>
     );
@@ -336,5 +351,34 @@ const list = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         lineHeight: 22,
+    },
+    userImage: {
+        width: 30,
+        height: 30,
+        borderRadius: 30,
+        marginRight: 8,
+    },
+    bottom: {
+        flexDirection: 'row',
+        backgroundColor: '#f5f5f5',
+        paddingHorizontal: 15,
+        paddingVertical: 6,
+    },
+    bottoml: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+    },
+    bottomr: {
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    span: {
+        marginHorizontal: 3,
+        marginRight: 5,
+        top: -1,
+        color: '#aaa',
     }
 });
