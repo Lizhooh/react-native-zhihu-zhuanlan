@@ -3,16 +3,17 @@ import {
     LOAD_ARTICLE_DATA_SUCCESS,
     LOAD_ARTICLE_DATA_FAIL,
     CLEAR_ARTICLE_DATA,
+    AGAIN_OPEN_ARTICLE,
 } from './action';
 
 const INITSTATE = {
-    id: 0,
-    data: null,             // 文章信息
-    contributed: null,      // 投稿信息
-    startLoading: true,
+    // id: 0,
+    // data: null,             // 文章信息
+    // contributed: null,      // 投稿信息
+    stack: [],                 // 文章存放的栈
     loading: {
-        status: false,
-        msg: '',
+        status: true,
+        msg: '加载中',
     },
 }
 
@@ -22,14 +23,28 @@ export default (state = INITSTATE, action) => {
 
         case LOAD_ARTICLE_DATA_SUCCESS: return {
             ...state,
-            data: action.data,
-            id: action.id,
-            contributed: action.contributed,
-            startLoading: false,
+            // 入栈
+            stack: [
+                ...state.stack,
+                {
+                    data: action.data,
+                    id: action.id,
+                    contributed: action.contributed,
+                }
+            ],
             loading: {
                 status: false,
                 msg: '加载完成',
             },
+        }
+
+        case AGAIN_OPEN_ARTICLE: return {
+            ...state,
+            loading: {
+                ...state.loading,
+                status: false,
+                msg: '再次加载',
+            }
         }
 
         case LOAD_ARTICLE_DATA_IN: return {
@@ -51,7 +66,12 @@ export default (state = INITSTATE, action) => {
 
         case CLEAR_ARTICLE_DATA: return {
             ...state,
-            ...INITSTATE,
+            loading: {
+                status: true,
+                msg: '加载中',
+            },
+            // 出栈
+            stack: state.stack.splice(0, state.stack.length - 1),
         }
 
         default: return { ...state };

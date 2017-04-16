@@ -27,6 +27,8 @@ import Recomm from './_recomm';
 
 class Article extends BaseComponent {
 
+    ok = false;
+
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
@@ -100,9 +102,31 @@ class Article extends BaseComponent {
 
     render() {
         const article = this.props.article;
-        const { data, contributed } = article;
 
-        if (article.startLoading || !data) {
+        if (article.stack.length === 0) {
+            return (
+                <View style={$.contanier}>
+                    <View style={[{ flex: 1 }, $.center]}>
+                        <ActivityIndicator
+                            animating={true}
+                            size="small"
+                            color={color}
+                            />
+                        <Text>加载中</Text>
+                    </View>
+                    {this.renderTopbar()}
+                </View>
+            );
+
+        }
+
+        const { id, data, contributed } = article.stack[article.stack.length - 1];
+
+        if ((article.loading.status ||         // 网络请求中显示 loading
+            !data ||                           // 空数据，显示 loading
+            id !== this.props.data.id) &&      // 缓存的数据，文章id不同时显示 loading
+            !this.ok                           // 首次加载状态
+        ) {
             return (
                 <View style={$.contanier}>
                     <View style={[{ flex: 1 }, $.center]}>
@@ -117,27 +141,28 @@ class Article extends BaseComponent {
                 </View>
             );
         }
-
-        if (data) {
-            return (
-                <View style={$.contanier}>
-                    <ScrollView
-                        removeClippedSubviews={true}
-                        overScrollMode='never'
-                        showsHorizontalScrollIndicator={false}
-                        showsVerticalScrollIndicator={false}
-                        onScroll={this.onScroll}
-                        >
-                        {this.renderHeader(data)}
-                        {this.renderColumn(data, contributed)}
-                        {this.renderBody(data)}
-                        {this.renderRecomm(data.meta)}
-                    </ScrollView>
-
-                    {this.renderTopbar()}
-                </View>
-            );
+        else {
+            this.ok = true;
         }
+
+        return (
+            <View style={$.contanier}>
+                <ScrollView
+                    removeClippedSubviews={true}
+                    overScrollMode='never'
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    onScroll={this.onScroll}
+                    >
+                    {this.renderHeader(data)}
+                    {this.renderColumn(data, contributed)}
+                    {this.renderBody(data)}
+                    {this.renderRecomm(data.meta)}
+                </ScrollView>
+
+                {this.renderTopbar()}
+            </View>
+        );
     }
 }
 
