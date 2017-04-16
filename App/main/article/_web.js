@@ -5,6 +5,7 @@ import {
     WebView,
     Text,
     Image,
+    ActivityIndicator,
 } from 'react-native';
 import {
     color,
@@ -116,6 +117,16 @@ export default class MyWebView extends Component {
     render() {
         return (
             <View style={$.contanier}>
+                {
+                    this.state.height === 0 &&
+                    <View style={$.loading}>
+                        <ActivityIndicator
+                            animating={true}
+                            size="small"
+                            color={color}
+                            />
+                    </View>
+                }
                 <WebView
                     domStorageEnabled={true}
                     javaScriptEnabled={true}
@@ -146,4 +157,9 @@ const $ = StyleSheet.create({
     contanier: {
         flex: 1,
     },
+    loading: {
+        height: 200,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });
