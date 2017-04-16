@@ -129,7 +129,7 @@ export default class MyWebView extends Component {
                             if (this.state.height === document.title) return;
 
                             this.setState({
-                                height: parseInt(document.title) + 50,
+                                height: parseInt(document.title) + 30,
                             }, () => {
                                 this.props.onLoad(document);
                             });

@@ -39,7 +39,7 @@ class Column extends BaseComponent {
         <Touch
             style={$.touch}
             activeOpacity={0.8}
-            onPress={_ => this.onOpen(i)}
+            onPress={_ => this.onOpen(i.slug)}
             >
             <View style={$.item}>
                 <View style={$.avatar}>
@@ -76,11 +76,11 @@ class Column extends BaseComponent {
         </Touch>
     );
 
-    onOpen = item => {
+    onOpen = column => {
         this.props.navigator.push({
             id: 2,
             name: 'Special',
-            data: { column: item.slug }
+            data: { column }
         });
     };
 

@@ -7,6 +7,7 @@ export const LOAD_ARTICLE_DATA_FAIL = 'LOAD_ARTICLE_DATA_FAIL';
 export const CLEAR_ARTICLE_DATA = 'CLEAR_ARTICLE_DATA';
 
 export const loadArticleData = (id) => (dispatch, getState) => {
+
     dispatch({ type: LOAD_ARTICLE_DATA_IN });
 
     return Api.articles(id).then(resArray => {

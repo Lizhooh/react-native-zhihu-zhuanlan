@@ -5,7 +5,6 @@ import {
     LOAD_SPECIAL_ABOUT_DATA_IN,
     LOAD_SPECIAL_ABOUT_DATA_SUCCESS,
     CLEAR_SPECIAL_DATA,
-    CLEAR_SPECIAL_ABOUT_DATA,
 } from './action';
 
 const INITSTATE = {
@@ -77,11 +76,6 @@ export default (state = INITSTATE, action) => {
         case CLEAR_SPECIAL_DATA: return {
             ...state,
             ...INITSTATE,
-        }
-
-        case CLEAR_SPECIAL_ABOUT_DATA: return {
-            ...state,
-            about: null,
         }
 
         default: return { ...state };

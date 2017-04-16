@@ -23,6 +23,7 @@ import {
 import MyWebView from './_web';
 import Column from './_column';
 import Header from './_header';
+import Recomm from './_recomm';
 
 class Article extends BaseComponent {
 
@@ -73,9 +74,7 @@ class Article extends BaseComponent {
     );
 
     renderRecomm = data => (
-        <View style={$.recomm}>
-
-        </View>
+        <Recomm data={data} onOpenArticle={this.onOpenArticle} />
     );
 
     onOpenAbout = column => {
@@ -84,19 +83,24 @@ class Article extends BaseComponent {
             this.props.navigator.push({
                 id: 3,
                 name: 'Special.About',
-                data: { column: column.slug }
+                data: { column }
             });
         }, 0);
     };
 
-    onOpenArticle = data => {
+    onOpenArticle = id => {
+        setTimeout(_ => {
+            this.props.navigator.push({
+                id: 1,
+                name: 'Article',
+                data: { id }
+            });
+        }, 0);
     };
 
     render() {
-        const props = this.props;
-        const article = props.article;
-        const data = article.data;
-        const contributed = article.contributed;
+        const article = this.props.article;
+        const { data, contributed } = article;
 
         if (article.startLoading || !data) {
             return (
@@ -127,7 +131,7 @@ class Article extends BaseComponent {
                         {this.renderHeader(data)}
                         {this.renderColumn(data, contributed)}
                         {this.renderBody(data)}
-                        {this.renderRecomm(data)}
+                        {this.renderRecomm(data.meta)}
                     </ScrollView>
 
                     {this.renderTopbar()}

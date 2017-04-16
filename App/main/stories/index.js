@@ -33,7 +33,7 @@ class Stories extends BaseComponent {
         <Touch
             style={{ overflow: 'hidden' }}
             activeOpacity={0.8}
-            onPress={_ => this.onOpenArticle(i)}
+            onPress={_ => this.onOpenArticle(i.slug)}
             >
             <View style={$.item}>
                 {
@@ -63,11 +63,11 @@ class Stories extends BaseComponent {
         </Touch>
     );
 
-    onOpenArticle = item => {
+    onOpenArticle = id => {
         this.props.navigator.push({
             id: 1,
             name: 'Article',
-            data: { id: item.url_token }
+            data: { id }
         });
     };
 

@@ -22,7 +22,7 @@ export default ({ data, cont, onOpenColumn }) => (
             <Touch
                 style={$.center}
                 activeOpacity={0.6}
-                onPress={_ => onOpenColumn(cont.sourceColumn)}
+                onPress={_ => onOpenColumn(cont.sourceColumn.slug)}
                 >
                 <Image
                     source={{ uri: data.author.avatar.image }}

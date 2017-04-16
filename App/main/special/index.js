@@ -137,7 +137,7 @@ class Special extends BaseComponent {
         <Touch
             style={list.item}
             activeOpacity={0.8}
-            onPress={_ => this.onOpenArticle(i)}
+            onPress={_ => this.onOpenArticle(i.slug)}
             >
             <View>{
                 !!i.titleImage &&
@@ -161,9 +161,9 @@ class Special extends BaseComponent {
                         <Text>{i.author.name}</Text>
                     </View>
                     <View style={list.bottomr}>
-                        <Icon name='thumb-up' color='#bbb' size={15} />
+                        <Icon name='thumb-up' color='#ccc' size={15} />
                         <Text style={list.span}>{`${i.likesCount}`}</Text>
-                        <Icon name='speaker-notes' color='#bbb' size={15} />
+                        <Icon name='speaker-notes' color='#ccc' size={15} />
                         <Text style={list.span}>{`${i.commentsCount}`}</Text>
                     </View>
                 </View>
@@ -171,11 +171,11 @@ class Special extends BaseComponent {
         </Touch>
     );
 
-    onOpenArticle = item => {
+    onOpenArticle = id => {
         this.props.navigator.push({
             id: 1,
             name: 'Article',
-            data: { id: item.slug }
+            data: { id }
         });
     }
 
@@ -185,16 +185,14 @@ class Special extends BaseComponent {
             this.props.navigator.push({
                 id: 3,
                 name: 'Special.About',
-                data: { column: column }
+                data: { column }
             });
         }, 0);
     }
 
     render() {
-        const props = this.props;
-        const special = props.special;
-        const data = special.data;
-        const list = special.list;
+        const special = this.props.special;
+        const { data, list } = special;
 
         if (special.startLoading && !data) {
             return (
@@ -380,5 +378,6 @@ const list = StyleSheet.create({
         marginRight: 5,
         top: -1,
         color: '#aaa',
+        fontSize: 13,
     }
 });

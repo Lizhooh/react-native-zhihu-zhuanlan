@@ -9,7 +9,6 @@ export const CLEAR_SPECIAL_DATA = 'CLEAR_SPECIAL_DATA';
 // 加载关于
 export const LOAD_SPECIAL_ABOUT_DATA_IN = 'LOAD_SPECIAL_ABOUT_DATA_IN';
 export const LOAD_SPECIAL_ABOUT_DATA_SUCCESS = 'LOAD_SPECIAL_ABOUT_DATA_SUCCESS';
-export const CLEAR_SPECIAL_ABOUT_DATA = 'CLEAR_SPECIAL_ABOUT_DATA';
 
 // 加载专栏信息
 export const loadSpecialData = (name) => (dispatch, getState) => {
@@ -55,6 +54,3 @@ export const loadSpecialAbloutData = (name) => (dispatch, getState) => {
     });
 }
 
-export const clearSpecialAboutData = () => ({
-    type: CLEAR_SPECIAL_ABOUT_DATA
-})
