@@ -27,7 +27,11 @@ import Recomm from './_recomm';
 
 class Article extends BaseComponent {
 
-    ok = false;
+    constructor(props) {
+        super(props);
+
+        this.ok = false;
+    }
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
@@ -75,8 +79,9 @@ class Article extends BaseComponent {
         <Column data={data} cont={cont} onOpenColumn={this.onOpenAbout} />
     );
 
-    renderRecomm = data => (
-        <Recomm data={data} onOpenArticle={this.onOpenArticle} />
+    renderRecomm = (data, recomm) => (
+        <Recomm data={data} recomm={recomm}
+            onOpenArticle={this.onOpenArticle} />
     );
 
     onOpenAbout = column => {
@@ -125,7 +130,8 @@ class Article extends BaseComponent {
         const {
             id,
             data,
-            contributed
+            contributed,
+            recomm,
         } = article.stack[article.stack.length - 1];
 
         if ((article.loading.status ||         // 网络请求中显示 loading
@@ -143,6 +149,7 @@ class Article extends BaseComponent {
         return (
             <View style={$.contanier}>
                 <ScrollView
+                    ref={s => this.scrollView = s}
                     removeClippedSubviews={true}
                     overScrollMode='never'
                     showsHorizontalScrollIndicator={false}
@@ -152,7 +159,7 @@ class Article extends BaseComponent {
                     {this.renderHeader(data)}
                     {this.renderColumn(data, contributed)}
                     {this.renderBody(data)}
-                    {this.renderRecomm(data.meta)}
+                    {this.renderRecomm(data.meta, recomm)}
                 </ScrollView>
 
                 {this.renderTopbar()}

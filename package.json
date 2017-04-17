@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "react": "16.0.0-alpha.6",
+    "react-addons-pure-render-mixin": "^15.5.2",
     "react-native": "0.43.0",
     "react-native-scrollable-tab-view": "^0.7.4",
     "react-native-uuid": "^1.4.9",

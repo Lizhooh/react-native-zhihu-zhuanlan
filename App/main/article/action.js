@@ -15,6 +15,7 @@ export const loadArticleData = (id) => (dispatch, getState) => {
             type: LOAD_ARTICLE_DATA_SUCCESS,
             data: resArray[0],
             contributed: resArray[1],
+            recomm: resArray[2],
             id: id,
         });
 

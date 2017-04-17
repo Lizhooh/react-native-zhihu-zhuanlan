@@ -9,6 +9,7 @@ const INITSTATE = {
     // id: 0,
     // data: null,             // 文章信息
     // contributed: null,      // 投稿信息
+    // recomm: null,           // 推荐
     stack: [],                 // 文章存放的栈
     loading: {
         status: true,
@@ -29,6 +30,7 @@ export default (state = INITSTATE, action) => {
                     data: action.data,
                     id: action.id,
                     contributed: action.contributed,
+                    recomm: action.recomm,
                 }
             ],
             loading: {
@@ -51,7 +53,7 @@ export default (state = INITSTATE, action) => {
                 ...state.loading,
                 status: false,
                 msg: '加载失败，请稍后刷新'
-            }
+            },
         }
 
         case CLEAR_ARTICLE_DATA: return {

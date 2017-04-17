@@ -19,7 +19,8 @@ const setAvatarImage = avatar => {
     }
 };
 
-export default ({data, onOpenArticle}) => {
+export default ({data, recomm, onOpenArticle}) => {
+
     const { previous, next } = data;
     const list = [previous, next].filter(i => !!i).map(i => {
         i.author.avatar = setAvatarImage(i.author.avatar);
@@ -57,14 +58,13 @@ export default ({data, onOpenArticle}) => {
         ));
     };
 
-    if (list.length === 0) return null;
-
     return (
         <View style={$.contanier}>
             <View style={$.header}>
                 <Text style={$.h2}>推荐阅读</Text>
             </View>
             {renderView(list)}
+            {renderView(recomm)}
         </View>
     );
 }

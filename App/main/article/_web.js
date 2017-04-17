@@ -114,6 +114,14 @@ export default class MyWebView extends Component {
         `;
     }
 
+    // 优化
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.html === nextProps.html &&
+            this.state.height > 0) return false;
+
+        return true;
+    }
+
     render() {
         return (
             <View style={$.contanier}>
@@ -139,11 +147,13 @@ export default class MyWebView extends Component {
                         if (document.title) {
                             if (this.state.height === document.title) return;
 
-                            this.setState({
-                                height: parseInt(document.title) + 30,
-                            }, () => {
-                                this.props.onLoad(document);
-                            });
+                            setTimeout(_ => {
+                                this.setState({
+                                    height: parseInt(document.title) + 30,
+                                }, _ => {
+                                    this.props.onLoad(document);
+                                });
+                            }, 50);
                         }
                         return false;
                     } }
@@ -156,9 +166,10 @@ export default class MyWebView extends Component {
 const $ = StyleSheet.create({
     contanier: {
         flex: 1,
+        minHeight: 300,
     },
     loading: {
-        height: 200,
+        height: 300,
         alignItems: 'center',
         justifyContent: 'center',
     }
