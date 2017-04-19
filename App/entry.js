@@ -16,6 +16,7 @@ import Special from './main/special';
 const component = {
     Main, Article, Special,
     'Special.About': Special.About,
+    'Article.Comment': Article.Comment,
 };
 
 // # 入口
@@ -37,16 +38,29 @@ class App extends Component {
         return true;
     };
 
+    // 大导航
     renderScene = (route, navigator) => {
         this.navigator = navigator;
         const Router = component[route.name];
         return <Router data={route.data} navigator={navigator} />
     };
 
+    /**
+     * 1    Article
+     * 11   Article.Comment
+     * 2    Special
+     * 21   Special.About
+     */
     configureScene = (route, navigator) => {
-        if (route.id === 2 || route.id === 3) {
+
+        if ([2, 21].includes(route.id)) {
             return Navigator.SceneConfigs.PushFromLeft;
         }
+
+        if ([11].includes(route.id)) {
+            return Navigator.SceneConfigs.FadeAndroid;
+        }
+
         return Navigator.SceneConfigs.FloatFromRight;
     };
 

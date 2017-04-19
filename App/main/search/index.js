@@ -8,6 +8,7 @@ import {
     TouchableOpacity as Touch,
     PixelRatio,
     FlatList,
+    InteractionManager,
 } from 'react-native';
 import {
     MaterialIcons as Icon,
@@ -37,8 +38,12 @@ class Search extends BaseComponent {
         this.y = 0;
     }
 
-    componentWillMount() {
-        this.props.loadSearchData(this.props.search.keys);
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(_ => {
+            setTimeout(_ => {
+                this.props.loadSearchData(this.props.search.keys);
+            });
+        });
     }
 
     componentWillReceiveProps(nextProps) {

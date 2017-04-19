@@ -24,10 +24,13 @@ import MyWebView from './_web';
 import Column from './_column';
 import Header from './_header';
 import Recomm from './_recomm';
+import Comment from './_comment';
 
 const last = (arr) => arr[arr.length - 1];
 
 class Article extends BaseComponent {
+
+    static Comment = Comment;
 
     constructor(props) {
         super(props);
@@ -69,10 +72,12 @@ class Article extends BaseComponent {
         // 打开文章里专栏介绍，禁止重新渲染此页面
         if (id === _id) return false;
 
+        // 打开评论时，禁止重新渲染此页面
+
         return true;
     }
 
-    renderTopbar = () => (
+    renderTopbar = data => (
         <View style={{ flex: 0 }}>
             <TabTopbar
                 iconName='arrow-back'
@@ -83,7 +88,19 @@ class Article extends BaseComponent {
                 iconPress={_ => {
                     this.props.navigator.pop();
                 } }
-                />
+                >
+
+                <View style={$.topbarRight}>
+                    <Icon style={$.span} name='share' color={color} size={26} />
+
+                    <Icon style={$.span} name='image-aspect-ratio' color={color} size={26} />
+                    <Text style={$.spanText}>{`${data && data.commentsCount || ''}`}</Text>
+
+                    <Icon style={$.span} name='favorite-border' color={color} size={26} />
+                    <Text style={$.spanText}>{`${data && data.likesCount || ''}`}</Text>
+                </View>
+
+            </TabTopbar>
         </View>
     );
 
@@ -111,7 +128,7 @@ class Article extends BaseComponent {
         // 异步调到，防止卡顿
         setTimeout(_ => {
             this.props.navigator.push({
-                id: 3,
+                id: 21,
                 name: 'Special.About',
                 data: { column }
             });
@@ -189,7 +206,7 @@ class Article extends BaseComponent {
                     {this.renderRecomm(data.meta, recomm)}
                 </ScrollView>
 
-                {this.renderTopbar()}
+                {this.renderTopbar(data)}
             </View>
         );
     }
@@ -210,5 +227,19 @@ const $ = StyleSheet.create({
     center: {
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    span: {
+        margin: 5,
+    },
+    spanText: {
+        color: color,
+        top: -1,
+    },
+    topbarRight: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingHorizontal: 15,
     }
 });

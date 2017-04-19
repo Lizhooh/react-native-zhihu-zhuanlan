@@ -110,7 +110,7 @@ class Special extends BaseComponent {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                // removeClippedSubviews={!true}
+                removeClippedSubviews={!true}
                 overScrollMode='never'
                 horizontal={true}
                 >
@@ -122,7 +122,7 @@ class Special extends BaseComponent {
                 {
                     data.postTopics
                         .sort((a, b) => b.postsCount - a.postsCount)
-                        .slice(0, 10)
+                        .slice(0, 8)
                         .map((i, index) => (
                             <Touch
                                 key={`body-${index}`}
@@ -199,7 +199,7 @@ class Special extends BaseComponent {
         // 异步调到，防止卡顿
         setTimeout(_ => {
             this.props.navigator.push({
-                id: 3,
+                id: 21,
                 name: 'Special.About',
                 data: { column }
             });

@@ -10,6 +10,7 @@ const INITSTATE = {
     // data: null,             // 文章信息
     // contributed: null,      // 投稿信息
     // recomm: null,           // 推荐
+    // comment: null           // 评论
     stack: [],                 // 文章存放的栈
     loading: {
         status: true,

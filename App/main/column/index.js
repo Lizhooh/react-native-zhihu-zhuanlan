@@ -9,6 +9,7 @@ import {
     TouchableOpacity as Touch,
     PixelRatio,
     Dimensions,
+    InteractionManager,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -23,15 +24,15 @@ import {
 
 class Column extends BaseComponent {
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
-        this.props.loadColumnData(
-            this.props.column.limit,
-            this.props.column.page,
-        );
+        InteractionManager.runAfterInteractions(_ => {
+            setTimeout(_ => {
+                this.props.loadColumnData(
+                    this.props.column.limit,
+                    this.props.column.page,
+                );
+            });
+        });
     }
 
     renderItem = ({item: i, index}) => (

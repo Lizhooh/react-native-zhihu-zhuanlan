@@ -8,6 +8,7 @@ import {
     TouchableOpacity as Touch,
     PixelRatio,
     FlatList,
+    InteractionManager,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -22,10 +23,14 @@ import {
 class Stories extends BaseComponent {
 
     componentDidMount() {
-        this.props.loadStoriesData(
-            this.props.stories.limit,
-            this.props.page,
-        );
+        InteractionManager.runAfterInteractions(_ => {
+            setTimeout(_ => {
+                this.props.loadStoriesData(
+                    this.props.stories.limit,
+                    this.props.page,
+                );
+            });
+        })
     }
 
     renderItem = ({item: i, index}) => (
