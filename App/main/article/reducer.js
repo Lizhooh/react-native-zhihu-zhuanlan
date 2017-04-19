@@ -10,7 +10,6 @@ const INITSTATE = {
     // data: null,             // 文章信息
     // contributed: null,      // 投稿信息
     // recomm: null,           // 推荐
-    // comment: null           // 评论
     stack: [],                 // 文章存放的栈
     loading: {
         status: true,
@@ -67,6 +66,6 @@ export default (state = INITSTATE, action) => {
             stack: state.stack.splice(0, state.stack.length - 1),
         }
 
-        default: return { ...state };
+        default: return state;
     }
 }

@@ -78,6 +78,6 @@ export default (state = INITSTATE, action) => {
             ...INITSTATE,
         }
 
-        default: return { ...state };
+        default: return state;
     }
 }

@@ -53,12 +53,8 @@ class App extends Component {
      */
     configureScene = (route, navigator) => {
 
-        if ([2, 21].includes(route.id)) {
+        if ([2, 21, 11].includes(route.id)) {
             return Navigator.SceneConfigs.PushFromLeft;
-        }
-
-        if ([11].includes(route.id)) {
-            return Navigator.SceneConfigs.FadeAndroid;
         }
 
         return Navigator.SceneConfigs.FloatFromRight;

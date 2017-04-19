@@ -102,7 +102,6 @@ class Stories extends BaseComponent {
                         data={stories.data}
                         renderItem={this.renderItem}
                         removeClippedSubviews={true}
-
                         />
                 </ScrollView>
 

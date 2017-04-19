@@ -236,7 +236,7 @@ class Special extends BaseComponent {
                         removeClippedSubviews={!true}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
-                        onScroll={this.onScroll}
+                        // onScroll={this.onScroll}
                         >
                         {this.renderHeader(data)}
                         {this.renderBody(data)}

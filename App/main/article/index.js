@@ -72,12 +72,10 @@ class Article extends BaseComponent {
         // 打开文章里专栏介绍，禁止重新渲染此页面
         if (id === _id) return false;
 
-        // 打开评论时，禁止重新渲染此页面
-
         return true;
     }
 
-    renderTopbar = data => (
+    renderTopbar = ({commentsCount = 0, likesCount = 0} = {}, id) => (
         <View style={{ flex: 0 }}>
             <TabTopbar
                 iconName='arrow-back'
@@ -89,17 +87,23 @@ class Article extends BaseComponent {
                     this.props.navigator.pop();
                 } }
                 >
-
                 <View style={$.topbarRight}>
-                    <Icon style={$.span} name='share' color={color} size={26} />
+                    <Touch style={$.row} activeOpacity={0.6}
+                        onPress={_ => this.onOpenComment(id)}
+                        >
+                        <Icon style={$.span} name='image-aspect-ratio' color={color} size={26} />
+                        <Text style={$.spanText}>{`${commentsCount}`}</Text>
+                    </Touch>
 
-                    <Icon style={$.span} name='image-aspect-ratio' color={color} size={26} />
-                    <Text style={$.spanText}>{`${data && data.commentsCount || ''}`}</Text>
+                    <Touch style={$.row} activeOpacity={0.6}>
+                        <Icon style={$.span} name='favorite-border' color={color} size={26} />
+                        <Text style={$.spanText}>{`${likesCount}`}</Text>
+                    </Touch>
 
-                    <Icon style={$.span} name='favorite-border' color={color} size={26} />
-                    <Text style={$.spanText}>{`${data && data.likesCount || ''}`}</Text>
+                    <Touch style={$.row} activeOpacity={0.6}>
+                        <Icon style={$.span} name='share' color={color} size={26} />
+                    </Touch>
                 </View>
-
             </TabTopbar>
         </View>
     );
@@ -142,7 +146,17 @@ class Article extends BaseComponent {
                 name: 'Article',
                 data: { id }
             });
-        }, 0);
+        });
+    };
+
+    onOpenComment = id => {
+        setTimeout(_ => {
+            this.props.navigator.push({
+                id: 11,
+                name: 'Article.Comment',
+                data: { id }
+            });
+        });
     };
 
     render() {
@@ -206,7 +220,7 @@ class Article extends BaseComponent {
                     {this.renderRecomm(data.meta, recomm)}
                 </ScrollView>
 
-                {this.renderTopbar(data)}
+                {this.renderTopbar(data, id)}
             </View>
         );
     }
@@ -229,7 +243,7 @@ const $ = StyleSheet.create({
         alignItems: 'center',
     },
     span: {
-        margin: 5,
+        margin: 4,
     },
     spanText: {
         color: color,
@@ -240,6 +254,12 @@ const $ = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         justifyContent: 'flex-end',
-        paddingHorizontal: 15,
+        paddingHorizontal: 8,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 8,
+        height: 50,
     }
 });
