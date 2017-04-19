@@ -43,6 +43,22 @@ class Special extends BaseComponent {
         });
     }
 
+    // 渲染优化
+    shouldComponentUpdate(nextProps, nextState) {
+        if(this.state.opacity !== nextState.opacity) return true;
+
+        const special = this.props.special;
+        const _special = nextProps.special;
+
+        if(special.loading.status === true) return true;
+        if(special.list.length != _special.list.length) return true;
+
+        // 打开专栏介绍，禁止重新渲染此页面
+        if(special.name === _special.name) return false;
+
+        return true;
+    }
+
     renderTopbar = () => (
         <View style={{ flex: 0 }}>
             <TabTopbar
@@ -209,6 +225,8 @@ class Special extends BaseComponent {
                 </View>
             );
         }
+
+        console.warn("+");
 
         if (data) {
             return (

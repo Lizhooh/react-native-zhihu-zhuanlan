@@ -114,7 +114,7 @@ export default class MyWebView extends Component {
         `;
     }
 
-    // 优化
+    // 渲染优化
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.html === nextProps.html &&
             this.state.height > 0) return false;

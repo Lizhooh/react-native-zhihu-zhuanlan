@@ -25,12 +25,15 @@ import Column from './_column';
 import Header from './_header';
 import Recomm from './_recomm';
 
+const last = (arr) => arr[arr.length - 1];
+
 class Article extends BaseComponent {
 
     constructor(props) {
         super(props);
 
-        this.ok = false;
+        this.ok = false;     // 用来标志着是否已成功渲染过数据
+        this.cacheId = null; // 缓存数据
     }
 
     componentDidMount() {
@@ -47,6 +50,26 @@ class Article extends BaseComponent {
                 this.props.clearArticleData();
             }, 30);
         });
+    }
+
+    // 渲染优化
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.article.loading.status === true) return true;
+
+        const stack = this.props.article.stack;
+        const _stack = nextProps.article.stack;
+        const id = last(stack) && last(stack).id;
+        const _id = last(_stack) && last(_stack).id;
+
+        if (this.state.opacity !== nextState.opacity) return true;
+
+        // 解决多个文章页面存在时，会渲染不在栈顶的文章页面的问题
+        if (!!this.cacheId && this.cacheId !== _id) return false;
+
+        // 打开文章里专栏介绍，禁止重新渲染此页面
+        if (id === _id) return false;
+
+        return true;
     }
 
     renderTopbar = () => (
@@ -107,6 +130,8 @@ class Article extends BaseComponent {
 
     render() {
         const article = this.props.article;
+        const stack = article.stack;
+        const _id = this.props.data.id;
 
         const LoadingCompoent = (
             <View style={$.contanier}>
@@ -120,10 +145,10 @@ class Article extends BaseComponent {
                 </View>
                 {this.renderTopbar()}
             </View>
-        )
+        );
 
         // 栈空
-        if (article.stack.length === 0) {
+        if (stack.length === 0) {
             return LoadingCompoent;
         }
 
@@ -132,17 +157,19 @@ class Article extends BaseComponent {
             data,
             contributed,
             recomm,
-        } = article.stack[article.stack.length - 1];
+        } = last(stack);
 
-        if ((article.loading.status ||         // 网络请求中显示 loading
-            !data ||                           // 空数据，显示 loading
-            id !== this.props.data.id) &&      // 缓存的数据，文章id不同时显示 loading
-            !this.ok                           // 首次加载状态
-        ) {
+        // 网络请求中显示 loading，网络请求发生在导航动画完成后
+        // 空数据，显示 loading
+        // 首次加载状态 ok = false
+        if ((article.loading.status || !data || id !== _id) && !this.ok) {
             return LoadingCompoent;
         }
         else {
+            // 首次加载完成
             this.ok = true;
+            // 缓存当前 ID
+            this.cacheId = id;
         }
 
         // 输出
