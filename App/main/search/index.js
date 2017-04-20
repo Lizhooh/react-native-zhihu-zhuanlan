@@ -29,11 +29,6 @@ class Search extends BaseComponent {
     constructor(props) {
         super(props);
 
-        this.htmlStyle = {
-            em: { color: color },
-            b: { color: color }
-        };
-
         this.loading = false;
         this.y = 0;
     }
@@ -87,6 +82,8 @@ class Search extends BaseComponent {
 
     // bug 重复触发 loadMoreSearchData
     onScroll = event => {
+        if(this.loading) return;
+
         const props = this.props;
         const search = props.search;
         const status = search.loading.status;
@@ -95,8 +92,10 @@ class Search extends BaseComponent {
             contentOffset: { y }
         } = event.nativeEvent;
 
+        // 加上设备的高度
         const Height = devicewindow.height - 125 + y;
 
+        // 30 是范围
         if (Height >= height - 30 && Height <= height && !status && !this.loading) {
             this.loading = true;
             props.loadMoreSearchData(search.keys, search.page);

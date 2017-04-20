@@ -9,6 +9,7 @@ import {
     InteractionManager,
     FlatList,
     ActivityIndicator,
+    ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -16,6 +17,7 @@ import {
     MaterialIcons as Icon,
     color,
     onePixel,
+    devicewindow,
 } from '../../common';
 
 class Comment extends Component {
@@ -29,6 +31,14 @@ class Comment extends Component {
                 );
             });
         });
+
+        this.loading = false;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.comment.loadingMore) {
+            this.loading = false;
+        }
     }
 
     renderTopbar = () => (
@@ -48,7 +58,7 @@ class Comment extends Component {
                 <Image source={{ uri: i.author.avatar.image }} style={$.avatar} />
             </View>
             <View style={$.right}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={$.row}>
                     <Text style={$.name}>{i.author.name}</Text>
 
                     <View style={$.likes}>
@@ -57,9 +67,38 @@ class Comment extends Component {
                     </View>
                 </View>
                 <Text style={$.content}>{i.content.replace(/<[^>]+>/gi, '')}</Text>
+
+                {
+                    // !!i.inReplyToUser &&
+                    // <View style={$.row}>
+                    //     <Text>回复：</Text>
+                    //     <Image source={{ uri: i.inReplyToUser.image }}
+                    //         style={{ height: 25, width: 25 }} />
+                    // </View>
+                }
             </View>
         </Touch>
     );
+
+    onScroll = event => {
+        if (this.loading) return;
+
+        const {
+            contentSize: { height },        // 内容高度
+            contentOffset: { y }            // 偏移量
+        } = event.nativeEvent;
+
+        const loadingMore = this.props.comment.loadingMore;
+
+        // 加上设备的高度
+        const Height = devicewindow.height - 70 + y;
+
+        // 30 是范围
+        if (Height >= height - 30 && Height <= height && !loadingMore && !this.loading) {
+            this.loading = true;
+            this.props.loadMoreCommentData();
+        }
+    }
 
     render() {
         const comment = this.props.comment;
@@ -90,6 +129,7 @@ class Comment extends Component {
                     showsHorizontalScrollIndicator={false}
                     removeClippedSubviews={true}
                     overScrollMode='never'
+                    onScroll={this.onScroll}
                     >
                     <FlatList
                         style={$.flatlist}
@@ -99,7 +139,15 @@ class Comment extends Component {
                         renderItem={this.renderItem}
                         removeClippedSubviews={true}
                         />
-                    <View style={$.footer} >
+                    <View style={$.footer}>
+                        {
+                            msg === '加载中' &&
+                            <ActivityIndicator
+                                animating={true}
+                                size="small"
+                                color={color}
+                                />
+                        }
                         <Text>{msg}</Text>
                     </View>
                 </ScrollView>
@@ -135,9 +183,14 @@ const $ = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'row',
     },
     flatlist: {
         backgroundColor: '#f6f6f6',
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     avatar: {
         width: 50,

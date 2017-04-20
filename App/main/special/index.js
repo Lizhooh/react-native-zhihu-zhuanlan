@@ -177,10 +177,10 @@ class Special extends BaseComponent {
                         <Text>{i.author.name}</Text>
                     </View>
                     <View style={list.bottomr}>
-                        <Icon name='thumb-up' color='#ccc' size={15} />
-                        <Text style={list.span}>{`${i.likesCount}`}</Text>
-                        <Icon name='speaker-notes' color='#ccc' size={15} />
+                        <Icon name='favorite-border' color={color} size={15} />
                         <Text style={list.span}>{`${i.commentsCount}`}</Text>
+                        <Icon name='speaker-notes' color={color} size={15} />
+                        <Text style={list.span}>{`${i.likesCount}`}</Text>
                     </View>
                 </View>
             </View>
@@ -395,7 +395,7 @@ const list = StyleSheet.create({
         marginHorizontal: 3,
         marginRight: 5,
         top: -1,
-        color: '#aaa',
+        color: color,
         fontSize: 13,
     }
 });
