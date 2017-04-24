@@ -66,16 +66,19 @@ class Comment extends Component {
                         <Text style={$.like}>{`${i.likesCount}`}</Text>
                     </View>
                 </View>
-                <Text style={$.content}>{i.content.replace(/<[^>]+>/gi, '')}</Text>
 
                 {
-                    // !!i.inReplyToUser &&
-                    // <View style={$.row}>
-                    //     <Text>回复：</Text>
-                    //     <Image source={{ uri: i.inReplyToUser.image }}
-                    //         style={{ height: 25, width: 25 }} />
-                    // </View>
+                    !!i.inReplyToUser &&
+                    <View style={[$.row, { padding: 5, flex: 1 }]}>
+                        <Text style={{ fontWeight: 'bold', color: '#444' }}>回复：</Text>
+                        <Image
+                            source={{ uri: i.inReplyToUser.avatar.image }}
+                            style={$.minAvatar} />
+                        <Text>  {i.inReplyToUser.name}</Text>
+                    </View>
                 }
+
+                <Text style={$.content}>{i.content.replace(/<[^>]+>/gi, '')}</Text>
             </View>
         </Touch>
     );
@@ -91,7 +94,7 @@ class Comment extends Component {
         const loadingMore = this.props.comment.loadingMore;
 
         // 加上设备的高度
-        const Height = devicewindow.height - 70 + y;
+        const Height = devicewindow.height - 75 + y;
 
         // 30 是范围
         if (Height >= height - 30 && Height <= height && !loadingMore && !this.loading) {
@@ -196,6 +199,11 @@ const $ = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 50,
+    },
+    minAvatar: {
+        height: 20,
+        width: 20,
+        borderRadius: 20
     },
     item: {
         backgroundColor: '#fff',

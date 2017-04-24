@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
@@ -7,83 +7,125 @@ import {
     TouchableOpacity as Touch,
     ScrollView,
     PixelRatio,
+    DrawerLayoutAndroid,
+    DrawerConsts,
 } from 'react-native';
-import { MaterialIcons as Icon } from '../common';
+import { connect } from 'react-redux';
+import * as actions from './action';
+import {
+    MaterialIcons as Icon,
+    devicewindow,
+    color,
+} from '../common';
 
 const avatar = require('./img/avatar.jpg');
+const { listone, listtwo } = require('./config.json');
 
-const listone = [
-    { name: 'favorite', title: '我喜欢', text: '0篇', color: '#3b3' },
-    { name: 'star', title: '收藏集', text: '0个', color: '#39f' },
-    { name: 'loyalty', title: '关注集', text: '0个', color: '#f44' },
-    { name: 'remove-red-eye', title: '阅读过的文章', text: '0篇', color: '#f90' },
-];
+import Setting from './_setting';
 
-const listtwo = [
-    { name: 'assignment-late', title: '意见反馈', text: null, color: '#bbb' },
-    { name: 'settings', title: '设置', text: null, color: '#bbb' },
-];
+class User extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-export default User = () => (
-    <ScrollView
-        style={$.contanier}
-        overScrollMode='never'
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        >
-
-        <View style={$.header}>
-            <Image source={avatar} style={$.full} />
+    renderTopbar = () => (
+        <View style={$.topbar}>
+            <Touch
+                activeOpacity={0.8}
+                onPress={_ => this.drawer.closeDrawer()}
+                >
+                <Icon name={'arrow-back'} size={28} color={color} />
+            </Touch>
         </View>
+    );
 
-        <View style={$.list}>{
-            listone.map((i, index) => (
-                <Touch
-                    activeOpacity={0.8}
-                    style={$.item}
-                    key={`user-list-${index}`}
+    renderNavigationView = (index) => (
+        <View style={$.setting}>
+            {this.renderTopbar()}
+            <Setting />
+        </View>
+    );
+
+    render() {
+        return (
+            <DrawerLayoutAndroid
+                ref={drawer => this.drawer = drawer}
+                drawerWidth={devicewindow.width}
+                drawerPosition={DrawerLayoutAndroid.positions.Right}
+                renderNavigationView={this.renderNavigationView}
+                drawerLockMode={'locked-closed'}
+                keyboardDismissMode='on-drag'
+                >
+                <ScrollView
+                    style={$.contanier}
+                    overScrollMode='never'
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                     >
-                    <Icon
-                        style={$.icon}
-                        name={i.name}
-                        color={i.color}
-                        size={26}
-                        />
-                    <Text style={$.mid}>
-                        {i.title}
-                    </Text>
-                    <Text style={$.text}>
-                        {i.text}
-                    </Text>
-                </Touch>
-            ))
-        }</View>
 
-        <View style={[$.list, { marginTop: 0 }]}>{
-            listtwo.map((i, index) => (
-                <Touch
-                    activeOpacity={0.8}
-                    style={$.item}
-                    key={`user-list-${index}`}
-                    >
-                    <Icon
-                        style={$.icon}
-                        name={i.name}
-                        color={i.color}
-                        size={26}
-                        />
-                    <Text style={$.mid}>
-                        {i.title}
-                    </Text>
-                    <Text style={$.text}>
-                        {i.text}
-                    </Text>
-                </Touch>
-            ))
-        }</View>
+                    <View style={$.header}>
+                        <Image source={avatar} style={$.full} />
+                    </View>
 
-    </ScrollView>
-);
+                    <View style={$.list}>{
+                        listone.map((i, index) => (
+                            <Touch
+                                activeOpacity={0.8}
+                                style={$.item}
+                                key={`user-list-${index}`}
+                                >
+                                <Icon
+                                    style={$.icon}
+                                    name={i.name}
+                                    color={i.color}
+                                    size={26}
+                                    />
+                                <Text style={$.mid}>
+                                    {i.title}
+                                </Text>
+                                <Text style={$.text}>
+                                    {i.text}
+                                </Text>
+                            </Touch>
+                        ))
+                    }</View>
+
+                    {/* 反馈与设置 */}
+                    <View style={[$.list, { marginTop: 0 }]}>{
+                        listtwo.map((i, index) => (
+                            <Touch
+                                activeOpacity={0.8}
+                                style={$.item}
+                                key={`user-list-${index}`}
+                                onPress={_ => index === 1 && this.drawer.openDrawer(index)}
+                                >
+                                <Icon
+                                    style={$.icon}
+                                    name={i.name}
+                                    color={i.color}
+                                    size={26}
+                                    />
+                                <Text style={$.mid}>
+                                    {i.title}
+                                </Text>
+                                <Text style={$.text}>
+                                    {i.text}
+                                </Text>
+                            </Touch>
+                        ))
+                    }</View>
+
+                </ScrollView>
+            </DrawerLayoutAndroid>
+        );
+    }
+
+}
+
+export default connect(
+    state => ({}),
+    actions,
+)(User);
 
 const $ = StyleSheet.create({
     contanier: {
@@ -125,5 +167,16 @@ const $ = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 20,
         color: 'rgba(1, 1, 1, 0.4)',
+    },
+    topbar: {
+        height: 50,
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+    },
+    setting: {
+        backgroundColor: '#f6f6f6',
+        flex: 1,
     }
 });

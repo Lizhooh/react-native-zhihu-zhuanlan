@@ -178,9 +178,9 @@ class Special extends BaseComponent {
                     </View>
                     <View style={list.bottomr}>
                         <Icon name='favorite-border' color={color} size={15} />
-                        <Text style={list.span}>{`${i.commentsCount}`}</Text>
-                        <Icon name='speaker-notes' color={color} size={15} />
                         <Text style={list.span}>{`${i.likesCount}`}</Text>
+                        <Icon name='speaker-notes' color={color} size={15} />
+                        <Text style={list.span}>{`${i.commentsCount}`}</Text>
                     </View>
                 </View>
             </View>

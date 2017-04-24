@@ -16,7 +16,7 @@ const INITSTATE = {
     loading: false,
     loadingMore: false,
     msg: '',
-    limit: 20,
+    limit: 10,
 }
 
 export default (state = INITSTATE, action) => {

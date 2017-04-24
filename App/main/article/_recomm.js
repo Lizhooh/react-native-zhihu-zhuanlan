@@ -30,7 +30,7 @@ export default ({data, recomm, onOpenArticle}) => {
     const renderView = list => {
         return list.map((i, index) => (
             <Touch
-                style={[$.item, index == 0 && { marginTop: 0 }]}
+                style={$.item}
                 key={`recomn-${index}`}
                 activeOpacity={0.8}
                 onPress={_ => onOpenArticle(i.slug)}
@@ -54,6 +54,7 @@ export default ({data, recomm, onOpenArticle}) => {
                         </Text>
                     </View>
                 </View>
+
             </Touch>
         ));
     };

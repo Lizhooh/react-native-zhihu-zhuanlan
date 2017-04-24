@@ -54,8 +54,16 @@ export default class MyWebView extends Component {
             });
 
             window.addEventListener('load', function(event) {
-                window.location.hash = 1;
-                document.title = document.body.clientHeight;
+                (function __isComplete() {
+                    if (document.readyState == "complete" &&
+                        document.documentElement.offsetWidth > 0) {
+                        window.location.hash = 1;
+                        document.title = document.body.clientHeight;
+                    }
+                    else {
+                        setTimeout(__isComplete, 50);
+                    }
+                })();
             });
         `;
     }

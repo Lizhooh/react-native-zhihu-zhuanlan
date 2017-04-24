@@ -21,7 +21,7 @@ export default class Main extends Component {
         return (
             <View style={styles.contanier}>
                 <ScrollableTabView
-                    initialPage={2}
+                    initialPage={3}
                     locked={true}
                     renderTabBar={() => (
                         <TabsBar

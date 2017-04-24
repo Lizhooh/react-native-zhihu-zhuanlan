@@ -20,6 +20,7 @@ import _FontAwesome from 'react-native-vector-icons/FontAwesome';
 export const MaterialIcons = _MaterialIcons;
 export const FontAwesome = _FontAwesome;
 export const color = 'rgba(255, 180, 50, 1)';
+// export const color = 'rgba(30, 155, 255, 1)';
 export const devicewindow = Dimensions.get('window');
 export const onePixel = 1 / PixelRatio.get();
 
