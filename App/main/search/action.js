@@ -1,21 +1,21 @@
-import * as Api from '../../api';
+import * as api from '../../api';
 
-export const LOAD_SEARCH_DATA_SUCCESS = 'LOAD_SEARCH_DATA_SUCCESS';
-export const LOAD_SEARCH_DATA_IN = 'LOAD_SEARCH_DATA_IN';
-export const LOAD_SEARCH_DATA_FAIL = 'LOAD_SEARCH_DATA_FAIL';
-export const LOAD_MORE_SEARCH_DATA_SUCCESS = 'LOAD_MORE_SEARCH_DATA_SUCCESS';
+export const loading_search_success = 'loading_search_success';
+export const loading_search_in = 'loading_search_in';
+export const loading_search_fail = 'loading_search_fail';
+export const loading_more_search_success = 'loading_more_search_success';
 
 let time = 0;
 
 // # 加载搜索数据
-export const loadSearchData = (keys = '', page = 0) => (dispatch, getState) => {
-    dispatch({ type: LOAD_SEARCH_DATA_IN });
+export const loadSearchData = (keys = '', page = 0) => (dispatch, getstate) => {
+    dispatch({ type: loading_search_in });
 
-    return Api.searchBind(keys, page).then(res => {
+    return api.searchBind(keys, page).then(res => {
         if (res.data.length === 0) return Promise.reject({ msg: '没有更多结果了' });
 
         dispatch({
-            type: LOAD_SEARCH_DATA_SUCCESS,
+            type: loading_search_success,
             data: res.data,
             count: res.count,
             keys: keys,
@@ -24,27 +24,27 @@ export const loadSearchData = (keys = '', page = 0) => (dispatch, getState) => {
 
     }).catch(err => {
         dispatch({
-            type: LOAD_SEARCH_DATA_FAIL,
+            type: loading_search_fail,
             status: true,
             msg: err.msg || '加载失败',
         });
 
-        time = setTimeout(function () {
-            clearTimeout(time);
-            dispatch({ type: LOAD_SEARCH_DATA_FAIL, status: false });
+        time = settimeout(function () {
+            cleartimeout(time);
+            dispatch({ type: loading_search_fail, status: false });
         }, 1000 * 4);
     });
 }
 
 // # 加载更多
-export const loadMoreSearchData = (keys = '', page = 0) => (dispatch, getState) => {
-    dispatch({ type: LOAD_SEARCH_DATA_IN });
+export const loadMoreSearchData = (keys = '', page = 0) => (dispatch, getstate) => {
+    dispatch({ type: loading_search_in });
 
-    return Api.searchBind(keys, page).then(res => {
+    return api.searchbind(keys, page).then(res => {
         if (res.data.length === 0) return Promise.reject({ msg: '没有更多结果了' });
 
         dispatch({
-            type: LOAD_MORE_SEARCH_DATA_SUCCESS,
+            type: loading_more_search_success,
             data: res.data,
             keys: keys,
             page: page + 1,
@@ -52,14 +52,14 @@ export const loadMoreSearchData = (keys = '', page = 0) => (dispatch, getState) 
 
     }).catch(err => {
         dispatch({
-            type: LOAD_SEARCH_DATA_FAIL,
+            type: loading_search_fail,
             status: true,
             msg: err.msg || '加载失败',
         });
 
-        time = setTimeout(function () {
-            clearTimeout(time);
-            dispatch({ type: LOAD_SEARCH_DATA_FAIL, status: false });
+        time = settimeout(function () {
+            cleartimeout(time);
+            dispatch({ type: loading_search_fail, status: false });
         }, 1000 * 4);
     });
 }

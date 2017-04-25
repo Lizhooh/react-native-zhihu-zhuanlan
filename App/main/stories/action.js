@@ -1,26 +1,26 @@
-import * as Api from '../../api';
+import * as api from '../../api';
 
-export const LOAD_STORIES_DATA_SUCCESS = 'LOAD_STORIES_DATA_SUCCESS';
-export const LOAD_STORIES_DATA_IN = 'LOAD_STORIES_DATA_IN';
-export const LOAD_STORIES_DATA_FAIL = 'LOAD_STORIES_DATA_FAIL';
+export const loading_stories_success = 'loading_stories_success';
+export const loading_stories_in = 'loading_stories_in';
+export const loading_stories_fail = 'loading_stories_fail';
 
 // # 加载发现文章数据
-export const loadStoriesData = (limit = 10, page = 0) => (dispatch, getState) => {
+export const loadStoriesData = (limit = 10, page = 0) => (dispatch, getstate) => {
 
-    dispatch({ type: LOAD_STORIES_DATA_IN });
+    dispatch({ type: loading_stories_in });
 
-    return Api.storiess(limit, page).then(data => {
+    return api.storiess(limit, page).then(data => {
         dispatch({
-            type: LOAD_STORIES_DATA_SUCCESS,
+            type: loading_stories_success,
             data: data,
             page: page + 1,
         });
 
     }).catch(err => {
-        dispatch({ type: LOAD_STORIES_DATA_FAIL, status: true });
+        dispatch({ type: loading_stories_fail, status: true });
 
-        setTimeout(_ => {
-            dispatch({ type: LOAD_STORIES_DATA_FAIL, status: false });
+        settimeout(_ => {
+            dispatch({ type: loading_stories_fail, status: false });
         }, 3000);
     });
 }

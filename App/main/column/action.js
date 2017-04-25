@@ -1,26 +1,26 @@
-import * as Api from '../../api';
+import * as api from '../../api';
 
-export const LOAD_COLUMN_DATA_SUCCESS = 'LOAD_COLUMN_DATA_SUCCESS';
-export const LOAD_COLUMN_DATA_IN      = 'LOAD_COLUMN_DATA_IN';
-export const LOAD_COLUMN_DATA_FAIL    = 'LOAD_COLUMN_DATA_FAIL';
+export const loading_column_success = 'loading_column_success';
+export const loading_column_in      = 'loading_column_in';
+export const loading_column_fail    = 'loading_column_fail';
 
 // # 加载发现专栏数据
-export const loadColumnData = (limit = 20, page = 0) => (dispatch, getState) => {
+export const loadColumnData = (limit = 20, page = 0) => (dispatch, getstate) => {
 
-    dispatch({ type: LOAD_COLUMN_DATA_IN });
+    dispatch({ type: loading_column_in });
 
-    return Api.columns(limit, page).then(data => {
+    return api.columns(limit, page).then(data => {
         dispatch({
-            type: LOAD_COLUMN_DATA_SUCCESS,
+            type: loading_column_success,
             data: data,
             page: page + 1,
         });
 
     }).catch(err => {
-        dispatch({ type: LOAD_COLUMN_DATA_FAIL, status: true });
+        dispatch({ type: loading_column_fail, status: true });
 
-        setTimeout(_ => {
-            dispatch({ type: LOAD_COLUMN_DATA_FAIL, status: false });
+        settimeout(_ => {
+            dispatch({ type: loading_column_fail, status: false });
         }, 3000);
     });
 }

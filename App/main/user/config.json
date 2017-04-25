@@ -27,12 +27,6 @@
     ],
     "listtwo": [
         {
-            "name": "assignment-late",
-            "title": "意见反馈",
-            "text": null,
-            "color": "#bbb"
-        },
-        {
             "name": "settings",
             "title": "设置",
             "text": null,

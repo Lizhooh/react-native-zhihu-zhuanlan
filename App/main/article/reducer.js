@@ -1,11 +1,11 @@
 import {
-    LOAD_ARTICLE_DATA_IN,
-    LOAD_ARTICLE_DATA_SUCCESS,
-    LOAD_ARTICLE_DATA_FAIL,
-    CLEAR_ARTICLE_DATA,
+    loading_article_in,
+    loading_article_success,
+    loading_article_fail,
+    clear_article_data,
 } from './action';
 
-const INITSTATE = {
+const initstate = {
     // id: 0,
     // data: null,             // 文章信息
     // contributed: null,      // 投稿信息
@@ -17,11 +17,11 @@ const INITSTATE = {
     },
 }
 
-export default (state = INITSTATE, action) => {
+export default (state = initstate, action) => {
 
     switch (action.type) {
 
-        case LOAD_ARTICLE_DATA_SUCCESS: return {
+        case loading_article_success: return {
             ...state,
             // 入栈
             stack: [
@@ -39,7 +39,7 @@ export default (state = INITSTATE, action) => {
             },
         }
 
-        case LOAD_ARTICLE_DATA_IN: return {
+        case loading_article_in: return {
             ...state,
             loading: {
                 ...state.loading,
@@ -47,7 +47,7 @@ export default (state = INITSTATE, action) => {
             }
         }
 
-        case LOAD_ARTICLE_DATA_FAIL: return {
+        case loading_article_fail: return {
             ...state,
             loading: {
                 ...state.loading,
@@ -56,7 +56,7 @@ export default (state = INITSTATE, action) => {
             },
         }
 
-        case CLEAR_ARTICLE_DATA: return {
+        case clear_article_data: return {
             ...state,
             loading: {
                 status: true,

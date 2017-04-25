@@ -1,13 +1,13 @@
 import {
-    LOAD_SPECIAL_DATA_IN,
-    LOAD_SPECIAL_DATA_SUCCESS,
-    LOAD_SPECIAL_DATA_FAIL,
-    LOAD_SPECIAL_ABOUT_DATA_IN,
-    LOAD_SPECIAL_ABOUT_DATA_SUCCESS,
-    CLEAR_SPECIAL_DATA,
+    loading_special_in,
+    loading_special_success,
+    loading_special_fail,
+    loading_special_about_in,
+    loading_special_about_success,
+    clear_special_data,
 } from './action';
 
-const INITSTATE = {
+const initstate = {
     name: '',
     aboutName: '',
     data: null,     // 专栏信息
@@ -21,11 +21,11 @@ const INITSTATE = {
     },
 }
 
-export default (state = INITSTATE, action) => {
+export default (state = initstate, action) => {
 
     switch (action.type) {
 
-        case LOAD_SPECIAL_DATA_SUCCESS: return {
+        case loading_special_success: return {
             ...state,
             data: action.data,
             name: action.name,
@@ -37,7 +37,7 @@ export default (state = INITSTATE, action) => {
             },
         }
 
-        case LOAD_SPECIAL_ABOUT_DATA_SUCCESS: return {
+        case loading_special_about_success: return {
             ...state,
             loading: {
                 status: false,
@@ -47,7 +47,7 @@ export default (state = INITSTATE, action) => {
             aboutName: action.name,
         }
 
-        case LOAD_SPECIAL_DATA_IN: return {
+        case loading_special_in: return {
             ...state,
             aboutName: 0,
             loading: {
@@ -56,7 +56,7 @@ export default (state = INITSTATE, action) => {
             }
         }
 
-        case LOAD_SPECIAL_ABOUT_DATA_IN: return {
+        case loading_special_about_in: return {
             ...state,
             loading: {
                 ...state.loading,
@@ -64,7 +64,7 @@ export default (state = INITSTATE, action) => {
             }
         }
 
-        case LOAD_SPECIAL_DATA_FAIL: return {
+        case loading_special_fail: return {
             ...state,
             loading: {
                 ...state.loading,
@@ -73,9 +73,9 @@ export default (state = INITSTATE, action) => {
             }
         }
 
-        case CLEAR_SPECIAL_DATA: return {
+        case clear_special_data: return {
             ...state,
-            ...INITSTATE,
+            ...initstate,
         }
 
         default: return state;

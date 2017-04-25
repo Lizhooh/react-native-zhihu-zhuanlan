@@ -1,10 +1,10 @@
 import {
-    LOAD_COLUMN_DATA_IN,
-    LOAD_COLUMN_DATA_SUCCESS,
-    LOAD_COLUMN_DATA_FAIL,
+    loading_column_in,
+    loading_column_success,
+    loading_column_fail,
 } from './action';
 
-const INIT_STATE = {
+const init_state = {
     page: 0,
     data: [],
     limit: 30,
@@ -14,10 +14,10 @@ const INIT_STATE = {
     },
 };
 
-export default (state = INIT_STATE, action) => {
+export default (state = init_state, action) => {
     switch (action.type) {
 
-        case LOAD_COLUMN_DATA_SUCCESS: return {
+        case loading_column_success: return {
             ...state,
             data: action.data,
             loading: {
@@ -28,7 +28,7 @@ export default (state = INIT_STATE, action) => {
             page: action.page,
         }
 
-        case LOAD_COLUMN_DATA_IN: return {
+        case loading_column_in: return {
             ...state,
             loading: {
                 status: true,
@@ -36,7 +36,7 @@ export default (state = INIT_STATE, action) => {
             },
         }
 
-        case LOAD_COLUMN_DATA_FAIL: return {
+        case loading_column_fail: return {
             ...state,
             loading: {
                 ...state.loading,

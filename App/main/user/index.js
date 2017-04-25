@@ -24,9 +24,6 @@ const { listone, listtwo } = require('./config.json');
 import Setting from './_setting';
 
 class User extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     renderTopbar = () => (
         <View style={$.topbar}>
@@ -39,7 +36,8 @@ class User extends Component {
         </View>
     );
 
-    renderNavigationView = (index) => (
+    // 设置
+    renderNavigationView = () => (
         <View style={$.setting}>
             {this.renderTopbar()}
             <Setting />
@@ -97,7 +95,9 @@ class User extends Component {
                                 activeOpacity={0.8}
                                 style={$.item}
                                 key={`user-list-${index}`}
-                                onPress={_ => index === 1 && this.drawer.openDrawer(index)}
+                                onPress={_ => {
+                                    index === 0 && this.drawer.openDrawer();
+                                } }
                                 >
                                 <Icon
                                     style={$.icon}
@@ -178,5 +178,5 @@ const $ = StyleSheet.create({
     setting: {
         backgroundColor: '#f6f6f6',
         flex: 1,
-    }
+    },
 });

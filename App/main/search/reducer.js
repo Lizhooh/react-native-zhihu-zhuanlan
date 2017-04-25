@@ -1,11 +1,11 @@
 import {
-    LOAD_SEARCH_DATA_IN,
-    LOAD_SEARCH_DATA_SUCCESS,
-    LOAD_SEARCH_DATA_FAIL,
-    LOAD_MORE_SEARCH_DATA_SUCCESS
+    loading_search_in,
+    loading_search_success,
+    loading_search_fail,
+    loading_more_search_success
 } from './action';
 
-const INIT_STATE = {
+const init_state = {
     page: 0,
     data: [],
     keys: '',
@@ -16,10 +16,10 @@ const INIT_STATE = {
     },
 };
 
-export default (state = INIT_STATE, action) => {
+export default (state = init_state, action) => {
     switch (action.type) {
 
-        case LOAD_SEARCH_DATA_SUCCESS: return {
+        case loading_search_success: return {
             ...state,
             loading: {
                 ...state.loading,
@@ -32,7 +32,7 @@ export default (state = INIT_STATE, action) => {
             page: action.page,
         }
 
-        case LOAD_MORE_SEARCH_DATA_SUCCESS: return {
+        case loading_more_search_success: return {
             ...state,
             data: [...state.data, ...action.data],
             loading: {
@@ -44,7 +44,7 @@ export default (state = INIT_STATE, action) => {
             page: action.page,
         }
 
-        case LOAD_SEARCH_DATA_IN: return {
+        case loading_search_in: return {
             ...state,
             loading: {
                 status: true,
@@ -52,7 +52,7 @@ export default (state = INIT_STATE, action) => {
             },
         }
 
-        case LOAD_SEARCH_DATA_FAIL: return {
+        case loading_search_fail: return {
             ...state,
             loading: {
                 ...state.loading,

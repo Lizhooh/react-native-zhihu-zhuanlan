@@ -1,14 +1,14 @@
 import {
-    LOAD_COMMENT_DATA_IN,
-    LOAD_COMMENT_DATA_SUCCESS,
-    LOAD_COMMENT_DATA_FAIL,
+    loading_comment_in,
+    loading_comment_success,
+    loading_comment_fail,
 
-    LOAD_MORE_COMMENT_DATA_SUCCESS,
-    LOAD_MORE_COMMENT_DATA_IN,
-    LOAD_MORE_COMMENT_DATA_FAIL,
+    loading_more_comment_success,
+    loading_more_comment_in,
+    loading_more_comment_fail,
 } from './action';
 
-const INITSTATE = {
+const initstate = {
     data: null,
     id: 0,
     page: 0,
@@ -19,11 +19,11 @@ const INITSTATE = {
     limit: 10,
 }
 
-export default (state = INITSTATE, action) => {
+export default (state = initstate, action) => {
 
     switch (action.type) {
 
-        case LOAD_COMMENT_DATA_SUCCESS: return {
+        case loading_comment_success: return {
             ...state,
             loading: false,
             data: action.data,
@@ -32,7 +32,7 @@ export default (state = INITSTATE, action) => {
             msg: action.data.length < state.limit ? '没有更多了' : '',
         }
 
-        case LOAD_MORE_COMMENT_DATA_SUCCESS: return {
+        case loading_more_comment_success: return {
             ...state,
             loadingMore: false,
             data: [...state.data, ...action.data],
@@ -40,24 +40,24 @@ export default (state = INITSTATE, action) => {
             msg: action.data.length < state.limit ? '没有更多了' : '',
         }
 
-        case LOAD_COMMENT_DATA_IN: return {
+        case loading_comment_in: return {
             ...state,
             loading: true,
         }
 
-        case LOAD_MORE_COMMENT_DATA_IN: return {
+        case loading_more_comment_in: return {
             ...state,
             loadingMore: true,
             msg: '加载中',
         }
 
-        case LOAD_COMMENT_DATA_FAIL: return {
+        case loading_comment_fail: return {
             ...state,
             loading: false,
             msg: '加载失败',
         }
 
-        case LOAD_MORE_COMMENT_DATA_FAIL: return {
+        case loading_more_comment_fail: return {
             ...state,
             loadingMore: false,
             msg: '加载失败',

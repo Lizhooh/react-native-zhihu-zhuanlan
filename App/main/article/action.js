@@ -1,32 +1,31 @@
-import * as Api from '../../api';
+import * as api from '../../api';
 
-export const LOAD_ARTICLE_DATA_SUCCESS = 'LOAD_ARTICLE_DATA_SUCCESS';
-export const LOAD_ARTICLE_DATA_IN = 'LOAD_ARTICLE_DATA_IN';
-export const LOAD_ARTICLE_DATA_FAIL = 'LOAD_ARTICLE_DATA_FAIL';
+export const loading_article_success = 'loading_article_success';
+export const loading_article_in = 'loading_article_in';
+export const loading_article_fail = 'loading_article_fail';
 
-export const CLEAR_ARTICLE_DATA = 'CLEAR_ARTICLE_DATA';
+export const clear_article_data = 'clear_article_data';
 
 
-export const loadArticleData = (id) => (dispatch, getState) => {
+export const loadArticleData = (id) => (dispatch, getstate) => {
 
-    dispatch({ type: LOAD_ARTICLE_DATA_IN });
+    dispatch({ type: loading_article_in });
 
-    return Api.articles(id).then(resArray => {
+    return api.articles(id).then(resarray => {
         dispatch({
-            type: LOAD_ARTICLE_DATA_SUCCESS,
-            data: resArray[0],
-            contributed: resArray[1],
-            recomm: resArray[2],
+            type: loading_article_success,
+            data: resarray[0],
+            contributed: resarray[1],
+            recomm: resarray[2],
             id: id,
         });
 
     }).catch(err => {
-        dispatch({ type: LOAD_ARTICLE_DATA_FAIL });
+        dispatch({ type: loading_article_fail });
     });
 }
 
 export const clearArticleData = () => ({
-    type: CLEAR_ARTICLE_DATA
+    type: clear_article_data
 })
-
 

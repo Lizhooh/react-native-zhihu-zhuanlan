@@ -1,41 +1,41 @@
-import * as Api from '../../../api';
+import * as api from '../../../api';
 
-export const LOAD_COMMENT_DATA_SUCCESS = 'LOAD_COMMENT_DATA_SUCCESS';
-export const LOAD_COMMENT_DATA_IN = 'LOAD_COMMENT_DATA_IN';
-export const LOAD_COMMENT_DATA_FAIL = 'LOAD_COMMENT_DATA_FAIL';
+export const loading_comment_success = 'loading_comment_success';
+export const loading_comment_in = 'loading_comment_in';
+export const loading_comment_fail = 'loading_comment_fail';
 
-export const LOAD_MORE_COMMENT_DATA_IN = 'LOAD_MORE_COMMENT_DATA_IN';
-export const LOAD_MORE_COMMENT_DATA_SUCCESS = 'LOAD_MORE_COMMENT_DATA_SUCCESS';
-export const LOAD_MORE_COMMENT_DATA_FAIL = 'LOAD_MORE_COMMENT_DATA_FAIL';
+export const loading_more_comment_in = 'loading_more_comment_in';
+export const loading_more_comment_success = 'loading_more_comment_success';
+export const loading_more_comment_fail = 'loading_more_comment_fail';
 
-export const loadCommnetData = (id, page = 0) => (dispatch, getState) => {
-    dispatch({ type: LOAD_COMMENT_DATA_IN });
+export const loadCommnetData = (id, page = 0) => (dispatch, getstate) => {
+    dispatch({ type: loading_comment_in });
 
-    const limit = getState().comment.limit;
+    const limit = getstate().comment.limit;
 
-    return Api.comments(id, limit, page).then(res => {
+    return api.comments(id, limit, page).then(res => {
         dispatch({
-            type: LOAD_COMMENT_DATA_SUCCESS,
+            type: loading_comment_success,
             data: res,
             id: id,
             page: page + 1,
         });
     }).catch(err => {
-        dispatch({ type: LOAD_COMMENT_DATA_FAIL });
+        dispatch({ type: loading_comment_fail });
     });
 }
 
-export const loadMoreCommentData = () => (dispatch, getState) => {
-    dispatch({ type: LOAD_MORE_COMMENT_DATA_IN });
-    const comment = getState().comment;
+export const loadMoreCommentData = () => (dispatch, getstate) => {
+    dispatch({ type: loading_more_comment_in });
+    const comment = getstate().comment;
 
-    return Api.comments(comment.id, comment.limit, comment.page).then(res => {
+    return api.comments(comment.id, comment.limit, comment.page).then(res => {
         dispatch({
-            type: LOAD_MORE_COMMENT_DATA_SUCCESS,
+            type: loading_more_comment_success,
             data: res,
         });
     }).catch(err => {
         console.log(err);
-        dispatch({ type: LOAD_MORE_COMMENT_DATA_FAIL });
+        dispatch({ type: loading_more_comment_fail });
     });
 }
