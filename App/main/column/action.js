@@ -19,7 +19,7 @@ export const loadColumnData = (limit = 20, page = 0) => (dispatch, getstate) => 
     }).catch(err => {
         dispatch({ type: loading_column_fail, status: true });
 
-        settimeout(_ => {
+        setTimeout(_ => {
             dispatch({ type: loading_column_fail, status: false });
         }, 3000);
     });

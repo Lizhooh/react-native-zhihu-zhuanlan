@@ -29,8 +29,8 @@ export const loadSearchData = (keys = '', page = 0) => (dispatch, getstate) => {
             msg: err.msg || '加载失败',
         });
 
-        time = settimeout(function () {
-            cleartimeout(time);
+        time = setTimeout(function () {
+            clearTimeout(time);
             dispatch({ type: loading_search_fail, status: false });
         }, 1000 * 4);
     });
@@ -40,7 +40,7 @@ export const loadSearchData = (keys = '', page = 0) => (dispatch, getstate) => {
 export const loadMoreSearchData = (keys = '', page = 0) => (dispatch, getstate) => {
     dispatch({ type: loading_search_in });
 
-    return api.searchbind(keys, page).then(res => {
+    return api.searchBind(keys, page).then(res => {
         if (res.data.length === 0) return Promise.reject({ msg: '没有更多结果了' });
 
         dispatch({
@@ -56,9 +56,8 @@ export const loadMoreSearchData = (keys = '', page = 0) => (dispatch, getstate) 
             status: true,
             msg: err.msg || '加载失败',
         });
-
-        time = settimeout(function () {
-            cleartimeout(time);
+        time = setTimeout(function () {
+            clearTimeout(time);
             dispatch({ type: loading_search_fail, status: false });
         }, 1000 * 4);
     });

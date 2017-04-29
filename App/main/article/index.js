@@ -83,9 +83,7 @@ class Article extends BaseComponent {
                     opacity: this.state.opacity,
                     top: -1 * devicewindow.height + 25,
                 }}
-                iconPress={_ => {
-                    this.props.navigator.pop();
-                } }
+                iconPress={_ => this.props.navigator.pop()}
                 >
                 <View style={$.topbarRight}>
                     <Touch style={$.row} activeOpacity={0.6}
@@ -227,9 +225,7 @@ class Article extends BaseComponent {
 }
 
 export default connect(
-    state => ({
-        article: state.article,
-    }),
+    state => ({ article: state.article }),
     actions,
 )(Article);
 

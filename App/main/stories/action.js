@@ -19,7 +19,7 @@ export const loadStoriesData = (limit = 10, page = 0) => (dispatch, getstate) =>
     }).catch(err => {
         dispatch({ type: loading_stories_fail, status: true });
 
-        settimeout(_ => {
+        setTimeout(_ => {
             dispatch({ type: loading_stories_fail, status: false });
         }, 3000);
     });

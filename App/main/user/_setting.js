@@ -53,6 +53,7 @@ export default class Setting extends Component {
                         </View>
                     </Touch>
 
+
                     <Touch style={$.row}>
                         <View style={$.left}>
                             <Text>使用深度搜索引擎</Text>
@@ -64,6 +65,7 @@ export default class Setting extends Component {
                             } />
                         </View>
                     </Touch>
+
 
                     <Touch
                         style={$.row}
@@ -77,6 +79,7 @@ export default class Setting extends Component {
                             <Icon name='chevron-right' size={24} color={'#ccc'} />
                         </View>
                     </Touch>
+
 
                     {/* 反馈信息 */}
                     <Modal
@@ -110,7 +113,7 @@ export default class Setting extends Component {
                                 <Touch style={$.sand}>
                                     <Text style={{ color: '#fff' }}>
                                         发送 · 反馈
-                                    </Text>
+                                        </Text>
                                 </Touch>
                             </View>
                         </View>
@@ -125,6 +128,7 @@ export default class Setting extends Component {
                             <Icon name='chevron-right' size={24} color={'#ccc'} />
                         </View>
                     </Touch>
+
 
                 </ScrollView>
             </View>
