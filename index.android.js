@@ -19,3 +19,4 @@ const zhihuZhuanlan = () => {
 }
 
 AppRegistry.registerComponent('zhihuZhuanlan', () => zhihuZhuanlan);
+

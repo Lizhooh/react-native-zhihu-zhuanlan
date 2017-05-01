@@ -70,11 +70,13 @@ class App extends Component {
 
     render() {
         return (
-            <Navigator
-                initialRoute={{ id: 0, name: 'Main', data: null }}
-                renderScene={this.renderScene}
-                configureScene={this.configureScene}
-                />
+            <View style={styles.root}>
+                <Navigator
+                    initialRoute={{ id: 0, name: 'Main', data: null }}
+                    renderScene={this.renderScene}
+                    configureScene={this.configureScene}
+                    />
+            </View>
         );
     }
 }
@@ -84,6 +86,11 @@ export default connect(
 )(App);
 
 const styles = StyleSheet.create({
+    root: {
+        flex: 1,
+        paddingTop: 25,
+        backgroundColor: '#fff',
+    },
     contanier: {
         paddingVertical: 15,
     },
