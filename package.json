@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start --port 8889",
+    "clean": "cd android && gradlew clean",
     "test": "jest"
   },
   "dependencies": {
