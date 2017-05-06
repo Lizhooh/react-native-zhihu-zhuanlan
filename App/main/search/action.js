@@ -8,7 +8,7 @@ export const loading_more_search_success = 'loading_more_search_success';
 let time = 0;
 
 // # 加载搜索数据
-export const loadSearchData = (keys = '', page = 0, init = false) => (dispatch, getstate) => {
+export const loadSearch = (keys = '', page = 0, init = false) => (dispatch, getstate) => {
     dispatch({ type: loading_search_in });
 
     return api.searchBind(keys, page).then(res => {

@@ -7,7 +7,7 @@ export const loading_article_fail = 'loading_article_fail';
 export const clear_article_data = 'clear_article_data';
 
 
-export const loadArticleData = (id) => (dispatch, getstate) => {
+export const loadArticle = (id) => (dispatch, getstate) => {
 
     dispatch({ type: loading_article_in });
 
@@ -25,7 +25,7 @@ export const loadArticleData = (id) => (dispatch, getstate) => {
     });
 }
 
-export const clearArticleData = () => ({
+export const clearArticle = () => ({
     type: clear_article_data
 })
 

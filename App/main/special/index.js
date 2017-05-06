@@ -30,7 +30,7 @@ class Special extends BaseComponent {
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
-                this.props.loadSpecialData(this.props.data.column);
+                this.props.loadSpecial(this.props.data.column);
             }, 30);
         });
     }
@@ -38,23 +38,23 @@ class Special extends BaseComponent {
     componentWillUnmount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
-                this.props.clearSpecialData();
+                this.props.clearSpecial();
             }, 30);
         });
     }
 
     // 渲染优化
     shouldComponentUpdate(nextProps, nextState) {
-        if(this.state.opacity !== nextState.opacity) return true;
+        if (this.state.opacity !== nextState.opacity) return true;
 
         const special = this.props.special;
         const _special = nextProps.special;
 
-        if(special.loading.status === true) return true;
-        if(special.list.length != _special.list.length) return true;
+        if (special.loading.status === true) return true;
+        if (special.list.length != _special.list.length) return true;
 
         // 打开专栏介绍，禁止重新渲染此页面
-        if(special.name === _special.name) return false;
+        if (special.name === _special.name) return false;
 
         return true;
     }
@@ -63,10 +63,6 @@ class Special extends BaseComponent {
         <View style={{ flex: 0 }}>
             <TabTopbar
                 iconName='arrow-back'
-                style={{
-                    opacity: this.state.opacity,
-                    top: -1 * devicewindow.height + 25,
-                }}
                 iconPress={_ => {
                     this.props.navigator.pop();
                 } }
@@ -75,33 +71,31 @@ class Special extends BaseComponent {
     );
 
     renderHeader = data => (
-        <View style={header.root}>
-            <View style={header.body}>
-                <Touch
-                    style={$.center}
-                    activeOpacity={0.6}
-                    onPress={_ =>
-                        this.onOpenAbout(this.props.data.column)
-                    }
-                    >
-                    <Image
-                        source={{ uri: data.avatar.image }}
-                        style={header.avatar}
-                        />
-                    <Text style={header.name}>
-                        {data.name}
+        <View style={header.body}>
+            <Touch
+                style={$.center}
+                activeOpacity={0.6}
+                onPress={_ =>
+                    this.onOpenAbout(this.props.data.column)
+                }
+                >
+                <Image
+                    source={{ uri: data.avatar.image }}
+                    style={header.avatar}
+                    />
+                <Text style={header.name}>
+                    {data.name}
+                </Text>
+                <View style={header.description}>
+                    <Text>{data.description}</Text>
+                </View>
+            </Touch>
+            <Touch style={header.btn} activeOpacity={0.6}>
+                <Icon name='near-me' color={'#fff'} size={16} />
+                <Text style={header.btnText}>
+                    + 关注（{`${data.followersCount}`} 人）
                     </Text>
-                    <View style={header.description}>
-                        <Text>{data.description}</Text>
-                    </View>
-                </Touch>
-                <Touch style={header.btn} activeOpacity={0.6}>
-                    <Icon name='near-me' color={'#fff'} size={16} />
-                    <Text style={header.btnText}>
-                        + 关注（{`${data.followersCount}`} 人）
-                    </Text>
-                </Touch>
-            </View>
+            </Touch>
         </View>
     );
 
@@ -213,6 +207,7 @@ class Special extends BaseComponent {
         if (special.startLoading && !data) {
             return (
                 <View style={$.contanier}>
+                    {this.renderTopbar()}
                     <View style={[{ flex: 1 }, $.center]}>
                         <ActivityIndicator
                             animating={true}
@@ -221,7 +216,6 @@ class Special extends BaseComponent {
                             />
                         <Text>加载中</Text>
                     </View>
-                    {this.renderTopbar()}
                 </View>
             );
         }
@@ -229,6 +223,7 @@ class Special extends BaseComponent {
         if (data) {
             return (
                 <View style={$.contanier}>
+                    {this.renderTopbar()}
                     <ScrollView
                         overScrollMode='never'
                         removeClippedSubviews={!true}
@@ -241,8 +236,6 @@ class Special extends BaseComponent {
                         {this.renderList(list)}
                         <View style={{ height: 30, backgroundColor: '#fff' }} />
                     </ScrollView>
-
-                    {this.renderTopbar()}
                 </View>
             );
         }
@@ -266,9 +259,6 @@ const $ = StyleSheet.create({
 });
 
 const header = StyleSheet.create({
-    root: {
-        paddingTop: 50,
-    },
     text: {
         marginLeft: 5,
         color: '#555',

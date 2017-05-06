@@ -29,7 +29,7 @@ class Ablout extends Component {
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
-                this.props.loadSpecialAbloutData(this.props.data.column);
+                this.props.loadSpecialAblout(this.props.data.column);
             }, 30);
         })
     }

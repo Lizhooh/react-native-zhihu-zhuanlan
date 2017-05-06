@@ -13,7 +13,7 @@ import Search from './search';
 import Stories from './stories';
 import Columm from './column';
 
-// # 主视图
+// # 主视图 Tabs
 export default class Main extends Component {
     render() {
         const navigator = this.props.navigator;
@@ -21,7 +21,7 @@ export default class Main extends Component {
         return (
             <View style={styles.contanier}>
                 <ScrollableTabView
-                    initialPage={1}
+                    initialPage={0}
                     locked={true}
                     renderTabBar={() => (
                         <TabsBar

@@ -42,7 +42,7 @@ class Article extends BaseComponent {
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
-                this.props.loadArticleData(this.props.data.id);
+                this.props.loadArticle(this.props.data.id);
             }, 30);
         });
     }
@@ -50,7 +50,7 @@ class Article extends BaseComponent {
     componentWillUnmount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
-                this.props.clearArticleData();
+                this.props.clearArticle();
             }, 30);
         });
     }

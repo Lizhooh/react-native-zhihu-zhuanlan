@@ -26,7 +26,7 @@ class Stories extends BaseComponent {
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
-                this.props.loadStoriesData(
+                this.props.loadStories(
                     this.props.stories.limit,
                     this.props.page,
                 );
@@ -86,7 +86,7 @@ class Stories extends BaseComponent {
     };
 
     // bug 重复触发 loadMoreSearchData
-    onMove = event => {
+    onMore = event => {
         if (this.loading) return;
 
         const range = 30;
@@ -105,7 +105,7 @@ class Stories extends BaseComponent {
         if (Height >= height - range && Height <= height && !status && !this.loading) {
             this.loading = true;
 
-            props.loadStoriesData(
+            props.loadStories(
                 stories.limit,
                 stories.page,
             );
@@ -118,19 +118,16 @@ class Stories extends BaseComponent {
 
         return (
             <View style={$.contanier}>
-                <TabTopbar
-                    title='文章 · 发现' iconName='landscape'
-                    // style={{ opacity: this.state.opacity }}
-                    />
+                <TabTopbar title='文章 · 发现' iconName='landscape' />
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
-                    onScroll={this.onMove}
+                    onScroll={this.onMore}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
                             onRefresh={_ =>
-                                props.loadStoriesData(stories.limit, 0, true)
+                                props.loadStories(stories.limit, 0, true)
                             }
                             />
                     }

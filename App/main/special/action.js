@@ -11,7 +11,7 @@ export const loading_special_about_in = 'loading_special_about_in';
 export const loading_special_about_success = 'loading_special_about_success';
 
 // 加载专栏信息
-export const loadSpecialData = (name) => (dispatch, getstate) => {
+export const loadSpecial = (name) => (dispatch, getstate) => {
     const state = getstate();
     dispatch({ type: loading_special_in });
 
@@ -30,12 +30,12 @@ export const loadSpecialData = (name) => (dispatch, getstate) => {
     });
 }
 
-export const clearSpecialData = () => ({
+export const clearSpecial = () => ({
     type: clear_special_data
 })
 
 // 加载关于
-export const loadSpecialAbloutData = (name) => (dispatch, getstate) => {
+export const loadSpecialAblout = (name) => (dispatch, getstate) => {
     if (name === getstate().special.aboutName) return;
 
     dispatch({ type: loading_special_about_in });
@@ -53,3 +53,8 @@ export const loadSpecialAbloutData = (name) => (dispatch, getstate) => {
         dispatch({ type: loading_special_fail });
     });
 }
+
+// 加载列表更多
+export const loadMoreSpecialList = () => ({
+
+});

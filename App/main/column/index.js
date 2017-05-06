@@ -27,7 +27,7 @@ class Column extends BaseComponent {
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
-                this.props.loadColumnData(
+                this.props.loadColumn(
                     this.props.column.limit,
                     this.props.column.page,
                 );
@@ -91,10 +91,7 @@ class Column extends BaseComponent {
 
         return (
             <View style={$.contanier}>
-                <TabTopbar
-                    title='专栏 · 发现' iconName='near-me'
-                    // style={{ opacity: this.state.opacity }}
-                    />
+                <TabTopbar title='专栏 · 发现' iconName='near-me' />
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
@@ -103,7 +100,7 @@ class Column extends BaseComponent {
                         <TabRefresh
                             refreshing={false}
                             onRefresh={_ =>
-                                props.loadColumnData(column.limit, column.page)
+                                props.loadColumn(column.limit, column.page)
                             }
                             />
                     }
@@ -151,7 +148,6 @@ const $ = StyleSheet.create({
     },
     flatlist: {
         flex: 1,
-        // marginTop: 49,
         backgroundColor: '#f6f6f6',
         padding: 15,
     },
@@ -176,7 +172,7 @@ const $ = StyleSheet.create({
         borderRadius: 1,
     },
     avatar: {
-        width: Dimensions.get('window').width / 2 - 24 | 0,
+        width:  Dimensions.get('window').width / 2 - 24 | 0,
         height: Dimensions.get('window').width / 2 - 24 | 0,
         justifyContent: 'center',
         alignItems: 'center',

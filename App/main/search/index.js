@@ -35,7 +35,7 @@ class Search extends BaseComponent {
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
-                this.props.loadSearchData(this.props.search.keys);
+                this.props.loadSearch(this.props.search.keys);
             });
         });
     }
@@ -98,12 +98,12 @@ class Search extends BaseComponent {
         // range 是范围
         if (Height >= height - range && Height <= height && !status && !this.loading) {
             this.loading = true;
-            props.loadSearchData(search.keys, search.page);
+            props.loadSearch(search.keys, search.page);
         }
     };
 
     onSubmit = (event, text) => {
-        this.props.loadSearchData(text);
+        this.props.loadSearch(text);
         this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
     };
 
@@ -158,7 +158,7 @@ class Search extends BaseComponent {
                         <TabRefresh
                             refreshing={false}
                             onRefresh={_ => {
-                                props.loadSearchData(search.keys, 0, true);
+                                props.loadSearch(search.keys, 0, true);
                             } } />
                     }
                     >

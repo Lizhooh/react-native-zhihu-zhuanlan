@@ -155,7 +155,7 @@ export default class MyWebView extends Component {
                     onNavigationStateChange={document => {
                         if (document.title) {
                             if (this.state.height === document.title) return;
-                            if(isNaN(document.title * 1)) return;
+                            if (document.title.length > 10 || isNaN(document.title * 1)) return;
 
                             setTimeout(_ => {
                                 this.setState({
