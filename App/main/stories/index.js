@@ -18,6 +18,7 @@ import {
     color,
     BaseComponent,
     TabRefresh,
+    devicewindow,
 } from '../common';
 
 class Stories extends BaseComponent {
@@ -30,7 +31,15 @@ class Stories extends BaseComponent {
                     this.props.page,
                 );
             });
-        })
+        });
+
+        this.loading = false;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.stories.loading.status) {
+            this.loading = false;
+        }
     }
 
     renderItem = ({item: i, index}) => (
@@ -76,6 +85,33 @@ class Stories extends BaseComponent {
         });
     };
 
+    // bug 重复触发 loadMoreSearchData
+    onMove = event => {
+        if (this.loading) return;
+
+        const range = 30;
+        const props = this.props;
+        const stories = props.stories;
+        const status = stories.loading.status;
+        const {
+            contentSize: { height },
+            contentOffset: { y }
+        } = event.nativeEvent;
+
+        // 加上设备的高度
+        const Height = devicewindow.height - 125 + y;
+
+        // range 是范围
+        if (Height >= height - range && Height <= height && !status && !this.loading) {
+            this.loading = true;
+
+            props.loadStoriesData(
+                stories.limit,
+                stories.page,
+            );
+        }
+    };
+
     render() {
         const props = this.props;
         const stories = this.props.stories;
@@ -89,7 +125,7 @@ class Stories extends BaseComponent {
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
-                    // onScroll={this.onScroll}
+                    onScroll={this.onMove}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
