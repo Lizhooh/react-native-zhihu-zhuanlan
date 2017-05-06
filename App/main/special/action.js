@@ -10,9 +10,15 @@ export const clear_special_data = 'clear_special_data';
 export const loading_special_about_in = 'loading_special_about_in';
 export const loading_special_about_success = 'loading_special_about_success';
 
+// 加载列表更多
+export const loading_special_list_in = 'loading_special_list_in';
+export const loading_special_list_success = 'loading_special_list_success';
+export const loading_special_list_fail = 'loading_special_list_fail';
+
+
 // 加载专栏信息
 export const loadSpecial = (name) => (dispatch, getstate) => {
-    const state = getstate();
+    const state = getstate().special;
     dispatch({ type: loading_special_in });
 
     Promise.all([
@@ -55,6 +61,17 @@ export const loadSpecialAblout = (name) => (dispatch, getstate) => {
 }
 
 // 加载列表更多
-export const loadMoreSpecialList = () => ({
+export const loadMoreSpecialList = (name, limit, page = 1) => (dispatch, getstate) => {
+    dispatch({ type: loading_special_list_in });
 
-});
+    return api.special.list(name, limit, page).then(res => {
+        dispatch({
+            type: loading_special_list_success,
+            list: res,
+            page: page + 1,
+            msg: res.length === 0 ? '没有更多了' : '',
+        });
+    }).catch(err => {
+        dispatch({ type: loading_special_list_fail });
+    });
+};

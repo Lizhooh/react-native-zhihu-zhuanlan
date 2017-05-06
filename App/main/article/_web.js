@@ -6,7 +6,6 @@ import {
     Text,
     Image,
     ActivityIndicator,
-    ToastAndroid,
 } from 'react-native';
 import {
     color,

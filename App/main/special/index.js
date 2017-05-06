@@ -9,6 +9,7 @@ import {
     ActivityIndicator,
     InteractionManager,
     FlatList,
+    ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -33,6 +34,14 @@ class Special extends BaseComponent {
                 this.props.loadSpecial(this.props.data.column);
             }, 30);
         });
+
+        this.loading = false;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.special.listLoading.status) {
+            this.loading = false;
+        }
     }
 
     componentWillUnmount() {
@@ -51,6 +60,9 @@ class Special extends BaseComponent {
         const _special = nextProps.special;
 
         if (special.loading.status === true) return true;
+
+        // 加载更多的文章列表
+        if (_special.listLoading.status != special.listLoading.status) return true;
         if (special.list.length != _special.list.length) return true;
 
         // 打开专栏介绍，禁止重新渲染此页面
@@ -58,6 +70,34 @@ class Special extends BaseComponent {
 
         return true;
     }
+
+    // bug 重复触发 loadMoreSearchData
+    onMore = event => {
+        if (this.loading) return;
+
+        const range = 30;
+        const props = this.props;
+        const special = props.special;
+        const status = special.listLoading.status;
+        const {
+            contentSize: { height },
+            contentOffset: { y }
+        } = event.nativeEvent;
+
+        // 加上设备的高度
+        const Height = devicewindow.height - 105 + y;
+
+        // range 是范围
+        if (Height >= height - range && Height <= height && !status && !this.loading) {
+            this.loading = true;
+
+            props.loadMoreSpecialList(
+                special.name,
+                special.limit,
+                special.page,
+            );
+        }
+    };
 
     renderTopbar = () => (
         <View style={{ flex: 0 }}>
@@ -133,14 +173,27 @@ class Special extends BaseComponent {
         </View>
     );
 
-    renderList = list => (
-        <FlatList
-            style={list.root}
-            overScrollMode='never'
-            showsVerticalScrollIndicator={false}
-            data={list}
-            renderItem={this.renderItem}
-            />
+    renderList = (lists, msg) => (
+        <View collapsable={true}>
+            <FlatList
+                style={list.root}
+                overScrollMode='never'
+                showsVerticalScrollIndicator={false}
+                data={lists}
+                renderItem={this.renderItem}
+                />
+            <View style={list.footer}>
+                {
+                    msg === '加载中' &&
+                    <ActivityIndicator
+                        animating={true}
+                        size="small"
+                        color={color}
+                        />
+                }
+                <Text>{msg}</Text>
+            </View>
+        </View>
     );
 
     renderItem = ({item: i, index}) => (
@@ -202,7 +255,7 @@ class Special extends BaseComponent {
 
     render() {
         const special = this.props.special;
-        const { data, list } = special;
+        const { data, list, listLoading: { msg } } = special;
 
         if (special.startLoading && !data) {
             return (
@@ -229,12 +282,11 @@ class Special extends BaseComponent {
                         removeClippedSubviews={!true}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
-                        // onScroll={this.onScroll}
+                        onScroll={this.onMore}
                         >
                         {this.renderHeader(data)}
                         {this.renderBody(data)}
-                        {this.renderList(list)}
-                        <View style={{ height: 30, backgroundColor: '#fff' }} />
+                        {this.renderList(list, msg)}
                     </ScrollView>
                 </View>
             );
@@ -255,7 +307,7 @@ const $ = StyleSheet.create({
     center: {
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
 });
 
 const header = StyleSheet.create({
@@ -385,5 +437,12 @@ const list = StyleSheet.create({
         top: -1,
         color: color,
         fontSize: 13,
-    }
+    },
+    footer: {
+        height: 35,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
 });
