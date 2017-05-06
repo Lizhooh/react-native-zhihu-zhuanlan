@@ -19,7 +19,7 @@ export default (state = init_state, action) => {
 
         case loading_stories_success: return {
             ...state,
-            data: action.data,
+            data: [...state.data, action.data],
             loading: {
                 ...state.loading,
                 msg: '加载成功...',

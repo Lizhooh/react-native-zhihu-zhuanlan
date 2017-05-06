@@ -164,4 +164,9 @@ export class BaseComponent extends Component {
             topbar.y = y;
         }
     }
+
+    // 加载更多
+    onMove = event => {
+
+    }
 }

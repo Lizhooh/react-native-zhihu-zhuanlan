@@ -24,3 +24,4 @@ export const loadStoriesData = (limit = 10, page = 0) => (dispatch, getstate) =>
         }, 3000);
     });
 }
+

@@ -81,9 +81,10 @@ class Search extends BaseComponent {
     );
 
     // bug 重复触发 loadMoreSearchData
-    onScroll = event => {
+    onMove = event => {
         if(this.loading) return;
 
+        const range = 30;
         const props = this.props;
         const search = props.search;
         const status = search.loading.status;
@@ -95,10 +96,10 @@ class Search extends BaseComponent {
         // 加上设备的高度
         const Height = devicewindow.height - 125 + y;
 
-        // 30 是范围
-        if (Height >= height - 30 && Height <= height && !status && !this.loading) {
+        // range 是范围
+        if (Height >= height - range && Height <= height && !status && !this.loading) {
             this.loading = true;
-            props.loadMoreSearchData(search.keys, search.page);
+            props.loadSearchData(search.keys, search.page);
         }
     };
 
@@ -153,7 +154,7 @@ class Search extends BaseComponent {
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
                     removeClippedSubviews={true}
-                    onScroll={this.onScroll}
+                    onScroll={this.onMove}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}

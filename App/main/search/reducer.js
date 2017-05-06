@@ -19,6 +19,7 @@ const init_state = {
 export default (state = init_state, action) => {
     switch (action.type) {
 
+        // # 初始化 和 加载更多
         case loading_search_success: return {
             ...state,
             loading: {
@@ -26,20 +27,8 @@ export default (state = init_state, action) => {
                 msg: action.msg || '加载成功...',
                 status: false,
             },
-            data: action.data,
-            count: action.count,
-            keys: action.keys,
-            page: action.page,
-        }
-
-        case loading_more_search_success: return {
-            ...state,
             data: [...state.data, ...action.data],
-            loading: {
-                ...state.loading,
-                msg: action.msg || '加载成功...',
-                status: false,
-            },
+            count: action.count,
             keys: action.keys,
             page: action.page,
         }

@@ -31,6 +31,8 @@ class Stories extends BaseComponent {
                 );
             });
         })
+
+        this.loading = false;
     }
 
     renderItem = ({item: i, index}) => (
@@ -76,8 +78,34 @@ class Stories extends BaseComponent {
         });
     };
 
-    render() {
+    // bug 重复触发 loadMoreSearchData
+    onMove = event => {
+        if (this.loading) return;
+
+        const range = 30;
         const props = this.props;
+        const stories = props.stories;
+        const status = stories.loading.status;
+        const {
+            contentSize: { height },
+            contentOffset: { y }
+        } = event.nativeEvent;
+
+        // 加上设备的高度
+        const Height = devicewindow.height - 125 + y;
+
+        // range 是范围
+        if (Height >= height - range && Height <= height && !status && !this.loading) {
+            this.loading = true;
+            this.props.loadStoriesData(
+                props.stories.limit,
+                props.page,
+            );
+        }
+    };
+
+    render() {
+        const props = props;
         const stories = this.props.stories;
 
         return (
