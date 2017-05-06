@@ -30,7 +30,6 @@ class Search extends BaseComponent {
         super(props);
 
         this.loading = false;
-        this.y = 0;
     }
 
     componentDidMount() {
@@ -159,8 +158,7 @@ class Search extends BaseComponent {
                         <TabRefresh
                             refreshing={false}
                             onRefresh={_ => {
-                                props.loadSearchData(search.keys);
-                                this.y = 0;
+                                props.loadSearchData(search.keys, 0, true);
                             } } />
                     }
                     >

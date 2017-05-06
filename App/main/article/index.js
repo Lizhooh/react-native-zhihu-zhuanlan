@@ -82,6 +82,8 @@ class Article extends BaseComponent {
                 style={{
                     opacity: this.state.opacity,
                     top: -1 * devicewindow.height + 25,
+                    position: 'absolute',
+                    left: 0, right: 0,
                 }}
                 iconPress={_ => this.props.navigator.pop()}
                 >

@@ -226,8 +226,6 @@ class Special extends BaseComponent {
             );
         }
 
-        console.warn("+");
-
         if (data) {
             return (
                 <View style={$.contanier}>

@@ -91,10 +91,14 @@ class Column extends BaseComponent {
 
         return (
             <View style={$.contanier}>
+                <TabTopbar
+                    title='专栏 · 发现' iconName='near-me'
+                    // style={{ opacity: this.state.opacity }}
+                    />
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
-                    onScroll={this.onScroll}
+                    // onScroll={this.onScroll}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
@@ -125,10 +129,6 @@ class Column extends BaseComponent {
                 </ScrollView>
 
                 <View style={{ flex: 0 }}>
-                    <TabTopbar
-                        title='专栏 · 发现' iconName='near-me'
-                        style={{ opacity: this.state.opacity }}
-                        />
                     <TabLoadBar
                         show={column.loading.status}
                         title={column.loading.msg}
@@ -151,7 +151,7 @@ const $ = StyleSheet.create({
     },
     flatlist: {
         flex: 1,
-        marginTop: 49,
+        // marginTop: 49,
         backgroundColor: '#f6f6f6',
         padding: 15,
     },

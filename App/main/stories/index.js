@@ -31,8 +31,6 @@ class Stories extends BaseComponent {
                 );
             });
         })
-
-        this.loading = false;
     }
 
     renderItem = ({item: i, index}) => (
@@ -78,47 +76,25 @@ class Stories extends BaseComponent {
         });
     };
 
-    // bug 重复触发 loadMoreSearchData
-    onMove = event => {
-        if (this.loading) return;
-
-        const range = 30;
-        const props = this.props;
-        const stories = props.stories;
-        const status = stories.loading.status;
-        const {
-            contentSize: { height },
-            contentOffset: { y }
-        } = event.nativeEvent;
-
-        // 加上设备的高度
-        const Height = devicewindow.height - 125 + y;
-
-        // range 是范围
-        if (Height >= height - range && Height <= height && !status && !this.loading) {
-            this.loading = true;
-            this.props.loadStoriesData(
-                props.stories.limit,
-                props.page,
-            );
-        }
-    };
-
     render() {
-        const props = props;
+        const props = this.props;
         const stories = this.props.stories;
 
         return (
             <View style={$.contanier}>
+                <TabTopbar
+                    title='文章 · 发现' iconName='landscape'
+                    // style={{ opacity: this.state.opacity }}
+                    />
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
-                    onScroll={this.onScroll}
+                    // onScroll={this.onScroll}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
                             onRefresh={_ =>
-                                props.loadStoriesData(stories.limit)
+                                props.loadStoriesData(stories.limit, 0, true)
                             }
                             />
                     }
@@ -134,10 +110,6 @@ class Stories extends BaseComponent {
                 </ScrollView>
 
                 <View style={{ flex: 0 }}>
-                    <TabTopbar
-                        title='文章 · 发现' iconName='landscape'
-                        style={{ opacity: this.state.opacity }}
-                        />
                     <TabLoadBar
                         show={stories.loading.status}
                         title={stories.loading.msg}
@@ -161,7 +133,7 @@ const $ = StyleSheet.create({
     flatlist: {
         flex: 1,
         backgroundColor: '#ccc',
-        marginTop: 49,
+        // marginTop: 49,
     },
     item: {
         borderTopWidth: 1 / PixelRatio.get(),

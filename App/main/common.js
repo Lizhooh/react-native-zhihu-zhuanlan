@@ -28,13 +28,13 @@ export const onePixel = 1 / PixelRatio.get();
 export const TabTopbar = ({ iconName, iconPress, title, style, children }) => (
     <View
         style={{
-            top: -1 * devicewindow.height + 50 + 25,
+            // top: -1 * devicewindow.height + 50 + 25,
             height: 50,
             backgroundColor: '#fff',
             alignItems: 'center',
             flexDirection: 'row',
-            position: 'absolute',
-            left: 0, right: 0,
+            // position: 'absolute',
+            // left: 0, right: 0,
             ...style,
         }}
         >

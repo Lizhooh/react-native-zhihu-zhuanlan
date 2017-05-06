@@ -6,6 +6,7 @@ import {
     Text,
     Image,
     ActivityIndicator,
+    ToastAndroid,
 } from 'react-native';
 import {
     color,
@@ -154,6 +155,7 @@ export default class MyWebView extends Component {
                     onNavigationStateChange={document => {
                         if (document.title) {
                             if (this.state.height === document.title) return;
+                            if(isNaN(document.title * 1)) return;
 
                             setTimeout(_ => {
                                 this.setState({
@@ -161,7 +163,7 @@ export default class MyWebView extends Component {
                                 }, _ => {
                                     this.props.onLoad(document);
                                 });
-                            }, 50);
+                            }, 0);
                         }
                         return false;
                     } }
