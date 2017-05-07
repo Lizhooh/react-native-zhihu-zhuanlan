@@ -23,6 +23,7 @@ import {
 } from '../common';
 import About from './about';
 
+// # 专栏信息
 class Special extends BaseComponent {
 
     // 使用： <Special.About />

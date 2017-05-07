@@ -22,6 +22,7 @@ import {
     BaseComponent,
 } from '../common';
 
+// # 专栏 · 发现
 class Column extends BaseComponent {
 
     componentDidMount() {

@@ -21,6 +21,7 @@ import {
     devicewindow,
 } from '../common';
 
+// # 文章 · 发现
 class Stories extends BaseComponent {
 
     componentDidMount() {
@@ -99,7 +100,7 @@ class Stories extends BaseComponent {
         } = event.nativeEvent;
 
         // 加上设备的高度
-        const Height = devicewindow.height - 125 + y;
+        const Height = devicewindow.height - 100 + y;
 
         // range 是范围
         if (Height >= height - range && Height <= height && !status && !this.loading) {

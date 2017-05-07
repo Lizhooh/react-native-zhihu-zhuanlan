@@ -23,6 +23,7 @@ const { listone, listtwo } = require('./config.json');
 
 import Setting from './_setting';
 
+// # 用户信息
 class User extends Component {
 
     renderTopbar = () => (
