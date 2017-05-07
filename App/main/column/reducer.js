@@ -6,8 +6,8 @@ import {
 
 const init_state = {
     page: 0,
-    data: [],
-    limit: 30,
+    data: {},
+    limit: 20,
     loading: {
         status: false,
         msg: '',
@@ -15,11 +15,15 @@ const init_state = {
 };
 
 export default (state = init_state, action) => {
+
     switch (action.type) {
 
         case loading_column_success: return {
             ...state,
-            data: action.data,
+            data: action.init ? action.data : {
+                left: [...state.data.left, ...action.data.right],
+                right: [...state.data.right, ...action.data.left],
+            },
             loading: {
                 ...state.loading,
                 msg: '加载成功...',
@@ -27,6 +31,7 @@ export default (state = init_state, action) => {
             },
             page: action.page,
         }
+
 
         case loading_column_in: return {
             ...state,

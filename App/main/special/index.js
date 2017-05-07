@@ -36,6 +36,7 @@ class Special extends BaseComponent {
             }, 30);
         });
 
+        // 加载更多用的标志
         this.loading = false;
     }
 

@@ -26,18 +26,15 @@ import Input from './_input';
 // # 搜索
 class Search extends BaseComponent {
 
-    constructor(props) {
-        super(props);
-
-        this.loading = false;
-    }
-
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
                 this.props.loadSearch(this.props.search.keys);
             });
         });
+
+        // 加载更多用的标志
+        this.loading = false;
     }
 
     componentWillReceiveProps(nextProps) {

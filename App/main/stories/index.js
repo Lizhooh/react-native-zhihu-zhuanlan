@@ -34,6 +34,7 @@ class Stories extends BaseComponent {
             });
         });
 
+        // 加载更多用的标志
         this.loading = false;
     }
 
@@ -100,7 +101,7 @@ class Stories extends BaseComponent {
         } = event.nativeEvent;
 
         // 加上设备的高度
-        const Height = devicewindow.height - 100 + y;
+        const Height = devicewindow.height - 125 + y;
 
         // range 是范围
         if (Height >= height - range && Height <= height && !status && !this.loading) {

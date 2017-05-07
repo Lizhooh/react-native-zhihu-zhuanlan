@@ -5,7 +5,7 @@ export const loading_stories_in = 'loading_stories_in';
 export const loading_stories_fail = 'loading_stories_fail';
 
 // # 加载发现文章数据
-export const loadStories = (limit = 10, page = 0) => (dispatch, getstate) => {
+export const loadStories = (limit = 10, page = 0, init = false) => (dispatch, getstate) => {
 
     dispatch({ type: loading_stories_in });
 
@@ -14,6 +14,7 @@ export const loadStories = (limit = 10, page = 0) => (dispatch, getstate) => {
             type: loading_stories_success,
             data: data,
             page: page + 1,
+            init: init,
         });
 
     }).catch(err => {

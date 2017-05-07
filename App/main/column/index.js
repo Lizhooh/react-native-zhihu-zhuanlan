@@ -20,6 +20,7 @@ import {
     TabLoadBar,
     TabTopbar,
     BaseComponent,
+    devicewindow,
 } from '../common';
 
 // # 专栏 · 发现
@@ -31,9 +32,19 @@ class Column extends BaseComponent {
                 this.props.loadColumn(
                     this.props.column.limit,
                     this.props.column.page,
+                    true
                 );
             });
         });
+
+        // 加载更多用的标志
+        this.loading = false;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.column.loading.status) {
+            this.loading = false;
+        }
     }
 
     renderItem = ({item: i, index}) => (
@@ -86,6 +97,33 @@ class Column extends BaseComponent {
         });
     };
 
+    // bug 重复触发 loadMoreSearchData
+    onMore = event => {
+        if (this.loading) return;
+
+        const range = 30;
+        const props = this.props;
+        const column = props.column;
+        const status = column.loading.status;
+        const {
+            contentSize: { height },
+            contentOffset: { y }
+        } = event.nativeEvent;
+
+        // 加上设备的高度
+        const Height = devicewindow.height - 125 + y;
+
+        // range 是范围
+        if (Height >= height - range && Height <= height && !status && !this.loading) {
+            this.loading = true;
+
+            props.loadColumn(
+                column.limit,
+                column.page,
+            );
+        }
+    };
+
     render() {
         const props = this.props;
         const column = this.props.column;
@@ -96,12 +134,12 @@ class Column extends BaseComponent {
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
-                    // onScroll={this.onScroll}
+                    onScroll={this.onMore}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
                             onRefresh={_ =>
-                                props.loadColumn(column.limit, column.page)
+                                props.loadColumn(column.limit, column.page, true)
                             }
                             />
                     }
@@ -173,7 +211,7 @@ const $ = StyleSheet.create({
         borderRadius: 1,
     },
     avatar: {
-        width:  Dimensions.get('window').width / 2 - 24 | 0,
+        width: Dimensions.get('window').width / 2 - 24 | 0,
         height: Dimensions.get('window').width / 2 - 24 | 0,
         justifyContent: 'center',
         alignItems: 'center',
