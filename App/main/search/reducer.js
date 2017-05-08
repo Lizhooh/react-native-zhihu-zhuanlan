@@ -27,7 +27,7 @@ export default (state = init_state, action) => {
                 msg: action.msg || '加载成功...',
                 status: false,
             },
-             // init = true, 初始化或刷新
+            // init = true, 初始化或刷新
             data: action.init ? action.data : [...state.data, ...action.data],
             count: action.count,
             keys: action.keys,

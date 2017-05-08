@@ -62,10 +62,12 @@ class User extends Component {
                     showsVerticalScrollIndicator={false}
                     >
 
+                    {/* 图片 */}
                     <View style={$.header}>
                         <Image source={avatar} style={$.full} />
                     </View>
 
+                    {/* 用户浏览信息 */}
                     <View style={$.list}>{
                         listone.map((i, index) => (
                             <Touch
@@ -120,7 +122,6 @@ class User extends Component {
             </DrawerLayoutAndroid>
         );
     }
-
 }
 
 export default connect(

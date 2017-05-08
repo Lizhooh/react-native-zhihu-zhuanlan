@@ -6,7 +6,10 @@ import {
     Text,
     TouchableOpacity as Touch,
 } from 'react-native';
-import { color, MaterialIcons as Icon } from '../common';
+import {
+    color,
+    MaterialIcons as Icon
+} from '../common';
 
 export default class Input extends Component {
 
@@ -31,7 +34,7 @@ export default class Input extends Component {
         return (
             <View style={[$.contanier, this.props.style]}>
                 <TextInput
-                    style={{ fontSize: 15, color: color }}
+                    style={$.input}
                     placeholder="搜索"
                     placeholderTextColor={color}
                     selectionColor={color}
@@ -69,6 +72,10 @@ const $ = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 30,
         justifyContent: 'center',
+    },
+    input: {
+        fontSize: 15,
+        color: color,
     },
     clear: {
         position: 'absolute',

@@ -26,6 +26,7 @@ import Input from './_input';
 // # 搜索
 class Search extends BaseComponent {
 
+
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
@@ -78,7 +79,7 @@ class Search extends BaseComponent {
 
     // bug 重复触发 loadMoreSearchData
     onMove = event => {
-        if(this.loading) return;
+        if (this.loading) return;
 
         const range = 30;
         const props = this.props;
@@ -100,7 +101,7 @@ class Search extends BaseComponent {
     };
 
     onSubmit = (event, text) => {
-        this.props.loadSearch(text);
+        this.props.loadSearch(text, 0, true);
         this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
     };
 
@@ -140,9 +141,7 @@ class Search extends BaseComponent {
                             <Icon name={'search'} size={28} color={color} />
                         </Touch>
                     </View>
-                    <Input
-                        onSubmit={this.onSubmit}
-                        />
+                    <Input onSubmit={this.onSubmit} />
                 </View>
 
                 <ScrollView
@@ -170,6 +169,7 @@ class Search extends BaseComponent {
                         </View>
                     }</View>
 
+                    {/* 搜索列表 */}
                     <FlatList
                         style={$.flatlist}
                         overScrollMode='never'
