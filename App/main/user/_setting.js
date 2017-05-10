@@ -86,6 +86,7 @@ export default class Setting extends Component {
                         animationType={"fade"}
                         transparent={true}
                         visible={this.state.modal}
+                        onRequestClose={e => { } }
                         >
                         <View style={$.modal}>
                             <Touch

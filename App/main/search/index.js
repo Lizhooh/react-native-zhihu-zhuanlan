@@ -26,7 +26,6 @@ import Input from './_input';
 // # 搜索
 class Search extends BaseComponent {
 
-
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {

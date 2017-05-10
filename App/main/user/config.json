@@ -3,19 +3,19 @@
         {
             "name": "favorite",
             "title": "我喜欢",
-            "text": "0 篇",
+            "text": " 篇",
             "color": "#3b3"
         },
         {
             "name": "loyalty",
             "title": "关注集",
-            "text": "0 个",
+            "text": " 个",
             "color": "#f44"
         },
         {
             "name": "remove-red-eye",
             "title": "阅读过的文章",
-            "text": "0 篇",
+            "text": " 篇",
             "color": "#f90"
         }
     ],

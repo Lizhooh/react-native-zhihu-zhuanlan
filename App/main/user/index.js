@@ -9,6 +9,7 @@ import {
     PixelRatio,
     DrawerLayoutAndroid,
     DrawerConsts,
+    InteractionManager,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -16,6 +17,7 @@ import {
     MaterialIcons as Icon,
     devicewindow,
     color,
+    onePixel,
 } from '../common';
 
 const avatar = require('./img/avatar.jpg');
@@ -25,6 +27,12 @@ import Setting from './_setting';
 
 // # 用户信息
 class User extends Component {
+
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(_ => {
+            this.props.initUser();
+        })
+    }
 
     renderTopbar = () => (
         <View style={$.topbar}>
@@ -46,6 +54,9 @@ class User extends Component {
     );
 
     render() {
+        const props = this.props;
+        const user = props.user;
+
         return (
             <DrawerLayoutAndroid
                 ref={drawer => this.drawer = drawer}
@@ -85,6 +96,7 @@ class User extends Component {
                                     {i.title}
                                 </Text>
                                 <Text style={$.text}>
+                                    {i.name === 'remove-red-eye' && user.looks.length}
                                     {i.text}
                                 </Text>
                             </Touch>
@@ -117,7 +129,6 @@ class User extends Component {
                             </Touch>
                         ))
                     }</View>
-
                 </ScrollView>
             </DrawerLayoutAndroid>
         );
@@ -125,7 +136,7 @@ class User extends Component {
 }
 
 export default connect(
-    state => ({}),
+    state => ({ user: state.user }),
     actions,
 )(User);
 
@@ -155,7 +166,7 @@ const $ = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#fff',
-        borderBottomWidth: 1 / PixelRatio.get(),
+        borderBottomWidth: onePixel,
         borderBottomColor: '#f4f4f4',
     },
     icon: {

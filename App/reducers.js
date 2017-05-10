@@ -1,12 +1,12 @@
 
 // 总集合 reducers
-export { default as search } from './main/search/reducer';
+export { default as search }  from './main/search/reducer';
 export { default as stories } from './main/stories/reducer';
-export { default as column } from './main/column/reducer';
+export { default as column }  from './main/column/reducer';
 export { default as article } from './main/article/reducer';
 export { default as comment } from './main/article/_comment/reducer';
 export { default as special } from './main/special/reducer';
-
+export { default as user }    from './main/user/reducer';
 
 // ----------------------------------------------------------//
 import { INIT_ROUTER, UPDATE_ROUTER } from './action';
