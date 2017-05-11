@@ -16,18 +16,18 @@ export const loadArticle = (id) => (dispatch, getstate) => {
 
     return api.articles(id).then(resarray => {
 
-        const articl = resarray[0];
+        const article = { ...resarray[0] };
 
         userAddLook({
             id: id,
-            title: articl.title,
-            author: articl.author,
-            titleImage: articl.titleImage,
-            column: articl.column,
-            summary: articl.summary,
-            commentsCount: articl.commentsCount,
-            likesCount: articl.likesCount,
-            content: articl.content,
+            title: article.title,
+            author: article.author,
+            titleImage: article.titleImage,
+            column: article.column,
+            summary: article.summary,
+            commentsCount: article.commentsCount,
+            likesCount: article.likesCount,
+            content: article.content,
         }, dispatch);
 
         dispatch({

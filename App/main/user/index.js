@@ -20,6 +20,8 @@ import {
     onePixel,
 } from '../common';
 
+import _looks from './_looks';
+
 const avatar = require('./img/avatar.jpg');
 const { listone, listtwo } = require('./config.json');
 
@@ -28,10 +30,12 @@ import Setting from './_setting';
 // # 用户信息
 class User extends Component {
 
+    static Looks = _looks;
+
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
             this.props.initUser();
-        })
+        });
     }
 
     renderTopbar = () => (
@@ -52,6 +56,15 @@ class User extends Component {
             <Setting />
         </View>
     );
+
+    onOpen = (event, i) => {
+        if (i.name === 'remove-red-eye') {
+            this.props.navigator.push({
+                id: 33,
+                name: 'User.Looks',
+            });
+        }
+    }
 
     render() {
         const props = this.props;
@@ -85,18 +98,12 @@ class User extends Component {
                                 activeOpacity={0.8}
                                 style={$.item}
                                 key={`user-list-${index}`}
+                                onPress={event => this.onOpen(event, i)}
                                 >
-                                <Icon
-                                    style={$.icon}
-                                    name={i.name}
-                                    color={i.color}
-                                    size={26}
-                                    />
-                                <Text style={$.mid}>
-                                    {i.title}
-                                </Text>
+                                <Icon style={$.icon} name={i.name} color={i.color} size={26} />
+                                <Text style={$.mid}>{i.title}</Text>
                                 <Text style={$.text}>
-                                    {i.name === 'remove-red-eye' && user.looks.length}
+                                    {i.name === 'remove-red-eye' && `${user.looks.length}`}
                                     {i.text}
                                 </Text>
                             </Touch>
@@ -110,22 +117,11 @@ class User extends Component {
                                 activeOpacity={0.8}
                                 style={$.item}
                                 key={`user-list-${index}`}
-                                onPress={_ => {
-                                    index === 0 && this.drawer.openDrawer();
-                                } }
+                                onPress={_ => index === 0 && this.drawer.openDrawer()}
                                 >
-                                <Icon
-                                    style={$.icon}
-                                    name={i.name}
-                                    color={i.color}
-                                    size={26}
-                                    />
-                                <Text style={$.mid}>
-                                    {i.title}
-                                </Text>
-                                <Text style={$.text}>
-                                    {i.text}
-                                </Text>
+                                <Icon style={$.icon} name={i.name} color={i.color} size={26} />
+                                <Text style={$.mid}>{i.title}</Text>
+                                <Text style={$.text}>{i.text}</Text>
                             </Touch>
                         ))
                     }</View>

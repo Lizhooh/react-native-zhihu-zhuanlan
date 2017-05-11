@@ -11,12 +11,15 @@ import {
 import Main from './main';
 import Article from './main/article';
 import Special from './main/special';
+import User from './main/user';
 
 // 路由 组件
 const component = {
     Main, Article, Special,
     'Special.About': Special.About,
     'Article.Comment': Article.Comment,
+    'User.Looks': User.Looks,
+
 };
 
 // # 入口
@@ -50,11 +53,18 @@ class App extends Component {
      * 11   Article.Comment
      * 2    Special
      * 21   Special.About
+     * 31   user-likes
+     * 32   user-columns
+     * 33   user-looks
      */
     configureScene = (route, navigator) => {
 
         if ([2, 21, 11].includes(route.id)) {
             return Navigator.SceneConfigs.PushFromLeft;
+        }
+
+        if ([31, 32, 32].includes(route.id)) {
+            return Navigator.SceneConfigs.PushFromRight;
         }
 
         return Navigator.SceneConfigs.FloatFromRight;

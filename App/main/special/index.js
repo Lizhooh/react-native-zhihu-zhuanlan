@@ -102,14 +102,12 @@ class Special extends BaseComponent {
     };
 
     renderTopbar = () => (
-        <View style={{ flex: 0 }}>
-            <TabTopbar
-                iconName='arrow-back'
-                iconPress={_ => {
-                    this.props.navigator.pop();
-                } }
-                />
-        </View>
+        <TabTopbar
+            iconName='arrow-back'
+            iconPress={_ => {
+                this.props.navigator.pop();
+            } }
+            />
     );
 
     renderHeader = data => (
