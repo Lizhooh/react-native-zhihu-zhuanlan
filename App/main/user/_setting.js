@@ -32,7 +32,6 @@ export default class Setting extends Component {
     }
 
     render() {
-
         return (
             <View style={$.contanier}>
                 <ScrollView

@@ -83,20 +83,13 @@ class Looks extends Component {
         return (
             <View style={$.contanier}>
                 {this.renderTopbar()}
-
-                <ScrollView
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
+                <FlatList
+                    style={{ paddingVertical: 5, }}
                     overScrollMode='never'
-                    >
-                    <FlatList
-                        overScrollMode='never'
-                        showsVerticalScrollIndicator={false}
-                        data={looks}
-                        renderItem={this.renderItem}
-                        removeClippedSubviews={true}
-                        />
-                </ScrollView>
+                    data={looks}
+                    renderItem={this.renderItem}
+                    removeClippedSubviews={true}
+                    />
             </View>
         );
     }

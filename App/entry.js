@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import {
     StyleSheet,
     View,
-    Navigator,
     ToastAndroid,
     BackAndroid,
 } from 'react-native';
+import { Navigator } from 'react-native-deprecated-custom-components';
 
 import Main from './main';
 import Article from './main/article';
