@@ -27,7 +27,7 @@ export const loadArticle = (id) => (dispatch, getstate) => {
             summary: article.summary,
             commentsCount: article.commentsCount,
             likesCount: article.likesCount,
-            content: article.content,
+            time: article.publishedTime.match(/\d{4}-\d{2}-\d{2}/g).join(''),
         }, dispatch);
 
         dispatch({

@@ -63,8 +63,8 @@ class App extends Component {
             return Navigator.SceneConfigs.PushFromLeft;
         }
 
-        if ([31, 32, 32].includes(route.id)) {
-            return Navigator.SceneConfigs.PushFromRight;
+        if ([31, 32, 33].includes(route.id)) {
+            return Navigator.SceneConfigs.PushFromLeft;
         }
 
         return Navigator.SceneConfigs.FloatFromRight;

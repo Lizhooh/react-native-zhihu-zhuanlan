@@ -12,7 +12,11 @@ const LOOKS = 'looks';
 export const look = {
     add: async function (data) {
         let looks = JSON.parse(await AsyncStorage.getItem(LOOKS) || '[]');
-        looks.push(data);
+
+        const index = looks.findIndex(i => i.id === data.id);
+        index !== -1 && looks.splice(index, 1);
+        looks.unshift(data);
+
         const res = await AsyncStorage.setItem(LOOKS, JSON.stringify(looks));
         return { res, data: looks };
     },
@@ -21,8 +25,10 @@ export const look = {
     },
     remove: async function (id) {
         let looks = JSON.parse(await AsyncStorage.getItem(LOOKS));
+
         const index = looks.findIndex(i => i.id === id);
-        looks.splice(index, 1);
+        index !== -1 && looks.splice(index, 1);
+
         const res = await AsyncStorage.setItem(LOOKS, JSON.stringify(looks));
         return { res, data: looks };
     },

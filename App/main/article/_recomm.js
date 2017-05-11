@@ -42,13 +42,11 @@ export default ({data, recomm, onOpenArticle}) => {
                 }</View>
 
                 <View style={$.float}>
-                    <Text style={$.p}>{i.title}</Text>
-                    <Text style={$.span}>{i.summary.replace(/<[^>]+>/gim, '').substr(0, 50)}.....</Text>
+                    <Text style={$.p} numberOfLines={1}>{i.title}</Text>
+                    <Text style={$.span} numberOfLines={2}>{i.summary.replace(/<[^>]+>/gim, '').substr(0, 100)}</Text>
                     <View style={$.footer}>
                         <Image source={{ uri: i.author.avatar.image }} style={$.userimg} />
-                        <Text style={$.name}>
-                            {i.author.name}
-                        </Text>
+                        <Text style={$.name}>{i.author.name}</Text>
                         <Text style={$.time}>
                             {i.publishedTime.match(/\d{4}-\d{2}-\d{2}/g).join('')}
                         </Text>
@@ -104,7 +102,7 @@ const $ = StyleSheet.create({
         marginVertical: 5,
     },
     span: {
-        color: '#fcfcfc',
+        color: '#f2f2f2',
         fontSize: 14,
     },
     footer: {
