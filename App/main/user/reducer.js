@@ -1,6 +1,7 @@
 
 import {
     init_user,
+    user_clear_all_look,
 } from './action';
 
 import {
@@ -21,6 +22,11 @@ export default (state = state_init, action) => {
         }
 
         case init_user: return {
+            ...state,
+            looks: action.data,
+        }
+
+        case user_clear_all_look: return {
             ...state,
             looks: action.data,
         }

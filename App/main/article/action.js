@@ -20,6 +20,7 @@ export const loadArticle = (id) => (dispatch, getstate) => {
 
         userAddLook({
             id: id,
+            key: id,
             title: article.title,
             author: article.author,
             titleImage: article.titleImage,

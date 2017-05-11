@@ -70,7 +70,7 @@ class Stories extends BaseComponent {
                     </View>
                     <View style={$.infoc}>
                         <Text style={$.title}>{i.title}</Text>
-                        <Text style={$.summary}>
+                        <Text style={$.summary} numberOfLines={4}>
                             {i.summary.replace(/\<(.*?)\>/g, '')}
                         </Text>
                     </View>
@@ -124,6 +124,7 @@ class Stories extends BaseComponent {
                 <ScrollView
                     overScrollMode='never'
                     showsVerticalScrollIndicator={false}
+                    removeClippedSubviews={true}
                     onScroll={this.onMore}
                     refreshControl={
                         <TabRefresh

@@ -40,7 +40,13 @@ class Looks extends Component {
             title='浏览过的文章'
             iconName='arrow-back'
             iconPress={_ => this.props.navigator.pop()}
-            />
+            >
+            <Touch style={$.topbar}
+                onPress={event => this.props.userClaerAllLook()}
+                >
+                <Icon name='clear-all' size={24} color={color} />
+            </Touch>
+        </TabTopbar>
     );
 
     renderItem = ({item: i, index}) => (
@@ -89,6 +95,9 @@ class Looks extends Component {
                     data={looks}
                     renderItem={this.renderItem}
                     removeClippedSubviews={true}
+                    getItemLayout={(data, index) => ({
+                        length: 115, offset: 115 * index + 5, index
+                    })}
                     />
             </View>
         );
@@ -109,9 +118,14 @@ const $ = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    topbar: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        flex: 1,
+        paddingRight: 15,
+    },
     item: {
         height: 115,
-        marginVertical: onePixel,
         backgroundColor: '#ccc',
     },
     img: {
@@ -154,5 +168,5 @@ const $ = StyleSheet.create({
         textAlign: 'right',
         textAlignVertical: 'center',
         top: 1,
-    }
+    },
 });

@@ -4,7 +4,7 @@ import {
     StyleSheet,
     View,
     ToastAndroid,
-    BackAndroid,
+    BackHandler,
 } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
 
@@ -71,11 +71,11 @@ class App extends Component {
     };
 
     componentWillMount() {
-        BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+        BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
     componentWillUnmount() {
-        BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
     render() {
