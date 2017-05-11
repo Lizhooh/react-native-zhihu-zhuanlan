@@ -9,6 +9,7 @@ import {
     InteractionManager,
     TouchableOpacity as Touch,
     ActivityIndicator,
+    ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -17,6 +18,7 @@ import {
     MaterialIcons as Icon,
     TabTopbar,
     onePixel,
+    devicewindow,
 } from '../common';
 
 class Looks extends Component {
@@ -26,12 +28,19 @@ class Looks extends Component {
 
         this.state = {
             ok: false,
+
+            // 加载更多
+            limit: 6,
+            page: 0,
+            data: [],
+            loading: false,
         };
     }
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
-            this.setState({ ok: true });
+            const data = this.props.looks.slice(0, this.state.limit * (this.state.page + 1));
+            this.setState({ ok: true, data, page: this.state.page + 1 });
         });
     }
 
@@ -41,9 +50,7 @@ class Looks extends Component {
             iconName='arrow-back'
             iconPress={_ => this.props.navigator.pop()}
             >
-            <Touch style={$.topbar}
-                onPress={event => this.props.userClaerAllLook()}
-                >
+            <Touch style={$.topbar} onPress={event => this.props.userClaerAllLook()}>
                 <Icon name='clear-all' size={24} color={color} />
             </Touch>
         </TabTopbar>
@@ -53,7 +60,7 @@ class Looks extends Component {
         <Touch
             style={$.item}
             activeOpacity={0.75}
-            onPress={null}
+            onPress={event => this.onOpen(i)}
             >
             <View style={$.float}>
                 <Text style={$.p} numberOfLines={1}>{i.title}</Text>
@@ -66,6 +73,39 @@ class Looks extends Component {
             </View>
         </Touch>
     );
+
+    onOpen = item => {
+        this.props.navigator.push({
+            id: 1,
+            name: 'Article',
+            data: { id: item.id }
+        });
+    }
+
+    onMore = event => {
+        if (this.state.loading) return;
+        if (this.state.data.length >= this.props.looks.length) return;
+
+        const range = 100;
+        const props = this.props;
+        const {
+            contentSize: { height },
+            contentOffset: { y }
+        } = event.nativeEvent;
+
+        // 加上设备的高度
+        const Height = devicewindow.height - 0 + y;
+
+        // range 是范围
+        if (Height >= height - range && Height <= height && !this.state.loading) {
+            const data = this.props.looks.slice(0, this.state.limit * (this.state.page + 1));
+            this.setState({ data, page: this.state.page + 1, loading: true }, _ => {
+                setTimeout(_ => {
+                    this.setState({ loading: false });
+                }, 50);
+            });
+        }
+    }
 
     render() {
         const looks = this.props.looks;
@@ -89,16 +129,17 @@ class Looks extends Component {
         return (
             <View style={$.contanier}>
                 {this.renderTopbar()}
-                <FlatList
-                    style={{ paddingVertical: 5, }}
-                    overScrollMode='never'
-                    data={looks}
-                    renderItem={this.renderItem}
-                    removeClippedSubviews={true}
-                    getItemLayout={(data, index) => ({
-                        length: 115, offset: 115 * index + 5, index
-                    })}
-                    />
+                <ScrollView onScroll={this.onMore} overScrollMode='never'>
+                    <FlatList
+                        style={{ paddingVertical: 3 }}
+                        overScrollMode='never'
+                        data={this.state.data}
+                        renderItem={this.renderItem}
+                        getItemLayout={(data, index) => ({
+                            length: 115, offset: 115 * index + 3, index
+                        })}
+                        />
+                </ScrollView>
             </View>
         );
     }
@@ -169,4 +210,11 @@ const $ = StyleSheet.create({
         textAlignVertical: 'center',
         top: 1,
     },
+    more: {
+        height: 35,
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
