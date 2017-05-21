@@ -51,7 +51,7 @@ class Looks extends Component {
             iconPress={_ => this.props.navigator.pop()}
             >
             <Touch style={$.topbar} onPress={event => this.props.userClaerAllLook()}>
-                <Icon name='clear-all' size={24} color={color} />
+                <Icon name='clear-all' size={28} color={color} />
             </Touch>
         </TabTopbar>
     );

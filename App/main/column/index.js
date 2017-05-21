@@ -47,6 +47,7 @@ class Column extends BaseComponent {
         }
     }
 
+    // 列表元素
     renderItem = ({item: i, index}) => (
         i !== undefined &&
         <Touch
@@ -89,6 +90,7 @@ class Column extends BaseComponent {
         </Touch>
     );
 
+    // 打开专栏信息
     onOpen = column => {
         this.props.navigator.push({
             id: 2,

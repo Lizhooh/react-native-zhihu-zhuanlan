@@ -47,6 +47,7 @@ class Article extends BaseComponent {
         });
     }
 
+    // 清除数据
     componentWillUnmount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
@@ -64,6 +65,7 @@ class Article extends BaseComponent {
         const id = last(stack) && last(stack).id;
         const _id = last(_stack) && last(_stack).id;
 
+        // 只是设置顶端栏的透明度
         if (this.state.opacity !== nextState.opacity) return true;
 
         // 解决多个文章页面存在时，会渲染不在栈顶的文章页面的问题
@@ -75,6 +77,7 @@ class Article extends BaseComponent {
         return true;
     }
 
+    // 顶端栏
     renderTopbar = ({commentsCount = 0, likesCount = 0} = {}, id) => (
         <View style={{ flex: 0 }}>
             <TabTopbar
@@ -108,26 +111,31 @@ class Article extends BaseComponent {
         </View>
     );
 
+    // 文章头部
     renderHeader = data => (
         <Header data={data} />
     );
 
+    // 文章主体
     renderBody = data => (
         <View style={$.body}>
             <MyWebView html={data.content} />
         </View>
     );
 
+    // 专栏信息
     renderColumn = (data, cont) => (
         cont &&
         <Column data={data} cont={cont} onOpenColumn={this.onOpenAbout} />
     );
 
+    // 推荐列表
     renderRecomm = (data, recomm) => (
         <Recomm data={data} recomm={recomm}
             onOpenArticle={this.onOpenArticle} />
     );
 
+    // 打开关于
     onOpenAbout = column => {
         // 异步调到，防止卡顿
         setTimeout(_ => {
@@ -139,6 +147,7 @@ class Article extends BaseComponent {
         }, 0);
     };
 
+    // 打开文章
     onOpenArticle = id => {
         setTimeout(_ => {
             this.props.navigator.push({
@@ -149,6 +158,7 @@ class Article extends BaseComponent {
         });
     };
 
+    // 打开评论
     onOpenComment = id => {
         setTimeout(_ => {
             this.props.navigator.push({

@@ -8,7 +8,6 @@ import {
     ScrollView,
     PixelRatio,
     DrawerLayoutAndroid,
-    DrawerConsts,
     InteractionManager,
 } from 'react-native';
 import { connect } from 'react-redux';

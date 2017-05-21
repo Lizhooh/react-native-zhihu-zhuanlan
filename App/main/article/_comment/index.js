@@ -20,6 +20,7 @@ import {
     devicewindow,
 } from '../../common';
 
+// # 推荐信息
 class Comment extends Component {
 
     componentDidMount() {
@@ -41,6 +42,7 @@ class Comment extends Component {
         }
     }
 
+    // 顶端栏
     renderTopbar = () => (
         <View style={$.topbar}>
             <Touch
@@ -52,6 +54,7 @@ class Comment extends Component {
         </View>
     );
 
+    // 列表元素
     renderItem = ({item: i, index}) => (
         <Touch style={$.item} activeOpacity={0.6}>
             <View style={$.left}>
@@ -83,7 +86,7 @@ class Comment extends Component {
         </Touch>
     );
 
-    onScroll = event => {
+    onMore = event => {
         if (this.loading) return;
 
         const {
@@ -108,6 +111,7 @@ class Comment extends Component {
         const { id, data, loading, msg } = comment;
         const _id = this.props.data.id;
 
+        // 加载中
         if (loading || data === null || id !== _id) {
             return (
                 <View style={$.contanier}>
@@ -132,7 +136,7 @@ class Comment extends Component {
                     showsHorizontalScrollIndicator={false}
                     removeClippedSubviews={true}
                     overScrollMode='never'
-                    onScroll={this.onScroll}
+                    onScroll={this.onMore}
                     >
                     <FlatList
                         style={$.flatlist}

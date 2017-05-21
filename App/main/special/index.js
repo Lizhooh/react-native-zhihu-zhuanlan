@@ -46,6 +46,7 @@ class Special extends BaseComponent {
         }
     }
 
+    // 清除数据
     componentWillUnmount() {
         InteractionManager.runAfterInteractions(_ => {
             setTimeout(_ => {
@@ -61,13 +62,14 @@ class Special extends BaseComponent {
         const special = this.props.special;
         const _special = nextProps.special;
 
+        // 加载中
         if (special.loading.status === true) return true;
 
         // 加载更多的文章列表
         if (_special.listLoading.status != special.listLoading.status) return true;
         if (special.list.length != _special.list.length) return true;
 
-        // 打开专栏介绍，禁止重新渲染此页面
+        // 打开专栏介绍，**禁止**重新渲染此页面
         if (special.name === _special.name) return false;
 
         return true;
@@ -101,6 +103,7 @@ class Special extends BaseComponent {
         }
     };
 
+    // 顶端栏
     renderTopbar = () => (
         <TabTopbar
             iconName='arrow-back'
@@ -110,14 +113,13 @@ class Special extends BaseComponent {
             />
     );
 
+    // 头部内容
     renderHeader = data => (
         <View style={header.body}>
             <Touch
                 style={$.center}
                 activeOpacity={0.6}
-                onPress={_ =>
-                    this.onOpenAbout(this.props.data.column)
-                }
+                onPress={_ => this.onOpenAbout(this.props.data.column)}
                 >
                 <Image
                     source={{ uri: data.avatar.image }}
@@ -139,6 +141,7 @@ class Special extends BaseComponent {
         </View>
     );
 
+    // 专题
     renderBody = data => (
         <View style={body.root}>
             <ScrollView
@@ -173,6 +176,7 @@ class Special extends BaseComponent {
         </View>
     );
 
+    // 列表
     renderList = (lists, msg) => (
         <View collapsable={true}>
             <FlatList
@@ -196,6 +200,7 @@ class Special extends BaseComponent {
         </View>
     );
 
+    // 列表元素
     renderItem = ({item: i, index}) => (
         <Touch
             style={list.item}
@@ -234,6 +239,7 @@ class Special extends BaseComponent {
         </Touch>
     );
 
+    // 打开文章
     onOpenArticle = id => {
         this.props.navigator.push({
             id: 1,
@@ -242,6 +248,7 @@ class Special extends BaseComponent {
         });
     }
 
+    // 打开关于
     onOpenAbout = column => {
         // 异步调到，防止卡顿
         setTimeout(_ => {
@@ -257,6 +264,7 @@ class Special extends BaseComponent {
         const special = this.props.special;
         const { data, list, listLoading: { msg } } = special;
 
+        // 加载中
         if (special.startLoading && !data) {
             return (
                 <View style={$.contanier}>

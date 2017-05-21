@@ -26,6 +26,7 @@ const component = {
 class App extends Component {
 
     onBackAndroid = (event) => {
+
         if (this.navigator && this.navigator.getCurrentRoutes().length > 1) {
             this.navigator.pop();
             return true;

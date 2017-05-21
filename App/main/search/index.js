@@ -43,6 +43,7 @@ class Search extends BaseComponent {
         }
     }
 
+    // 列表元素
     renderItem = ({item: i, index}) => (
         <Touch
             style={[$.touch, index === 0 && { marginTop: 0 }]}
@@ -99,11 +100,13 @@ class Search extends BaseComponent {
         }
     };
 
+    // 确定搜索
     onSubmit = (event, text) => {
         this.props.loadSearch(text, 0, true);
         this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
     };
 
+    // 打开文章/专栏
     onOpen = item => {
         // id, column 都为空
         if (!!item.column) {
@@ -128,6 +131,7 @@ class Search extends BaseComponent {
 
         return (
             <View style={$.contanier}>
+
                 <View style={$.topbar}>
                     <View style={{ backgroundColor: '#e6e6e6' }}>
                         <Touch
