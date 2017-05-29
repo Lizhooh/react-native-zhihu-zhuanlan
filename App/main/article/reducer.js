@@ -3,8 +3,6 @@ import {
     loading_article_success,
     loading_article_fail,
     clear_article_data,
-
-    add_look,
 } from './action';
 
 const initstate = {

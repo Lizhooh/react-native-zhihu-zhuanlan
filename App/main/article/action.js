@@ -29,7 +29,9 @@ export const loadArticle = (id) => (dispatch, getstate) => {
             commentsCount: article.commentsCount,
             likesCount: article.likesCount,
             time: article.publishedTime.match(/\d{4}-\d{2}-\d{2}/g).join(''),
-        }, dispatch);
+        }, res => {
+            dispatch({ type: user_add_look, data: res });
+        });
 
         dispatch({
             type: loading_article_success,
@@ -49,17 +51,10 @@ export const clearArticle = () => ({
 })
 
 // 添加浏览记录
-async function userAddLook(data, dispatch) {
+async function userAddLook(data, cb) {
     const res = await storage.look.add(data);
-    dispatch({ type: user_add_look, data: res.data });
-
-    // if (res.data) {
-    // }
-    // else {
-    //     console.warn('storage: look add error.');
-    // }
+    typeof cb === 'function' && cb(res);
 }
-
 
 
 

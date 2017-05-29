@@ -7,36 +7,40 @@ import {
 } from 'react-native';
 
 
+// 封装 AsyncStorage
+const storage = {
+    get: async function (key) {
+        return JSON.parse(await AsyncStorage.getItem(key) || '[]');
+    },
+    set: async function (key, data) {
+        JSON.parse(await AsyncStorage.setItem(key, JSON.stringify(data)));
+        return this;
+    },
+    remove: async function (key) {
+        AsyncStorage.removeItem(key);
+        return this;
+    },
+};
+
+
 // 阅读过的文章存储
-const LOOKS = 'looks';
 export const look = {
+    key: 'looks',
     add: async function (data) {
-        let looks = JSON.parse(await AsyncStorage.getItem(LOOKS) || '[]');
+        let looks = await storage.get(this.key);
 
         const index = looks.findIndex(i => i.id === data.id);
         index !== -1 && looks.splice(index, 1);
         looks.unshift(data);
 
-        const res = await AsyncStorage.setItem(LOOKS, JSON.stringify(looks));
-        return { res, data: looks };
+        storage.set(this.key, looks);
+        return looks;
     },
     get: async function () {
-        return JSON.parse(await AsyncStorage.getItem(LOOKS) || '[]');
-    },
-    remove: async function (id) {
-        let looks = JSON.parse(await AsyncStorage.getItem(LOOKS));
-
-        const index = looks.findIndex(i => i.id === id);
-        index !== -1 && looks.splice(index, 1);
-
-        const res = await AsyncStorage.setItem(LOOKS, JSON.stringify(looks));
-        return { res, data: looks };
+        return storage.get(this.key);
     },
     removeAll: async function () {
-        const res = await AsyncStorage.removeItem(LOOKS);
-        return { res, data: [] };
+        storage.remove(this.key);
+        return [];
     },
 };
-
-
-

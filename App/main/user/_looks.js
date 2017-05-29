@@ -39,8 +39,7 @@ class Looks extends Component {
 
     componentDidMount() {
         InteractionManager.runAfterInteractions(_ => {
-            const data = this.props.looks.slice(0, this.state.limit * (this.state.page + 1));
-            this.setState({ ok: true, data, page: this.state.page + 1 });
+            this.setState({ ok: true, page: this.state.page + 1 });
         });
     }
 
@@ -98,8 +97,7 @@ class Looks extends Component {
 
         // range 是范围
         if (Height >= height - range && Height <= height && !this.state.loading) {
-            const data = this.props.looks.slice(0, this.state.limit * (this.state.page + 1));
-            this.setState({ data, page: this.state.page + 1, loading: true }, _ => {
+            this.setState({ page: this.state.page + 1, loading: true }, _ => {
                 setTimeout(_ => {
                     this.setState({ loading: false });
                 }, 50);
@@ -109,6 +107,7 @@ class Looks extends Component {
 
     render() {
         const looks = this.props.looks;
+        const { limit, page } = this.state;
 
         if (!this.state.ok) {
             return (
@@ -129,15 +128,15 @@ class Looks extends Component {
         return (
             <View style={$.contanier}>
                 {this.renderTopbar()}
-                <ScrollView onScroll={this.onMore} overScrollMode='never'>
+                <ScrollView
+                    onScroll={this.onMore}
+                    overScrollMode='never'
+                    >
                     <FlatList
                         style={{ paddingVertical: 3 }}
                         overScrollMode='never'
-                        data={this.state.data}
+                        data={looks.slice(0, limit * (page + 1))}
                         renderItem={this.renderItem}
-                        getItemLayout={(data, index) => ({
-                            length: 115, offset: 115 * index + 3, index
-                        })}
                         />
                 </ScrollView>
             </View>

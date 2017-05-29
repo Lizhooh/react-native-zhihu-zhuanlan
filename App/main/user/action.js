@@ -12,6 +12,6 @@ export const initUser = () => async (dispatch, getState) => {
 
 // 情况全部浏览记录
 export const userClaerAllLook = () => async (dispatch, getState) => {
-    const data = await storage.look.removeAll();
+    await storage.look.removeAll();
     dispatch({ type: user_clear_all_look, data: [] });
 };
