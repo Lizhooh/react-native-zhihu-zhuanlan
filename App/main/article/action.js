@@ -18,6 +18,7 @@ export const loadArticle = (id) => (dispatch, getstate) => {
 
         const article = { ...resarray[0] };
 
+        // 数据存储
         userAddLook({
             id: id,
             key: id,

@@ -19,6 +19,7 @@ const setAvatarImage = avatar => {
     }
 };
 
+// 推荐文章
 export default ({data, recomm, onOpenArticle}) => {
 
     const { previous, next } = data;

@@ -20,7 +20,7 @@ import {
     devicewindow,
 } from '../../common';
 
-// # 推荐信息
+// # 评论
 class Comment extends Component {
 
     componentDidMount() {

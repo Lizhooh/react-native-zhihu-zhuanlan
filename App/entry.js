@@ -19,7 +19,6 @@ const component = {
     'Special.About': Special.About,
     'Article.Comment': Article.Comment,
     'User.Looks': User.Looks,
-
 };
 
 // # 入口
