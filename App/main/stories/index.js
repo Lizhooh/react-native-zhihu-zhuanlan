@@ -1,14 +1,13 @@
 import React from 'react';
 import {
     StyleSheet,
-    View,
-    Text,
-    Image,
+    View, Text, Image,
     ScrollView,
     TouchableOpacity as Touch,
     PixelRatio,
     FlatList,
     InteractionManager,
+    ListView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './action';
@@ -24,19 +23,19 @@ import {
 // # 文章 · 发现
 class Stories extends BaseComponent {
 
-    componentDidMount() {
-        InteractionManager.runAfterInteractions(_ => {
-            setTimeout(_ => {
-                this.props.loadStories(
-                    this.props.stories.limit,
-                    this.props.page,
-                );
-            });
-        });
+    async componentDidMount() {
+        await InteractionManager.runAfterInteractions();
+
+        this.props.loadStories(
+            this.props.stories.limit,
+            this.props.page,
+        );
 
         // 加载更多用的标志
         this.loading = false;
     }
+
+    ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     componentWillReceiveProps(nextProps) {
         if (!nextProps.stories.loading.status) {
@@ -44,34 +43,35 @@ class Stories extends BaseComponent {
         }
     }
 
-    renderItem = ({item: i, index}) => (
-        i && i.column &&
+    renderItem = ({ item }) => (
+        item && item.column &&
         <Touch
+            key={`stories-${item.id}`}
             style={{ overflow: 'hidden' }}
             activeOpacity={0.8}
-            onPress={_ => this.onOpenArticle(i.slug)}
+            onPress={_ => this.onOpenArticle(item.slug)}
             >
             <View style={$.item}>
                 {
                     // image 可能为空
-                    !!i.image_url &&
+                    !!item.image_url &&
                     <View style={$.headimg}>
-                        <Image source={{ uri: i.image_url }} style={$.full} />
+                        <Image source={{ uri: item.image_url }} style={$.full} />
                     </View>
                 }
                 <View style={$.info}>
                     <View style={$.user}>
                         {
                             // image 可能为空
-                            !!i.column.image_url &&
-                            <Image source={{ uri: i.column.image_url }} style={$.userAvatar} />
+                            !!item.column.image_url &&
+                            <Image source={{ uri: item.column.image_url }} style={$.userAvatar} />
                         }
-                        <Text style={{ color: '#555', fontWeight: '500' }}>{i.column.name}</Text>
+                        <Text style={{ color: '#555', fontWeight: '500' }}>{item.column.name}</Text>
                     </View>
                     <View style={$.infoc}>
-                        <Text style={$.title}>{i.title}</Text>
+                        <Text style={$.title}>{item.title}</Text>
                         <Text style={$.summary} numberOfLines={4}>
-                            {i.summary.replace(/\<(.*?)\>/g, '')}
+                            {item.summary.replace(/\<(.*?)\>/g, '')}
                         </Text>
                     </View>
                 </View>
@@ -121,11 +121,10 @@ class Stories extends BaseComponent {
         return (
             <View style={$.contanier}>
                 <TabTopbar title='文章 · 发现' iconName='landscape' />
-                <ScrollView
-                    overScrollMode='never'
-                    showsVerticalScrollIndicator={false}
-                    removeClippedSubviews={true}
-                    onScroll={this.onMore}
+                <ListView
+                    style={$.flatlist}
+                    dataSource={this.ds.cloneWithRows(stories.data)}
+                    renderRow={data => this.renderItem({ item: data })}
                     refreshControl={
                         <TabRefresh
                             refreshing={false}
@@ -134,23 +133,22 @@ class Stories extends BaseComponent {
                             }
                             />
                     }
-                    >
-                    <FlatList
-                        style={$.flatlist}
-                        overScrollMode='never'
-                        showsVerticalScrollIndicator={false}
-                        data={stories.data}
-                        renderItem={this.renderItem}
-                        removeClippedSubviews={true}
-                        />
-                </ScrollView>
-
-                <View style={{ flex: 0 }}>
-                    <TabLoadBar
-                        show={stories.loading.status}
-                        title={stories.loading.msg}
-                        />
-                </View>
+                    // renderHeader={() => this.renderHeader(source)}
+                    overScrollMode='never'
+                    // showsHorizontalScrollIndicator={false}
+                    // showsVerticalScrollIndicator={false}
+                    initialListSize={15}
+                    scrollRenderAheadDistance={500}
+                    enableEmptySections={true}
+                    // 滚动刷新
+                    onEndReachedThreshold={1000}
+                    // onEndReached={e => {
+                    //     if (this.loadmore !== true) {
+                    //         this.loadmore = true;
+                    //         onMore().then(res => this.loadmore = false);
+                    //     }
+                    // } }
+                    />
             </View>
         );
     }
@@ -167,7 +165,6 @@ const $ = StyleSheet.create({
         backgroundColor: '#f6f6f6',
     },
     flatlist: {
-        flex: 1,
         backgroundColor: '#ccc',
         // marginTop: 49,
     },

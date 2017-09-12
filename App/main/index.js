@@ -10,7 +10,7 @@ import { color } from './common';
 import TabsBar from './tabsbar';
 import User from './user';
 import Search from './search';
-import Stories from './stories';
+import Stories from '../views/stories';
 import Columm from './column';
 
 // # 主视图 Tabs

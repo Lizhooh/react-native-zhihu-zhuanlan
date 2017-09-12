@@ -2,13 +2,10 @@ import React from 'react';
 import {
     StyleSheet,
     View,
-    Text,
     TouchableOpacity as Touch,
-    PixelRatio,
-    Animated,
-    Easing,
 } from 'react-native';
-import { MaterialIcons as Icon } from './common';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 /**
  * # TabsBar 组件

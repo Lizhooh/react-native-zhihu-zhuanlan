@@ -205,7 +205,7 @@ class Special extends BaseComponent {
         <Touch
             style={list.item}
             activeOpacity={0.8}
-            onPress={_ => this.onOpenArticle(i.slug)}
+            onPress={_ => this.onOpenArticle(i)}
             >
             <View>{
                 !!i.titleImage &&
@@ -240,11 +240,11 @@ class Special extends BaseComponent {
     );
 
     // 打开文章
-    onOpenArticle = id => {
+    onOpenArticle = item => {
         this.props.navigator.push({
             id: 1,
             name: 'Article',
-            data: { id }
+            data: item
         });
     }
 
