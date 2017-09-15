@@ -52,11 +52,6 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 
-# test
-App/main/api.js
-App/api/*
-App/readme.md
-
 # keys
 keys
 keys/*
