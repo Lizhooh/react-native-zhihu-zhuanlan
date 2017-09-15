@@ -3,34 +3,40 @@ import * as api from '../../api';
 import { starArticle, lookArticle } from '../../storage';
 
 export const init = (id) => async (dispatch, getState) => {
-    const [r1, r2, r3] = await api.articles(id);
-    let art = {
-        id: id,
-        data: r1,
-        contributed: r2,
-        recomm: r3,
-    };
+    try {
+        const [r1, r2, r3] = await api.articles(id);
 
-    dispatch({ type: ARTICLE.init_success, ...art });
+        let art = {
+            id: id,
+            data: r1,
+            contributed: r2,
+            recomm: r3,
+        };
 
-    setTimeout(async () => {
-        if (art.data.slug) {
-            const { data  } = art;
+        dispatch({ type: ARTICLE.init_success, ...art });
 
-            let _ = {
-                slug: data.slug,
-                avatar: data.author.avatar.image,
-                title: data.title,
-                summary: data.summary,
-                titleImage: data.titleImage,
-            };
+        setTimeout(async () => {
+            if (art.data.slug) {
+                const { data  } = art;
 
-            let list = await lookArticle.add(_);
-            dispatch({ type: USER.refresh_success, id: 2, list });
-        }
-    }, 100);
+                let _ = {
+                    slug: data.slug,
+                    avatar: data.author.avatar.image,
+                    title: data.title,
+                    summary: data.summary,
+                    titleImage: data.titleImage,
+                };
 
-    return art;
+                let list = await lookArticle.add(_);
+                dispatch({ type: USER.refresh_success, id: 2, list });
+            }
+        }, 100);
+
+        return art;
+    }
+    catch (err) {
+        return {};
+    }
 }
 
 export const star = () => async (dispatch, getState) => {

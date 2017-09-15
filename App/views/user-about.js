@@ -5,6 +5,7 @@ import {
     TouchableOpacity as Touch,
     Linking,
     WebView,
+    ToastAndroid as Toast,
 } from 'react-native';
 import { Topbar } from '../components';
 import { author } from '../config';
@@ -17,7 +18,8 @@ export default class UserAbout extends Component {
 
     onPress = e => {
         Linking.openURL(author.link).catch(err => {
-            console.error(err);
+            // console.error(err);
+            Toast.show('打开浏览器失败', Toast.LONG);
         })
     }
 

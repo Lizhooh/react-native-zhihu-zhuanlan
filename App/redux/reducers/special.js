@@ -16,6 +16,11 @@ export default (state = init_state, action) => {
             page: 1,
         }
 
+        case SPECIAL.init_fail: return {
+            ...state,
+            page: 0,
+        }
+
         case SPECIAL.more_success: return {
             ...state,
             list: [...state.list, ...action.list],
