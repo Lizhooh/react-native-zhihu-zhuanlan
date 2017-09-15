@@ -24,3 +24,4 @@ export default (state = init_state, action) => {
         default: return state
     }
 }
+

@@ -28,7 +28,7 @@ export default class Main extends PureComponent {
         return (
             <View style={styles.contanier}>
                 <ScrollableTabView
-                    initialPage={3}  // 初始显示的 tab
+                    initialPage={0}  // 初始显示的 tab
                     locked={true}
                     renderTabBar={this.tabrenderTabBar}
                     scrollWithoutAnimation={!true}

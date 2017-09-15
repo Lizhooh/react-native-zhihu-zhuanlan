@@ -52,6 +52,7 @@ export default class UserLookArticle extends Component {
     onMore = async e => {
         if (!this.loading) {
             this.loading = true;
+            await InteractionManager.runAfterInteractions();
             this.setState(state => ({
                 offset: state.limit + state.offset,
                 list: state.data.slice(0, state.limit + state.offset),

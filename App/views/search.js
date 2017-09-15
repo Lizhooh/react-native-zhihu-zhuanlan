@@ -194,7 +194,7 @@ const $ = StyleSheet.create({
         flexDirection: 'row',
     },
     summary: {
-        lineHeight: 20,
+        lineHeight: 22,
         fontSize: 14,
         color: '#777',
         flex: 1,

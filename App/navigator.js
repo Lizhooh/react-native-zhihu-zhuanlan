@@ -20,6 +20,7 @@ import ColumnAbout from './views/column-about';
 import UserFollowColumn from './views/user-follow-column';
 import UserStarArticle from './views/user-star-article';
 import UserLookArticle from './views/user-look-article';
+import UserAbout from './views/user-about';
 
 // 导航相关
 export default class MyNavigatior extends Component {
@@ -36,6 +37,7 @@ export default class MyNavigatior extends Component {
             'UserFollowColumn': UserFollowColumn,
             'UserStarArticle': UserStarArticle,
             'UserLookArticle': UserLookArticle,
+            'UserAbout': UserAbout,
         };
     }
 

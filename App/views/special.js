@@ -114,7 +114,6 @@ const $ = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 50,
-        // backgroundColor: '#f3f3f3',
     },
     touch: {
         flexDirection: 'row',
@@ -126,7 +125,7 @@ const $ = StyleSheet.create({
     },
     right: {
         flex: 1,
-        padding: 10,
+        padding: 12,
         paddingLeft: 0,
     },
     name: {
@@ -136,11 +135,12 @@ const $ = StyleSheet.create({
     description: {
         fontSize: 13,
         color: '#888',
+        lineHeight: 22,
     },
     follow: {
         color: color,
         fontSize: 12,
         position: 'absolute',
-        top: 3, right: 5,
+        top: 0, right: 3,
     }
 })

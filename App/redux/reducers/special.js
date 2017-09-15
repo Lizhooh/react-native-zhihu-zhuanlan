@@ -19,7 +19,7 @@ export default (state = init_state, action) => {
         case SPECIAL.more_success: return {
             ...state,
             list: [...state.list, ...action.list],
-            page: state.page + 1,
+            page: state.page > 10 ? 0 : state.page + 1,
         }
 
         default: return state;

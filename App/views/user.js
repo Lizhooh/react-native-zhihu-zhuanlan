@@ -37,13 +37,14 @@ class User extends Component {
             case 2:
                 nav.push({ name: 'UserLookArticle', data: data[2] })
                 break;
+            case 4:
+                nav.push({ name: 'UserAbout', data: HTML, animated: 'top' })
+                break;
         }
     }
 
     render() {
         const { options, data } = this.props.state;
-
-        console.log(data);
 
         return (
             <View style={$.container}>
