@@ -17,6 +17,9 @@ import ArticleComment from './views/article-comment';
 import Column from './views/column';
 import ColumnAbout from './views/column-about';
 
+import UserFollowColumn from './views/user-follow-column';
+import UserStarArticle from './views/user-star-article';
+import UserLookArticle from './views/user-look-article';
 
 // 导航相关
 export default class MyNavigatior extends Component {
@@ -30,6 +33,9 @@ export default class MyNavigatior extends Component {
             'ArticleComment': ArticleComment,
             'Column': Column,
             'ColumnAbout': ColumnAbout,
+            'UserFollowColumn': UserFollowColumn,
+            'UserStarArticle': UserStarArticle,
+            'UserLookArticle': UserLookArticle,
         };
     }
 
@@ -67,9 +73,9 @@ export default class MyNavigatior extends Component {
                 return Navigator.SceneConfigs.FloatFromRight;
             default:
                 // 平滑速度
-                Navigator.SceneConfigs.PushFromRight.defaultTransitionVelocity = 15;
+                Navigator.SceneConfigs.PushFromRight.defaultTransitionVelocity = 18;
                 Navigator.SceneConfigs.PushFromRight.springFriction = 25;
-                Navigator.SceneConfigs.PushFromRight.springTension = 180;
+                Navigator.SceneConfigs.PushFromRight.springTension = 160;
                 return Navigator.SceneConfigs.PushFromRight;
         }
     };

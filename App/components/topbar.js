@@ -8,23 +8,20 @@ import { color } from '../config';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // 顶端栏
-export default ({ title, onBack, icons = [], icon, reverse = true, myref = null, style, children }) => (
-    <View style={[$.toolbar, reverse && $.reversebg, style]} ref={myref}>
+export default ({ title, onBack, icons = [], icon, myref = null, style, children }) => (
+    <View style={[$.toolbar, style]} ref={myref}>
         <Touch
             style={{ padding: 10 }}
             activeOpacity={1}
             onPress={onBack}>
             <Icon
-                color={reverse ? color : '#fff'}
+                color={color}
                 name={icon || 'arrow-back'}
                 size={25}
-                // style={$.textshadow}
                 />
         </Touch>
         {!!title &&
-            <Text style={[$.titleText, reverse && $.reverse]}>
-                {title}
-            </Text>
+            <Text style={$.titleText}>{title}</Text>
         }
         {children}
         {icons.length > 0 &&
@@ -39,13 +36,10 @@ export default ({ title, onBack, icons = [], icon, reverse = true, myref = null,
                         <Icon
                             name={it.name}
                             size={20}
-                            color={reverse ? color : '#fff'}
-                            // style={$.textshadow}
+                            color={color}
                             />
                         {it.text !== null &&
-                            <Text style={[$.text, reverse && $.reverse]}>
-                                {it.text}
-                            </Text>
+                            <Text style={$.text}>{it.text}</Text>
                         }
                     </Touch>
                 ))
@@ -58,14 +52,14 @@ const $ = StyleSheet.create({
     toolbar: {
         height: 65,
         paddingTop: 25,
-        backgroundColor: color,
         alignItems: 'center',
         paddingHorizontal: 4,
         flexDirection: 'row',
+        backgroundColor: '#fff',
     },
     titleText: {
         paddingHorizontal: 8,
-        color: '#fff',
+        color: color,
         fontSize: 18,
     },
     right: {
@@ -85,17 +79,11 @@ const $ = StyleSheet.create({
         textShadowRadius: 6,
     },
     text: {
-        color: '#fff',
         marginLeft: 3,
         includeFontPadding: false,
         textAlignVertical: 'center',
         fontSize: 14,
         fontWeight: '500',
-    },
-    reverse: {
         color: color,
-    },
-    reversebg: {
-        backgroundColor: '#fff',
     },
 });

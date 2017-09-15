@@ -6,7 +6,7 @@ export const init = (id) => async (dispatch, getState) => {
     const res = await api.comments(id, limit, 0);
     dispatch({
         type: ARTICLE_COMMENT.init_success,
-        data: res,
+        list: res,
         id: id,
     });
 }
@@ -16,7 +16,7 @@ export const more = () => async (dispatch, getState) => {
     const res = await api.comments(id, limit, page);
     dispatch({
         type: ARTICLE_COMMENT.more_success,
-        data: res,
+        list: res,
         id: id,
     });
 }

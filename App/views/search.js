@@ -32,7 +32,7 @@ class Search extends Component {
     // 列表元素
     renderItem = (item, sid, cid) => (
         <Touch
-            key={item.id + cid}
+            key={item.slug + cid}
             style={[$.touch, cid === 0 && { marginTop: 0 }]}
             activeOpacity={0.75}
             onPress={event => this.open(item)}
@@ -102,7 +102,7 @@ class Search extends Component {
     }
 
     render() {
-        const { data } = this.props.state;
+        const { list } = this.props.state;
         const { ok } = this.state;
 
         return (
@@ -116,7 +116,7 @@ class Search extends Component {
                     ref={r => this.listview = r}
                     overScrollMode='never'
                     style={$.flatlist}
-                    dataSource={this.ds.cloneWithRows(data)}
+                    dataSource={this.ds.cloneWithRows(list)}
                     renderRow={this.renderItem}
                     onEndReachedThreshold={500}
                     onEndReached={this.onMore}

@@ -7,7 +7,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { color } from '../../config'
 
-export default ({ data, onPress }) => (
+export default ({ data, onPress, onFollow }) => (
     <View style={$.body}>
         <Touch
             style={$.center}
@@ -19,14 +19,14 @@ export default ({ data, onPress }) => (
                 style={$.avatar}
                 resizeMethod='resize'
                 />
-            <Text style={$.name}>
-                {data.name}
-            </Text>
+            <Text style={$.name}>{data.name}</Text>
             <View style={$.description}>
                 <Text>{data.description}</Text>
             </View>
         </Touch>
-        <Touch style={$.btn} activeOpacity={0.6}>
+        <Touch style={$.btn} activeOpacity={0.6}
+            onPress={onFollow}
+            >
             <Icon name='near-me' color={'#fff'} size={16} />
             <Text style={$.btnText}>
                 + 关注（{`${data.followersCount}`} 人）

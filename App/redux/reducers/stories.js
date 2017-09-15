@@ -7,7 +7,6 @@ const init_state = {
 };
 
 export default (state = init_state, action) => {
-    console.log(state);
     switch (action.type) {
 
         case STORIES.init_success: return {

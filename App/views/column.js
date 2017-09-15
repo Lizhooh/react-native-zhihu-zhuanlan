@@ -5,6 +5,7 @@ import {
     TouchableOpacity as Touch,
     InteractionManager,
     ListView,
+    ToastAndroid as Toast,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { columnActions } from '../redux/actions';
@@ -41,15 +42,27 @@ class Column extends Component {
 
     renderHeader = data => (
         <StaticView>
-            <Header data={data} onPress={this.openAbout} />
+            <Header
+                data={data}
+                onPress={this.openAbout}
+                onFollow={this.onFollow}
+                />
         </StaticView>
     );
 
     renderBody = data => (
         <StaticView>
-            <Topic data={data} onSelect={name => this.props.select(name)} />
+            <Topic data={data} onSelect={this.onSelect} />
         </StaticView>
     );
+
+    onSelect = async name => {
+        if (!this.loading) {
+            this.loading = true;
+            await this.props.select(name);
+            this.loading = false;
+        }
+    }
 
     renderItem = (item, sid, cid) => (
         <Box key={item.slug + cid} item={item} onPress={this.openArticle} />
@@ -71,6 +84,12 @@ class Column extends Component {
             },
             animated: 'left',
         });
+    }
+
+    onFollow = () => {
+        const { data } = this.props.state;
+        this.props.follow(data);
+        Toast.show('关注成功', Toast.LONG);
     }
 
     goTop = e => {
@@ -114,7 +133,7 @@ class Column extends Component {
                     scrollRenderAheadDistance={500}
                     enableEmptySections={true}
                     // 滚动刷新
-                    onEndReachedThreshold={1000}
+                    onEndReachedThreshold={500}
                     onEndReached={this.onMore}
                     />
             </View>

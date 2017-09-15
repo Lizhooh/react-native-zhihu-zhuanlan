@@ -4,6 +4,7 @@ import {
     View, Text, Image,
     TouchableOpacity as Touch,
     InteractionManager,
+    ToastAndroid as Toast,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { articleActions } from '../redux/actions';
@@ -43,13 +44,17 @@ class Article extends Component {
         <Topbar onBack={this.props.navigator.pop} icons={[
             { name: 'image-aspect-ratio', text: `${commentsCount}`, onPress: this.openComment },
             { name: 'favorite-border', text: `${likesCount}`, size: 22 },
-            { name: 'share', size: 22 },
-        ]} reverse={true} style={{ backgroundColor: 'transparent' }} />
+            { name: 'star-half', size: 23, onPress: this.onStar },
+        ]} style={{ backgroundColor: 'transparent' }} />
     );
 
     // 文章头部
     renderHeader = (title, data, cont) => (
-        <Header title={title} data={data} cont={cont} openColumn={this.openColumn} />
+        <StaticView render={3}>
+            <Header
+                title={title} data={data} cont={cont}
+                openColumn={this.openColumn} />
+        </StaticView>
     );
 
     // 文章主体
@@ -93,6 +98,11 @@ class Article extends Component {
             animated: 'top',
         });
     };
+
+    onStar = () => {
+        this.props.star();
+        Toast.show('收藏成功', Toast.LONG);
+    }
 
     renderBackgroundImage = (image) => (
         <StaticView style={{ height: 240 }} >

@@ -1,5 +1,6 @@
-import { COLUMN } from '../type';
+import { COLUMN, USER } from '../type';
 import * as api from '../../api';
+import { followColumn } from '../../storage';
 
 export const init = (name) => async (dispatch, getState) => {
     const { limit, tag } = getState().column;
@@ -30,4 +31,18 @@ export const select = (tag) => async (dispatch, getState) => {
 // 加载关于
 export const aboutInit = (name) => (dispatch, getstate) => {
     return api.column.about(name).then(res => ({ data: res[0], authors: res[1] }));
+}
+
+// 关注专栏
+export const follow = (data) => async (dispatch, getState) => {
+    let _ = {
+        id: data.slug,
+        title: data.name,
+        follow: data.followersCount,
+        intro: data.intro,
+        avatar: data.avatar.image,
+    };
+    let list = await followColumn.add(_);
+
+    dispatch({ type: USER.refresh_success, id: 1, list });
 }

@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { specialActions } from '../redux/actions';
 import { Refresh, Topbar, StaticView } from '../components';
-
+import { color } from '../config';
 
 // # 专栏 · 发现
 class Special extends Component {
@@ -27,9 +27,9 @@ class Special extends Component {
         this.setState({ ok: true });
     }
 
-    renderItem = (item) => (
+    renderItem = (item, sid, cid) => (
         <Touch
-            key={item.slug}
+            key={item.slug + cid}
             style={$.touch}
             activeOpacity={0.75}
             onPress={e => this.openColumn(item.slug)}
@@ -43,10 +43,13 @@ class Special extends Component {
             </View>
             <View style={$.right}>
                 <Text style={$.name}>{item.name}</Text>
-                <Text style={$.description} numberOfLines={4}>
+                <Text style={$.description} numberOfLines={5}>
                     {item.description}
                 </Text>
             </View>
+            <Text style={$.follow}>
+                {item.followersCount} 人关注
+            </Text>
         </Touch>
     )
 
@@ -108,15 +111,15 @@ const $ = StyleSheet.create({
         backgroundColor: '#f6f6f6',
     },
     image: {
-        width: 60,
-        height: 60,
-        borderRadius: 1,
-        backgroundColor: '#f3f3f3',
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        // backgroundColor: '#f3f3f3',
     },
     touch: {
         flexDirection: 'row',
         backgroundColor: '#fff',
-        marginTop: 3,
+        marginTop: StyleSheet.hairlineWidth,
     },
     left: {
         padding: 10,
@@ -133,5 +136,11 @@ const $ = StyleSheet.create({
     description: {
         fontSize: 13,
         color: '#888',
+    },
+    follow: {
+        color: color,
+        fontSize: 12,
+        position: 'absolute',
+        top: 3, right: 5,
     }
 })

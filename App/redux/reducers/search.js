@@ -3,7 +3,7 @@ import { splitNumber } from '../../functions';
 
 const init_state = {
     page: 1,
-    data: [],
+    list: [],
     key: '',
     count: '',
 };
@@ -13,7 +13,7 @@ export default (state = init_state, action) => {
 
         case SEARCH.init_success: return {
             ...state,
-            data: action.data,
+            list: action.list,
             count: splitNumber(action.count),
             key: action.key,
             page: 2,
@@ -21,7 +21,7 @@ export default (state = init_state, action) => {
 
         case SEARCH.more_success: return {
             ...state,
-            data: [...state.data, ...action.data],
+            list: [...state.list, ...action.list],
             page: state.page + 1,
         }
 

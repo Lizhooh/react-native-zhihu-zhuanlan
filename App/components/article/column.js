@@ -27,7 +27,8 @@ export default ({ data, cont = {}, onPress }) => (
                 <Text style={$.intro}>{cont.sourceColumn.intro}</Text>
             </Touch>
             <Touch style={$.btn} activeOpacity={0.6}>
-                <Text style={$.btnText}>+ 关注</Text>
+                <Icon name='near-me' color={'#fff'} size={16} />
+                <Text style={$.btnText}> + {cont.sourceColumn.followers} 人关注</Text>
             </Touch>
         </View>
     </View>
@@ -75,10 +76,11 @@ const $ = StyleSheet.create({
         marginTop: 10,
         backgroundColor: color,
         borderRadius: 3,
-        paddingVertical: 6,
-        paddingHorizontal: 18,
+        paddingVertical: 4,
+        paddingHorizontal: 12,
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'row',
     },
     btnText: {
         color: '#fff',

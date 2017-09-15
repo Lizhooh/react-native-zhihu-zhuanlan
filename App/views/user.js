@@ -20,10 +20,30 @@ class User extends Component {
 
     async componentDidMount() {
         await InteractionManager.runAfterInteractions();
+        this.props.init();
+    }
+
+    open = item => {
+        const nav = this.props.navigator;
+        const { data } = this.props.state;
+
+        switch (item.id) {
+            case 0:
+                nav.push({ name: 'UserStarArticle', data: data[0] })
+                break;
+            case 1:
+                nav.push({ name: 'UserFollowColumn', data: data[1] })
+                break;
+            case 2:
+                nav.push({ name: 'UserLookArticle', data: data[2] })
+                break;
+        }
     }
 
     render() {
-        const { options } = this.props.state;
+        const { options, data } = this.props.state;
+
+        console.log(data);
 
         return (
             <View style={$.container}>
@@ -38,12 +58,12 @@ class User extends Component {
                             activeOpacity={0.8}
                             style={$.item}
                             key={`user-list-${index}`}
-                            // onPress={event => this.onOpen(event, i)}
+                            onPress={() => this.open(item)}
                             >
                             <Icon style={$.icon} name={item.name} color={item.color} size={26} />
                             <Text style={$.mid}>{item.title}</Text>
                             <Text style={$.text}>
-                                {item.number}{item.text}
+                                {data[item.id] && data[item.id].length}{item.text}
                             </Text>
                         </Touch>
                     ))

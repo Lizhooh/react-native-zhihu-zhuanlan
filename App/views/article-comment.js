@@ -30,10 +30,8 @@ class Comment extends Component {
         this.setState({ ok: true });
     }
 
-    renderItem = (item) => (
-        <StaticView>
-            <CommentBox item={item} />
-        </StaticView>
+    renderItem = (item, sid, cid) => (
+        <CommentBox item={item} key={item.id + cid} />
     )
 
     onMore = async event => {
@@ -45,10 +43,10 @@ class Comment extends Component {
     }
 
     render() {
-        let { id, data, loading, msg } = this.props.state;
+        let { id, list, loading, msg } = this.props.state;
         const { ok } = this.state;
 
-        if (!ok) data = [];
+        if (!ok) list = [];
 
         return (
             <View style={$.contanier}>
@@ -58,7 +56,7 @@ class Comment extends Component {
                 </StaticView>
                 <ListView
                     style={$.flatlist}
-                    dataSource={this.ds.cloneWithRows(data)}
+                    dataSource={this.ds.cloneWithRows(list)}
                     renderRow={this.renderItem}
                     onEndReachedThreshold={500}
                     onEndReached={this.onMore}
