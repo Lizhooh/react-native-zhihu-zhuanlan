@@ -91,11 +91,21 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "1.1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+
+    signingConfigs {
+        release {
+            storeFile file("../../keys/app-key.keystore") // 这里是签名文件路径
+            storePassword "1178ar"                        // 签名的密码
+            keyAlias "my-key"                             // 签名的别名
+            keyPassword "1178ar"                          // 别名的密码
+        }
+    }
+
     splits {
         abi {
             reset()
@@ -108,6 +118,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release   // 记得加上这句“配置项”
         }
     }
     // applicationVariants are e.g. debug, release

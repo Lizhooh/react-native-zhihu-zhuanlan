@@ -117,4 +117,3 @@ const $ = StyleSheet.create({
         color: '#888',
     }
 });
-
