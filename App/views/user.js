@@ -16,14 +16,11 @@ class User extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = { ok: false };
     }
 
     async componentDidMount() {
         await InteractionManager.runAfterInteractions();
         await this.props.init();
-        this.setState({ ok: true });
     }
 
     open = item => {
@@ -47,16 +44,13 @@ class User extends Component {
     }
 
     render() {
-        const { ok } = this.state;
         const { options, data } = this.props.state;
 
         return (
             <View style={$.container}>
-                <View style={$.header}>{
-                    ok &&
+                <View style={$.header}>
                     <WebView source={{ html: HTML }} style={$.web}
                         domStorageEnabled={true} />
-                }
                 </View>
                 <View style={$.body}>{
                     options.map((item, index) => (
