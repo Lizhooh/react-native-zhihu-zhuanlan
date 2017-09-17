@@ -38,7 +38,7 @@ export default ({ item }) => (
                             <Image
                                 source={{ uri: item.inReplyToUser.avatar.image }}
                                 style={$.minAvatar}
-                                resizeMethod='resize'
+                                // resizeMethod='resize'
                                 />
                         }
                         <Text>{item.inReplyToUser.name}</Text>

@@ -32,7 +32,7 @@ const task = (fetch, timeout = 1000 * 15) => {
 }
 
 export const get = (path, query = null) => {
-    return task(_get(path, query))
+    return task(_get(path, query), 1000 * 10)
         .then(res => {
             if (res.status === 401) {
                 throw '此文章/专栏，不存在或已删除';

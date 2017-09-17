@@ -169,8 +169,9 @@ const $ = StyleSheet.create({
         flex: 1,
     },
     touch: {
-        backgroundColor: '#e6e6e6',
-        marginTop: 10,
+        margin: 10,
+        marginTop: 0,
+        marginBottom: 10,
     },
     item: {
         backgroundColor: '#fff',

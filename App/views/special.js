@@ -37,9 +37,7 @@ class Special extends Component {
             <View style={$.left}>
                 <Image
                     source={{ uri: item.avatar.image }}
-                    style={$.image}
-                    resizeMethod='resize'
-                    />
+                    style={$.image} />
             </View>
             <View style={$.right}>
                 <Text style={$.name}>{item.name}</Text>
@@ -68,6 +66,12 @@ class Special extends Component {
         });
     }
 
+    renderFooter = e => (
+        <StaticView style={$.loadmore}>
+            <Text>加载中...</Text>
+        </StaticView>
+    )
+
     render() {
         const { list } = this.props.state;
         const { ok } = this.state;
@@ -76,7 +80,7 @@ class Special extends Component {
             <View style={$.contanier}>
                 <Topbar title='专栏 · 发现' icon='near-me' />
                 <ListView
-                    style={$.flatlist}
+                    contentContainerStyle={$.list}
                     dataSource={this.ds.cloneWithRows(list)}
                     renderRow={this.renderItem}
                     refreshControl={
@@ -85,14 +89,15 @@ class Special extends Component {
                             onRefresh={this.props.init}
                             />
                     }
+                    renderFooter={list.length > 0 ? this.renderFooter: () => {}}
                     overScrollMode='never'
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    initialListSize={15}
-                    scrollRenderAheadDistance={500}
+                    // initialListSize={15}
+                    scrollRenderAheadDistance={600}
                     enableEmptySections={true}
                     // 滚动刷新
-                    onEndReachedThreshold={1000}
+                    onEndReachedThreshold={500}
                     onEndReached={this.onMore}
                     />
             </View>
@@ -115,10 +120,18 @@ const $ = StyleSheet.create({
         height: 50,
         borderRadius: 50,
     },
+    list: {
+        paddingBottom: 10,
+    },
     touch: {
         flexDirection: 'row',
         backgroundColor: '#fff',
-        marginTop: StyleSheet.hairlineWidth,
+        // marginTop: StyleSheet.hairlineWidth,
+        marginHorizontal: 10,
+        marginTop: 10,
+        borderBottomWidth: 1,
+        borderRightWidth: StyleSheet.hairlineWidth,
+        borderColor: '#eee',
     },
     left: {
         padding: 10,
@@ -142,5 +155,13 @@ const $ = StyleSheet.create({
         fontSize: 12,
         position: 'absolute',
         top: 0, right: 3,
+    },
+    loadmore: {
+        height: 30,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 10,
+        marginBottom: 0
     }
 })
