@@ -3,6 +3,8 @@
 ![](./demo/ic_launcher.png)
 
 使用 React Native 开发的一个《知乎专栏》Android App。
+目前版本：v1.1.0
+[下载此 App](https://git.oschina.net/lizhooh/io/raw/master/$resource/app/2017/app-zhihu-zhuanlan.zip)
 
 **目前功能：**
 - 简约风格设计，良好的用户体验。
