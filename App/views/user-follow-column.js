@@ -6,7 +6,7 @@ import {
     ListView,
     InteractionManager,
 } from 'react-native';
-import { Topbar, Refresh, StaticView } from '../components';
+import { Topbar, StaticView } from '../components';
 import { color } from '../config';
 
 export default class UserFollowColumn extends Component {

@@ -6,7 +6,6 @@ import {
     BackHandler,
 } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
-import { color } from './config';
 
 // views
 import Main from './main';

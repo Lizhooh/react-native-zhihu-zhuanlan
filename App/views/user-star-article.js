@@ -6,8 +6,7 @@ import {
     ListView,
     InteractionManager,
 } from 'react-native';
-import { Topbar, Refresh, StaticView } from '../components';
-import { color } from '../config';
+import { Topbar, StaticView } from '../components';
 
 export default class UserStarArticle extends Component {
 

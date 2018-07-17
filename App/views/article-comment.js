@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View, Image, Text,
-    TouchableOpacity as Touch,
+    View,
     InteractionManager,
     ListView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { articleCommentActions } from '../redux/actions';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Topbar, Refresh, StaticView } from '../components';
 import { color } from '../config';

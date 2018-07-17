@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    TouchableOpacity as Touch,
     ListView,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -90,4 +89,3 @@ const $ = StyleSheet.create({
         backgroundColor: '#f6f6f6',
     }
 });
-

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View, Text, Image,
+    View, Text,
     TouchableOpacity as Touch,
     InteractionManager,
     ListView,
@@ -11,7 +11,7 @@ import { searchActions } from '../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { color } from '../config';
 import { Topbar, Refresh, StaticView } from '../components';
-import { Box, Input } from '../components/search';
+import { Input } from '../components/search';
 
 // # 搜索
 class Search extends Component {

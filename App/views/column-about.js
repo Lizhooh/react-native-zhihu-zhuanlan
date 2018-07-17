@@ -6,9 +6,8 @@ import {
     TouchableOpacity as Touch,
     InteractionManager,
 } from 'react-native';
-import { color } from '../config';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Topbar, StaticView, Refresh } from '../components';
+import { Topbar, Refresh } from '../components';
 
 // 缓存数据
 const cacheData = {

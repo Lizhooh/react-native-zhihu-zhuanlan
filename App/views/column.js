@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View, Text, Image,
-    TouchableOpacity as Touch,
+    View,
     InteractionManager,
     ListView,
     ToastAndroid as Toast,

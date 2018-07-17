@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import {
     StyleSheet,
-    View, Text,
+    View,
 } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { Tabbar } from './components';

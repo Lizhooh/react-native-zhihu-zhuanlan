@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View, Text, Image,
-    TouchableOpacity as Touch,
+    View, Image,
     InteractionManager,
     ToastAndroid as Toast,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { articleActions } from '../redux/actions';
 import ParallaxScroll from '@monterosa/react-native-parallax-scroll/src';
-import { Web, Column, Header, Recomm } from '../components/article';
+import { Web, Header, Recomm } from '../components/article';
 import { Topbar, StaticView } from '../components';
 import { color } from '../config';
 

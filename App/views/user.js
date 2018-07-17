@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View, Text, Image,
+    View, Text,
     TouchableOpacity as Touch,
     WebView,
-    ScrollView,
     InteractionManager,
 } from 'react-native';
 import { connect } from 'react-redux';
